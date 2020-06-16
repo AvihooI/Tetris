@@ -19,8 +19,11 @@ struct game_state
 	unsigned int pieceType;
 	unsigned int pieceConfiguration;
 
+	unsigned int nextPieceType;
+
 	unsigned int gamePaused;
 	unsigned int gameOver;
+
 	unsigned int ticksPerStep;
 	unsigned int current_tick;
 

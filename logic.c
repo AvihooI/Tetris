@@ -19,14 +19,17 @@ void initLogic()
 
 	gameState.gamePaused = 1;
 	gameState.gameOver = 0;
-	gameState.ticksPerStep = 100;
+	gameState.ticksPerStep = 40;
 	gameState.current_tick = 0;
 	gameState.pieceType = 7;
+
 	gameState.pieceConfiguration = 0;
 
 	clearGrid();
 
 	srand(time(0));
+
+	gameState.nextPieceType = rand() % 7;
 }
 
 void clearGrid()
@@ -170,7 +173,8 @@ unsigned int newPiece()
 {
 	/*TODO: improve randomizer*/
 
-	unsigned int pieceType = rand() % 7;
+	unsigned int pieceType = gameState.nextPieceType;
+	gameState.nextPieceType = rand() % 7;
 
 	int tryTop;
 
@@ -190,7 +194,7 @@ unsigned int newPiece()
 		gameState.pieceConfiguration = 0;
 		gameState.pieceTop = tryTop;
 		gameState.pieceLeft = PIECE_START_LEFT;
-		gameState.ticksPerStep = 100;
+		gameState.ticksPerStep = 40;
 		return 1;
 	}
 
@@ -304,6 +308,7 @@ void pause_unpause()
 	if (gameState.gameOver)
 	{
 		initLogic();
+		gameState.gamePaused = 0;
 	}
 	else
 	{
