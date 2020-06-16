@@ -9,8 +9,6 @@
 #include "tetris.h"
 #include "logic.h"
 
-
-
 #define BLOCK_SIZE 30
 #define MILLISECONDS_PER_FRAME 33
 #define COLOR_COUNT 10
@@ -28,14 +26,14 @@ struct RGB
 	Uint8 b;
 };
 
-struct RGB dim(struct RGB originalColor);
+struct RGB dim(struct RGB originalColor, unsigned int dimNumerator, unsigned int dimDenominator);
 
 struct RGB colors[COLOR_COUNT];
 
 int initRendering();
 void destroyRendering();
 void doRendering();
-void renderBlock(int x, int y, unsigned int colorIndex);
+void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsigned int dimNumerator, unsigned int dimDenominator);
 void renderBoundaries();
 
 

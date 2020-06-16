@@ -6,16 +6,21 @@
 
 unsigned int baseRenderingSDLTick;
 
-struct RGB dim(struct RGB originalColor)
+struct RGB dim(struct RGB originalColor, unsigned int dimNumerator, unsigned int dimDenominator)
 {
-	originalColor.r /= 2;
-	originalColor.g /= 2;
-	originalColor.b /= 2;
+	originalColor.r /= dimDenominator;
+	originalColor.r *= dimNumerator;
+	originalColor.g /= dimDenominator;
+	originalColor.g *= dimNumerator;
+	originalColor.b /= dimDenominator;
+	originalColor.b *= dimNumerator;
 
 	return originalColor;
 }
 
 void renderGridAndPiece();
+
+void renderEnqueuedPiece();
 
 int initRendering()
 {
@@ -104,44 +109,65 @@ void doRendering()
 
 	renderBoundaries();
 	renderGridAndPiece();
+	renderEnqueuedPiece();
 
 	SDL_RenderPresent(graphics.renderer);
 
 }
 
+void renderFrame(unsigned int top, unsigned int left, unsigned int height, unsigned int width, unsigned int colorIndex)
+{
+	for (unsigned int i = 0; i < width; i++)
+	{
+		renderBlock(i+left, top, colorIndex, 1, 1);
+		renderBlock(i+left, height+top - 1, colorIndex, 1, 1);
+	}
 
+	for (unsigned int j = 0; j < height; j++)
+	{
+		renderBlock(left, j+top, colorIndex, 1, 1);
+		renderBlock(width+left-1, j+top, colorIndex, 1, 1);
+	}
+}
 
 void renderBoundaries()
 {
 	/*Main Boundaries*/
 
-	for (int i = 0; i < WINDOW_WIDTH; i++)
-	{
-		renderBlock(i,0, 1);
-		renderBlock(i,WINDOW_HEIGHT-1, 1);
-	}
-
-	for (int j = 0; j < WINDOW_HEIGHT; j++)
-	{
-		renderBlock(0,j, 1);
-		renderBlock(WINDOW_WIDTH - 1, j, 1);
-	}
+	renderFrame(0, 0, WINDOW_HEIGHT, WINDOW_WIDTH, 1);
 
 	/*Game Frame*/
 
-	for (int i = 0; i < MAIN_FRAME_WIDTH; i++)
+	renderFrame(MAIN_FRAME_TOP, MAIN_FRAME_LEFT, MAIN_FRAME_HEIGHT, MAIN_FRAME_WIDTH, 2);
+
+	/*Enqueued Piece Frame*/
+	renderFrame(ENQUEUED_FRAME_TOP-1, ENQUEUED_FRAME_LEFT-1, 6,6,1);
+}
+
+void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int top, int left)
+{
+	if (pieceType >= 7)
+		return;
+
+	unsigned const int (*currentPiece)[4][4] = &pieces[pieceType].blocks[pieceConfiguration];
+
+	for (int i = 0; i < 4; i++)
 	{
-		renderBlock(i+MAIN_FRAME_LEFT,MAIN_FRAME_TOP, 2);
-		renderBlock(i+MAIN_FRAME_LEFT,MAIN_FRAME_HEIGHT+MAIN_FRAME_TOP-1, 2);
+		for (int j = 0; j < 4; j++)
+		{
+			if((*currentPiece)[j][i])
+			{
+				renderBlock(left+i,top+j, (*currentPiece)[j][i], 1, 1);
+			}
+		}
 	}
+}
 
+void renderEnqueuedPiece()
+{
+	/*TODO: correct piece appearance in enqueued frame*/
 
-	for (int j = 0; j < MAIN_FRAME_HEIGHT; j++)
-	{
-		renderBlock(MAIN_FRAME_LEFT,j+MAIN_FRAME_TOP, 2);
-		renderBlock(MAIN_FRAME_WIDTH+MAIN_FRAME_LEFT-1, j+MAIN_FRAME_TOP, 2);
-	}
-
+	renderPiece(gameState.nextPieceType,0,ENQUEUED_FRAME_TOP, ENQUEUED_FRAME_LEFT);
 }
 
 void renderGridAndPiece()
@@ -156,32 +182,19 @@ void renderGridAndPiece()
 			{
 				unsigned int (*temp)[24][10] = &gameState.grid;
 
-				renderBlock(MAIN_FRAME_LEFT+1+i,MAIN_FRAME_TOP+1+j, gameState.grid[j][i]);
+				renderBlock(MAIN_FRAME_LEFT+1+i,MAIN_FRAME_TOP+1+j, gameState.grid[j][i], 2, 3);
 			}
 		}
 	}
 
 	/*Piece*/
 
-	if (gameState.pieceType >= 7)
-		return;
+	renderPiece(gameState.pieceType,gameState.pieceConfiguration,MAIN_FRAME_TOP+1+gameState.pieceTop, MAIN_FRAME_LEFT+1+gameState.pieceLeft);
 
-	unsigned const int (*currentPiece)[4][4] = &pieces[gameState.pieceType].blocks[gameState.pieceConfiguration];
-	
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			if((*currentPiece)[j][i])
-			{
-				renderBlock(MAIN_FRAME_LEFT+1+i+gameState.pieceLeft,MAIN_FRAME_TOP+1+j+gameState.pieceTop, (*currentPiece)[j][i]);
-			}
-		}
-	}
 }
 
 /*TODO: add dim factor*/
-void renderBlock(int x, int y, unsigned int colorIndex)
+void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsigned int dimNumerator, unsigned int dimDenominator)
 {
 	SDL_Rect rect;
 	rect.w = BLOCK_SIZE;
@@ -189,8 +202,8 @@ void renderBlock(int x, int y, unsigned int colorIndex)
 	rect.x = x*BLOCK_SIZE;
 	rect.y = y*BLOCK_SIZE;
 
-	struct RGB innerColor = colors[colorIndex];
-	struct RGB frameColor = dim(innerColor);
+	struct RGB innerColor = dim(colors[colorIndex], dimNumerator, dimDenominator);
+	struct RGB frameColor = dim(innerColor, 1, 2);
 
 	SDL_SetRenderDrawColor(graphics.renderer, frameColor.r, frameColor.g, frameColor.b, 255);
 	SDL_RenderDrawRect(graphics.renderer,&rect);
