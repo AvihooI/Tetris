@@ -27,7 +27,11 @@ struct game_state
 	unsigned int gameOver;
 
 	unsigned int ticksPerStep;
-	unsigned int current_tick;
+	unsigned int currentTick;
+
+	unsigned int score;
+	unsigned int level;
+
 
 } gameState;
 
@@ -39,7 +43,7 @@ typedef struct
 
 void pause_unpause();
 void step();
-void rotate(int attempts);
+void rotate(unsigned int clockWise, unsigned int attempts);
 void left();
 void right();
 void drop();

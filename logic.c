@@ -20,7 +20,7 @@ void initLogic()
 	gameState.gamePaused = 1;
 	gameState.gameOver = 0;
 	gameState.ticksPerStep = BASE_TICKS_PER_STEP;
-	gameState.current_tick = 0;
+	gameState.currentTick = 0;
 	gameState.pieceType = 7;
 
 	gameState.pieceConfiguration = 0;
@@ -87,27 +87,29 @@ unsigned int tryPiecePlacement(int pieceLeft, int pieceTop, unsigned int pieceTy
 	return 0;
 }
 
-void rotate(int attempts)
+void rotate(unsigned int clockWise, unsigned int attempts)
 {
+	int nextConfiguration = (int)clockWise*2 - 1;
+
 	if (gameState.gamePaused)
 		return;
 
-	if(!tryPiecePlacement(gameState.pieceLeft,gameState.pieceTop, gameState.pieceType, (gameState.pieceConfiguration + 1) % pieces[gameState.pieceType].configurations) && (attempts < MAXIMAL_ROTATE_ATTEMPTS))
+	if(!tryPiecePlacement(gameState.pieceLeft,gameState.pieceTop, gameState.pieceType, (gameState.pieceConfiguration + nextConfiguration) % pieces[gameState.pieceType].configurations) && (attempts < MAXIMAL_ROTATE_ATTEMPTS))
 	{
 		/*Try a step*/
-		if (verifyPiecePlacement(gameState.pieceLeft, gameState.pieceTop+1, gameState.pieceType, (gameState.pieceConfiguration + 1) % pieces[gameState.pieceType].configurations))
+		if (verifyPiecePlacement(gameState.pieceLeft, gameState.pieceTop+1, gameState.pieceType, (gameState.pieceConfiguration + nextConfiguration) % pieces[gameState.pieceType].configurations))
 		{
 			step();
-			rotate(1);
+			rotate(clockWise, 1);
 			return;
 		}
 
 		/*Try two steps*/
-		if (verifyPiecePlacement(gameState.pieceLeft, gameState.pieceTop+2, gameState.pieceType, (gameState.pieceConfiguration + 1) % pieces[gameState.pieceType].configurations))
+		if (verifyPiecePlacement(gameState.pieceLeft, gameState.pieceTop+2, gameState.pieceType, (gameState.pieceConfiguration + nextConfiguration) % pieces[gameState.pieceType].configurations))
 		{
 			step();
 			step();
-			rotate(1);
+			rotate(clockWise,1);
 			return;
 		}
 
@@ -115,12 +117,12 @@ void rotate(int attempts)
 		if (gameState.pieceLeft < PIECE_START_LEFT)
 		{
 			right();
-			rotate(attempts+1);
+			rotate(clockWise,attempts+1);
 		}
 		else
 		{
 			left();
-			rotate(attempts+1);
+			rotate(clockWise,attempts+1);
 		}
 	}
 }
@@ -146,16 +148,16 @@ void tick()
 	if (gameState.gamePaused)
 		return;
 
-	gameState.current_tick++;
+	gameState.currentTick++;
 
-	if (gameState.current_tick >= gameState.ticksPerStep)
+	if (gameState.currentTick >= gameState.ticksPerStep)
 		step();
 }
 
 void step()
 {
 
-	gameState.current_tick = 0;
+	gameState.currentTick = 0;
 
 	if (gameState.gamePaused)
 		return;

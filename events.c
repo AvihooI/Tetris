@@ -35,7 +35,10 @@ int doEvents()
 				right();
 				break;
 			case SDL_SCANCODE_UP:
-				rotate(1);
+				rotate(1,1);
+				break;
+			case SDL_SCANCODE_LCTRL:
+				rotate(0, 1);
 				break;
 			case SDL_SCANCODE_DOWN:
 				step();
