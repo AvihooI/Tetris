@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 		return -1;
 
 	int status;
-	if (status = initRendering() != 0)
+	if ((status = initRendering() != 0))
 		return status;
 
 	initLogic();
@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-void gameLoop(SDL_Renderer* renderer, SDL_Window* window)
+void gameLoop()
 {
 	while (doEvents())
 	{

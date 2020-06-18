@@ -4,8 +4,6 @@
 
 #include "rendering.h"
 
-unsigned int baseRenderingSDLTick;
-
 struct RGB dim(struct RGB originalColor, unsigned int dimNumerator, unsigned int dimDenominator)
 {
 	originalColor.r /= dimDenominator;
@@ -18,9 +16,7 @@ struct RGB dim(struct RGB originalColor, unsigned int dimNumerator, unsigned int
 	return originalColor;
 }
 
-void renderGridAndPiece();
-
-void renderEnqueuedPiece();
+void renderGrid();
 
 int initRendering()
 {
@@ -33,10 +29,11 @@ int initRendering()
 
 	graphics.window = window;
 
-	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1,  (Uint32)SDL_RENDERER_ACCELERATED | (Uint32)SDL_RENDERER_PRESENTVSYNC);
 
 	if (!renderer)
 	{
+		SDL_DestroyWindow(window);
 		return -1;
 	}
 
@@ -44,6 +41,13 @@ int initRendering()
 
 	baseRenderingSDLTick = SDL_GetTicks();
 
+	initColors();
+
+	return 0;
+}
+
+void initColors()
+{
 	colors[0].r = 0;
 	colors[0].g = 0;
 	colors[0].b = 0;
@@ -83,8 +87,6 @@ int initRendering()
 	colors[9].r = 125;
 	colors[9].g = 120;
 	colors[9].b = 95;
-
-	return 0;
 }
 
 void destroyRendering()
@@ -174,18 +176,7 @@ void renderGridAndPiece()
 {
 	/*Grid*/
 
-	for (int i = 0; i < GAME_GRID_WIDTH; i++)
-	{
-		for (int j = 0; j < GAME_GRID_HEIGHT; j++)
-		{
-			if(gameState.grid[j][i])
-			{
-				unsigned int (*temp)[24][10] = &gameState.grid;
-
-				renderBlock(MAIN_FRAME_LEFT+1+i,MAIN_FRAME_TOP+1+j, gameState.grid[j][i], 2, 3);
-			}
-		}
-	}
+	renderGrid();
 
 	/*Piece*/
 
@@ -193,13 +184,27 @@ void renderGridAndPiece()
 
 }
 
+void renderGrid()
+{
+	for (int i = 0; i < GAME_GRID_WIDTH; i++)
+	{
+		for (int j = 0; j < GAME_GRID_HEIGHT; j++)
+		{
+			if(gameState.grid[j][i])
+			{
+				renderBlock(MAIN_FRAME_LEFT+1+i,MAIN_FRAME_TOP+1+j, gameState.grid[j][i], 2, 3);
+			}
+		}
+	}
+}
+
 void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsigned int dimNumerator, unsigned int dimDenominator)
 {
 	SDL_Rect rect;
 	rect.w = BLOCK_SIZE;
 	rect.h = BLOCK_SIZE;
-	rect.x = x*BLOCK_SIZE;
-	rect.y = y*BLOCK_SIZE;
+	rect.x = (int)x*BLOCK_SIZE;
+	rect.y = (int)y*BLOCK_SIZE;
 
 	struct RGB innerColor = dim(colors[colorIndex], dimNumerator, dimDenominator);
 	struct RGB frameColor = dim(innerColor, 1, 2);

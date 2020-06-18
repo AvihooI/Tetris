@@ -257,7 +257,6 @@ void reduce()
 
 void handleFalling()
 {
-	unsigned int linesFell = 0;
 
 	for (int j = GAME_GRID_HEIGHT-1; j >= 0; j--)
 	{
@@ -323,18 +322,3 @@ void drop()
 	gameState.ticksPerStep = 1;
 }
 
-void collapseLines(unsigned int lines[GAME_GRID_HEIGHT])
-{
-	int lineCount = 0;
-
-	for (int j = 0; j <= GAME_GRID_HEIGHT; j++)
-	{
-		if (lines[j])
-		{
-			for (int i = 0; i < GAME_GRID_WIDTH; i++)
-			{
-				gameState.grid[j][i] = gameState.grid[j-1][i];
-			}
-		}
-	}
-}
