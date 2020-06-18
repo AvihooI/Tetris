@@ -193,7 +193,6 @@ void renderGridAndPiece()
 
 }
 
-/*TODO: add dim factor*/
 void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsigned int dimNumerator, unsigned int dimDenominator)
 {
 	SDL_Rect rect;

@@ -19,7 +19,7 @@ void initLogic()
 
 	gameState.gamePaused = 1;
 	gameState.gameOver = 0;
-	gameState.ticksPerStep = 40;
+	gameState.ticksPerStep = BASE_TICKS_PER_STEP;
 	gameState.current_tick = 0;
 	gameState.pieceType = 7;
 
@@ -194,7 +194,7 @@ unsigned int newPiece()
 		gameState.pieceConfiguration = 0;
 		gameState.pieceTop = tryTop;
 		gameState.pieceLeft = PIECE_START_LEFT;
-		gameState.ticksPerStep = 40;
+		gameState.ticksPerStep = BASE_TICKS_PER_STEP;
 		return 1;
 	}
 

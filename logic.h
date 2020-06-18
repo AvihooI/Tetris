@@ -10,6 +10,8 @@
 #define PIECE_START_LEFT GAME_GRID_WIDTH/2 - 2
 #define MAXIMAL_ROTATE_ATTEMPTS 3
 
+#define BASE_TICKS_PER_STEP 40
+
 struct game_state
 {
 	unsigned int grid[GAME_GRID_HEIGHT][GAME_GRID_WIDTH];

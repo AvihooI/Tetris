@@ -1,8 +1,9 @@
 #include <SDL.h>
+#include <SDL_ttf.h>
+#include "tetris.h"
+#include "logic.h"
 #include "events.h"
 #include "rendering.h"
-#include "logic.h"
-#include "tetris.h"
 
 void gameLoop();
 
