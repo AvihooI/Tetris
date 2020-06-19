@@ -50,6 +50,8 @@ void initLogic()
 	gameState.currentTick = 0;
 	gameState.pieceType = 7;
 
+	gameState.reducedLines = 0;
+	gameState.lineCount = 0;
 	gameState.pieceConfiguration = 0;
 	gameState.linesToLevel = 1;
 	gameState.level = 1;
