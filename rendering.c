@@ -4,6 +4,7 @@
 
 #include "rendering.h"
 #include <stdio.h>
+#include <stdarg.h>
 
 struct RGB dim(struct RGB originalColor, unsigned int dimNumerator, unsigned int dimDenominator)
 {
@@ -126,23 +127,40 @@ void doRendering()
 
 }
 
-void renderText()
+void printText(int left, int top, unsigned int centered, const char *fmt, ...)
 {
-	char scoreStr[64];
+	char str[64];
 
-	snprintf(scoreStr, sizeof(scoreStr), "Score: %d", gameState.score);
+	va_list args;
+	va_start(args,fmt);
+	vsnprintf(str, sizeof(str), fmt, args);
+	va_end(args);
 
 	SDL_Color color = {255,255,255};
-	SDL_Surface *surface = TTF_RenderText_Solid(graphics.font, scoreStr, color);
+	SDL_Surface *surface = TTF_RenderText_Solid(graphics.font, str, color);
 	SDL_Texture  *texture = SDL_CreateTextureFromSurface(graphics.renderer,surface);
 
-	SDL_Rect dRect = {SCORE_TEXT_LEFT * BLOCK_SIZE, SCORE_TEXT_TOP * BLOCK_SIZE, 0, 0};
+	SDL_Rect dRect = {left, top, 0, 0};
 
 	SDL_QueryTexture(texture, 0, 0, &dRect.w, &dRect.h);
+	if (centered)
+	{
+		dRect.x -= dRect.w / 2;
+		dRect.y -= dRect.h / 2;
+	}
+
 	SDL_RenderCopy(graphics.renderer,texture,0,&dRect);
 
 	SDL_DestroyTexture(texture);
 	SDL_FreeSurface(surface);
+}
+
+void renderText()
+{
+
+	printText(SCORE_TEXT_LEFT*BLOCK_SIZE, (SCORE_TEXT_TOP)*BLOCK_SIZE,0,"Score: %d", gameState.score);
+	printText(LINES_REMAINING_TEXT_LEFT*BLOCK_SIZE, LINES_REMAINING_TEXT_TOP*BLOCK_SIZE, 0, "Lines remaining: %d", gameState.linesToLevel - gameState.lineCount);
+	printText(LEVEL_TEXT_LEFT*BLOCK_SIZE+BLOCK_SIZE/2, LEVEL_TEXT_TOP*BLOCK_SIZE+BLOCK_SIZE/2,1,"Level: %d", gameState.level);
 }
 
 void renderFrame(unsigned int top, unsigned int left, unsigned int height, unsigned int width, unsigned int colorIndex)
