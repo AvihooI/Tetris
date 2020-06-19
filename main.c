@@ -1,5 +1,4 @@
 #include <SDL.h>
-#include "tetris.h"
 #include "logic.h"
 #include "events.h"
 #include "rendering.h"
