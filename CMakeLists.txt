@@ -16,4 +16,4 @@ include_directories(${SDL2_TTF_INCLUDE_DIR})
 
 add_executable(${PROJECT_NAME} main.c events.c rendering.c logic.c logic.h logic_pieces.c)
 
-target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY} ${SDL2_TTF_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY} ${SDL2_TTF_LIBRARY})
