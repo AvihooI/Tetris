@@ -5,7 +5,34 @@
 #include "logic.h"
 #include <stdlib.h>
 #include <time.h>
-#include <stdio.h>
+
+unsigned int levelTicks[] = {
+		1000/MILLISECONDS_PER_TICK,
+		800/MILLISECONDS_PER_TICK,
+		640/MILLISECONDS_PER_TICK,
+		512/MILLISECONDS_PER_TICK,
+		409/MILLISECONDS_PER_TICK,
+		327/MILLISECONDS_PER_TICK,
+		262/MILLISECONDS_PER_TICK,
+		209/MILLISECONDS_PER_TICK,
+		167/MILLISECONDS_PER_TICK,
+		134/MILLISECONDS_PER_TICK,
+		107/MILLISECONDS_PER_TICK,
+		85/MILLISECONDS_PER_TICK,
+		68/MILLISECONDS_PER_TICK,
+		54/MILLISECONDS_PER_TICK,
+		43/MILLISECONDS_PER_TICK,
+		35/MILLISECONDS_PER_TICK,
+		28/MILLISECONDS_PER_TICK,
+		22/MILLISECONDS_PER_TICK,
+		14/MILLISECONDS_PER_TICK
+};
+
+void update();
+
+void levelUp();
+
+void updateScore(unsigned int lines);
 
 void initLogic()
 {
@@ -19,17 +46,56 @@ void initLogic()
 
 	gameState.gamePaused = 1;
 	gameState.gameOver = 0;
-	gameState.ticksPerStep = BASE_TICKS_PER_STEP;
+
 	gameState.currentTick = 0;
 	gameState.pieceType = 7;
 
 	gameState.pieceConfiguration = 0;
+	gameState.linesToLevel = 1;
+	gameState.level = 1;
+	gameState.score = 0;
+
+	update();
 
 	clearGrid();
 
 	srand(time(0));
 
 	gameState.nextPieceType = rand() % 7;
+}
+
+void update()
+{
+
+	if (gameState.reducedLines)
+	{
+		gameState.lineCount += gameState.reducedLines;
+		updateScore(gameState.reducedLines);
+		gameState.reducedLines = 0;
+		if (gameState.lineCount >= gameState.linesToLevel)
+			levelUp();
+	}
+
+	gameState.ticksPerStep = levelTicks[gameState.level-1];
+
+}
+
+void updateScore(unsigned int lines)
+{
+	if (lines == 4)
+	{
+		gameState.score += gameState.level * 8;
+		return;
+	}
+
+	gameState.score += gameState.level * lines;
+}
+
+void levelUp()
+{
+	gameState.lineCount = 0;
+	gameState.linesToLevel *= 2;
+	gameState.level++;
 }
 
 void clearGrid()
@@ -196,7 +262,7 @@ unsigned int newPiece()
 		gameState.pieceConfiguration = 0;
 		gameState.pieceTop = tryTop;
 		gameState.pieceLeft = PIECE_START_LEFT;
-		gameState.ticksPerStep = BASE_TICKS_PER_STEP;
+
 		return 1;
 	}
 
@@ -224,8 +290,11 @@ void landPiece()
 
 	if(!newPiece())
 		gameOver();
-
-	reduce();
+	else
+	{
+		reduce();
+		update();
+	}
 
 }
 
@@ -247,6 +316,7 @@ void reduce()
 		if (!lineIsFull)
 			continue;
 
+		gameState.reducedLines++;
 		reduceLine(j);
 		reduce();
 		break;

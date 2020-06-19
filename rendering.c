@@ -3,6 +3,7 @@
 //
 
 #include "rendering.h"
+#include <stdio.h>
 
 struct RGB dim(struct RGB originalColor, unsigned int dimNumerator, unsigned int dimDenominator)
 {
@@ -17,6 +18,8 @@ struct RGB dim(struct RGB originalColor, unsigned int dimNumerator, unsigned int
 }
 
 void renderGrid();
+
+void renderText();
 
 int initRendering()
 {
@@ -38,6 +41,9 @@ int initRendering()
 	}
 
 	graphics.renderer = renderer;
+
+	TTF_Init();
+	graphics.font = TTF_OpenFont(FONT_FILENAME, BLOCK_SIZE);
 
 	baseRenderingSDLTick = SDL_GetTicks();
 
@@ -93,6 +99,8 @@ void destroyRendering()
 {
 	SDL_DestroyRenderer(graphics.renderer);
 	SDL_DestroyWindow(graphics.window);
+	TTF_CloseFont(graphics.font);
+	TTF_Quit();
 }
 
 void doRendering()
@@ -112,9 +120,29 @@ void doRendering()
 	renderBoundaries();
 	renderGridAndPiece();
 	renderEnqueuedPiece();
+	renderText();
 
 	SDL_RenderPresent(graphics.renderer);
 
+}
+
+void renderText()
+{
+	char scoreStr[64];
+
+	snprintf(scoreStr, sizeof(scoreStr), "Score: %d", gameState.score);
+
+	SDL_Color color = {255,255,255};
+	SDL_Surface *surface = TTF_RenderText_Solid(graphics.font, scoreStr, color);
+	SDL_Texture  *texture = SDL_CreateTextureFromSurface(graphics.renderer,surface);
+
+	SDL_Rect dRect = {SCORE_TEXT_LEFT * BLOCK_SIZE, SCORE_TEXT_TOP * BLOCK_SIZE, 0, 0};
+
+	SDL_QueryTexture(texture, 0, 0, &dRect.w, &dRect.h);
+	SDL_RenderCopy(graphics.renderer,texture,0,&dRect);
+
+	SDL_DestroyTexture(texture);
+	SDL_FreeSurface(surface);
 }
 
 void renderFrame(unsigned int top, unsigned int left, unsigned int height, unsigned int width, unsigned int colorIndex)

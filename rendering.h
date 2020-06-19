@@ -6,17 +6,20 @@
 #define TETRIS_RENDERING_H
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include "tetris.h"
 #include "logic.h"
 
 #define BLOCK_SIZE 30
 #define MILLISECONDS_PER_FRAME 33
 #define COLOR_COUNT 10
+#define FONT_FILENAME "hemi_head.ttf"
 
 struct
 {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+	TTF_Font* font;
 } graphics;
 
 struct RGB

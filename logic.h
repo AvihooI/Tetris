@@ -32,6 +32,9 @@ struct game_state
 	unsigned int score;
 	unsigned int level;
 
+	unsigned int linesToLevel;
+	unsigned int lineCount;
+	unsigned int reducedLines;
 
 } gameState;
 
