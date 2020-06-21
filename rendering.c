@@ -215,7 +215,7 @@ void renderEnqueuedPiece()
 {
 	/*TODO: correct piece appearance in enqueued frame*/
 
-	renderPiece(gameState.nextPieceType, 0, ENQUEUED_FRAME_TOP, ENQUEUED_FRAME_LEFT, 0);
+	renderPiece(gameState.nextPieceType, 0, ENQUEUED_FRAME_TOP + pieces[gameState.nextPieceType].correctTop, ENQUEUED_FRAME_LEFT + pieces[gameState.nextPieceType].correctLeft, 0);
 }
 
 void renderGridAndPiece()

@@ -237,7 +237,7 @@ unsigned int newPiece()
 
 	for (tryTop = -3; tryTop <= 0; tryTop++)
 	{
-		 if (verifyPiecePlacement(PIECE_START_LEFT, tryTop, pieceType, 0))
+		 if (verifyPiecePlacement(PIECE_START_LEFT+pieces[pieceType].correctLeft, tryTop, pieceType, 0))
 		 	break;
 	}
 

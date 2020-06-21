@@ -98,6 +98,9 @@ piece createZ()
 
 	CreateJLSTZWallKicks(result.wallKicks);
 
+	result.correctLeft = 0;
+	result.correctTop = 1;
+
 	return result;
 }
 
@@ -180,6 +183,9 @@ piece createS()
 	result.blocks[3][3][3] = 0;
 
 	CreateJLSTZWallKicks(result.wallKicks);
+
+	result.correctLeft = 0;
+	result.correctTop = 1;
 
 	return result;
 }
@@ -264,6 +270,9 @@ piece createL()
 
 	CreateJLSTZWallKicks(result.wallKicks);
 
+	result.correctLeft = 0;
+	result.correctTop = 1;
+
 	return result;
 }
 
@@ -346,6 +355,9 @@ piece createJ()
 	result.blocks[3][3][3] = 0;
 
 	CreateJLSTZWallKicks(result.wallKicks);
+
+	result.correctLeft = 0;
+	result.correctTop = 1;
 
 	return result;
 }
@@ -430,6 +442,9 @@ piece createT()
 
 	CreateJLSTZWallKicks(result.wallKicks);
 
+	result.correctLeft = 0;
+	result.correctTop = 1;
+
 	return result;
 }
 
@@ -513,6 +528,9 @@ piece createI()
 
 	CreateIWallKicks(result.wallKicks);
 
+	result.correctLeft = 0;
+	result.correctTop = 0;
+
 	return result;
 }
 
@@ -540,6 +558,9 @@ piece createO()
 	result.blocks[0][3][1] = 0;
 	result.blocks[0][3][2] = 0;
 	result.blocks[0][3][3] = 0;
+
+	result.correctLeft = 0;
+	result.correctTop = 1;
 
 	return result;
 }

@@ -47,6 +47,9 @@ typedef struct piece
 	unsigned int configurations;
 
 	wallKick wallKicks[4][4][5];
+
+	int correctLeft;
+	int correctTop;
 } piece;
 
 void pause_unpause();
