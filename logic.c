@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-unsigned int levelTicks[] = {
+unsigned int levelTicks[MAX_LEVEL] = {
 		1000/MILLISECONDS_PER_TICK,
 		800/MILLISECONDS_PER_TICK,
 		640/MILLISECONDS_PER_TICK,
@@ -25,7 +25,8 @@ unsigned int levelTicks[] = {
 		35/MILLISECONDS_PER_TICK,
 		28/MILLISECONDS_PER_TICK,
 		22/MILLISECONDS_PER_TICK,
-		14/MILLISECONDS_PER_TICK
+		14/MILLISECONDS_PER_TICK,
+		11/MILLISECONDS_PER_TICK
 };
 
 void update();
@@ -99,6 +100,11 @@ void updateScore(unsigned int lines)
 void levelUp()
 {
 	gameState.lineCount = 0;
+
+	if (gameState.level == MAX_LEVEL)
+		return;
+
+
 	gameState.linesToLevel *= 2;
 	gameState.level++;
 }

@@ -35,7 +35,6 @@ void gameLoop()
 }
 
 /*
- * TODO: Update leveling code
  * TODO: Correct pieces spawn points
  * TODO: Refactor color system and font rendering
  * TODO: Start implementing menu system (resume, restart, choose level, about, quit)
