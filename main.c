@@ -35,8 +35,9 @@ void gameLoop()
 }
 
 /*
- * TODO: Implement invisible lines
- * TODO: Refactor color system
+ * TODO: Update leveling code
+ * TODO: Correct pieces spawn points
+ * TODO: Refactor color system and font rendering
  * TODO: Start implementing menu system (resume, restart, choose level, about, quit)
  * TODO: Refactor, document code, choose a proper name for the game, enrich README, and make first release (Alpha 0.1)
 */
