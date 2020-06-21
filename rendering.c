@@ -192,7 +192,7 @@ void renderBoundaries()
 	renderFrame(ENQUEUED_FRAME_TOP-1, ENQUEUED_FRAME_LEFT-1, 6,6,1);
 }
 
-void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int top, int left)
+void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int top, int left, unsigned int visibleTop)
 {
 	if (pieceType >= 7)
 		return;
@@ -203,9 +203,9 @@ void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int to
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			if((*currentPiece)[j][i])
+			if((*currentPiece)[j][i] && top+j >= visibleTop)
 			{
-				renderBlock(left+i,top+j, (*currentPiece)[j][i], 1, 1);
+				renderBlock(left+i,top+j, (*currentPiece)[j][i], 1, 1);;
 			}
 		}
 	}
@@ -215,7 +215,7 @@ void renderEnqueuedPiece()
 {
 	/*TODO: correct piece appearance in enqueued frame*/
 
-	renderPiece(gameState.nextPieceType,0,ENQUEUED_FRAME_TOP, ENQUEUED_FRAME_LEFT);
+	renderPiece(gameState.nextPieceType, 0, ENQUEUED_FRAME_TOP, ENQUEUED_FRAME_LEFT, 0);
 }
 
 void renderGridAndPiece()
@@ -226,7 +226,8 @@ void renderGridAndPiece()
 
 	/*Piece*/
 
-	renderPiece(gameState.pieceType,gameState.pieceConfiguration,MAIN_FRAME_TOP+1+gameState.pieceTop, MAIN_FRAME_LEFT+1+gameState.pieceLeft);
+	renderPiece(gameState.pieceType, gameState.pieceConfiguration, MAIN_FRAME_TOP + 1 + gameState.pieceTop - GAME_GRID_INVISIBLE_LINES,
+	            MAIN_FRAME_LEFT + 1 + gameState.pieceLeft, MAIN_FRAME_TOP+1);
 
 }
 
@@ -234,11 +235,11 @@ void renderGrid()
 {
 	for (int i = 0; i < GAME_GRID_WIDTH; i++)
 	{
-		for (int j = 0; j < GAME_GRID_HEIGHT; j++)
+		for (int j = GAME_GRID_INVISIBLE_LINES; j < GAME_GRID_HEIGHT; j++)
 		{
 			if(gameState.grid[j][i])
 			{
-				renderBlock(MAIN_FRAME_LEFT+1+i,MAIN_FRAME_TOP+1+j, gameState.grid[j][i], 2, 3);
+				renderBlock(MAIN_FRAME_LEFT+1+i,MAIN_FRAME_TOP+1+j-GAME_GRID_INVISIBLE_LINES, gameState.grid[j][i], 2, 3);
 			}
 		}
 	}

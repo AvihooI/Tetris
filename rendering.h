@@ -41,7 +41,7 @@ void doRendering();
 void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsigned int dimNumerator, unsigned int dimDenominator);
 void renderBoundaries();
 void renderFrame(unsigned int top, unsigned int left, unsigned int height, unsigned int width, unsigned int colorIndex);
-void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int top, int left);
+void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int top, int left, unsigned int visibleTop);
 void renderGridAndPiece();
 void renderEnqueuedPiece();
 void initColors();
