@@ -34,16 +34,19 @@ void levelUp();
 
 void updateScore(unsigned int lines);
 
+void newGame();
+
+void createPieces();
+
 void initLogic()
 {
-	pieces[0] = createO();
-	pieces[1] = createI();
-	pieces[2] = createT();
-	pieces[3] = createJ();
-	pieces[4] = createL();
-	pieces[5] = createS();
-	pieces[6] = createZ();
+	createPieces();
 
+	newGame();
+}
+
+void newGame()
+{
 	gameState.gamePaused = 1;
 	gameState.gameOver = 0;
 
@@ -157,42 +160,20 @@ unsigned int tryPiecePlacement(int pieceLeft, int pieceTop, unsigned int pieceTy
 
 void rotate(unsigned int clockWise, unsigned int attempts)
 {
-	int nextConfiguration = (int)clockWise*2 - 1;
-
 	if (gameState.gamePaused)
 		return;
 
-	if(!tryPiecePlacement(gameState.pieceLeft,gameState.pieceTop, gameState.pieceType, (gameState.pieceConfiguration + nextConfiguration) % pieces[gameState.pieceType].configurations) && (attempts < MAXIMAL_ROTATE_ATTEMPTS))
+	unsigned int nextConfiguration = (gameState.pieceConfiguration + ((int)clockWise*2 - 1)) % pieces[gameState.pieceType].configurations;
+
+	for (int i = 0; i < 5; i++)
 	{
-		/*Try a step*/
-		if (verifyPiecePlacement(gameState.pieceLeft, gameState.pieceTop+1, gameState.pieceType, (gameState.pieceConfiguration + nextConfiguration) % pieces[gameState.pieceType].configurations))
-		{
-			step();
-			rotate(clockWise, 1);
-			return;
-		}
+		int correctLeft = pieces[gameState.pieceType].wallKicks[gameState.pieceConfiguration][nextConfiguration][i].correctLeft;
+		int correctTop = -pieces[gameState.pieceType].wallKicks[gameState.pieceConfiguration][nextConfiguration][i].correctTop;
 
-		/*Try two steps*/
-		if (verifyPiecePlacement(gameState.pieceLeft, gameState.pieceTop+2, gameState.pieceType, (gameState.pieceConfiguration + nextConfiguration) % pieces[gameState.pieceType].configurations))
-		{
-			step();
-			step();
-			rotate(clockWise,1);
-			return;
-		}
-
-		/*Try side movement*/
-		if (gameState.pieceLeft < PIECE_START_LEFT)
-		{
-			right();
-			rotate(clockWise,attempts+1);
-		}
-		else
-		{
-			left();
-			rotate(clockWise,attempts+1);
-		}
+		if (tryPiecePlacement(gameState.pieceLeft+correctLeft,gameState.pieceTop+correctTop,gameState.pieceType,nextConfiguration))
+			break;
 	}
+
 }
 
 void left()
@@ -380,7 +361,7 @@ void pause_unpause()
 {
 	if (gameState.gameOver)
 	{
-		initLogic();
+		newGame();
 		gameState.gamePaused = 0;
 	}
 	else

@@ -38,10 +38,18 @@ struct game_state
 
 } gameState;
 
-typedef struct
+typedef struct wallKick
+{
+	int correctLeft;
+	int correctTop;
+} wallKick;
+
+typedef struct piece
 {
 	unsigned int blocks[4][4][4];
 	unsigned int configurations;
+
+	wallKick wallKicks[4][4][5];
 } piece;
 
 void pause_unpause();

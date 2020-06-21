@@ -35,7 +35,6 @@ void gameLoop()
 }
 
 /*
- * TODO: Fix rotation kick behavior
  * TODO: Implement invisible lines
  * TODO: Refactor color system
  * TODO: Start implementing menu system (resume, restart, choose level, about, quit)
