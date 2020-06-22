@@ -164,7 +164,7 @@ unsigned int tryPiecePlacement(int pieceLeft, int pieceTop, unsigned int pieceTy
 	return 0;
 }
 
-void rotate(unsigned int clockWise, unsigned int attempts)
+void rotate(unsigned int clockwise)
 {
 
 	unsigned int nextConfiguration = (gameState.pieceConfiguration + ((int)clockwise * 2 - 1)) % pieces[gameState.pieceType].configurations;
