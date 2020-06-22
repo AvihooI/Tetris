@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-struct RGB dim(struct RGB originalColor, unsigned int dimNumerator, unsigned int dimDenominator)
+SDL_Color dim(SDL_Color originalColor, unsigned int dimNumerator, unsigned int dimDenominator)
 {
 	originalColor.r /= dimDenominator;
 	originalColor.r *= dimNumerator;
@@ -44,7 +44,7 @@ int initRendering()
 	graphics.renderer = renderer;
 
 	TTF_Init();
-	graphics.font = TTF_OpenFont(FONT_FILENAME, BLOCK_SIZE);
+	graphics.mainFont = TTF_OpenFont(FONT_FILENAME, BLOCK_SIZE);
 
 	baseRenderingSDLTick = SDL_GetTicks();
 
@@ -100,7 +100,7 @@ void destroyRendering()
 {
 	SDL_DestroyRenderer(graphics.renderer);
 	SDL_DestroyWindow(graphics.window);
-	TTF_CloseFont(graphics.font);
+	TTF_CloseFont(graphics.mainFont);
 	TTF_Quit();
 }
 
@@ -127,7 +127,7 @@ void doRendering()
 
 }
 
-void printText(int left, int top, unsigned int centered, const char *fmt, ...)
+void printText(int left, int top, unsigned int centered, SDL_Color color, TTF_Font *font, const char *fmt, ...)
 {
 	char str[64];
 
@@ -136,8 +136,7 @@ void printText(int left, int top, unsigned int centered, const char *fmt, ...)
 	vsnprintf(str, sizeof(str), fmt, args);
 	va_end(args);
 
-	SDL_Color color = {255,255,255};
-	SDL_Surface *surface = TTF_RenderText_Solid(graphics.font, str, color);
+	SDL_Surface *surface = TTF_RenderText_Solid(font, str, color);
 	SDL_Texture  *texture = SDL_CreateTextureFromSurface(graphics.renderer,surface);
 
 	SDL_Rect dRect = {left, top, 0, 0};
@@ -157,10 +156,11 @@ void printText(int left, int top, unsigned int centered, const char *fmt, ...)
 
 void renderText()
 {
+	SDL_Color color = {235, 245, 255};
 
-	printText(SCORE_TEXT_LEFT*BLOCK_SIZE, (SCORE_TEXT_TOP)*BLOCK_SIZE,0,"Score: %d", gameState.score);
-	printText(LINES_REMAINING_TEXT_LEFT*BLOCK_SIZE, LINES_REMAINING_TEXT_TOP*BLOCK_SIZE, 0, "Lines remaining: %d", gameState.linesToLevel - gameState.lineCount);
-	printText(LEVEL_TEXT_LEFT*BLOCK_SIZE+BLOCK_SIZE/2, LEVEL_TEXT_TOP*BLOCK_SIZE+BLOCK_SIZE/2,1,"Level: %d", gameState.level);
+	printText(SCORE_TEXT_LEFT*BLOCK_SIZE, (SCORE_TEXT_TOP)*BLOCK_SIZE, 0, color, graphics.mainFont, "Score: %d", gameState.score);
+	printText(LINES_REMAINING_TEXT_LEFT*BLOCK_SIZE, LINES_REMAINING_TEXT_TOP*BLOCK_SIZE, 0, color, graphics.mainFont, "Lines remaining: %d", gameState.linesToLevel - gameState.lineCount);
+	printText(LEVEL_TEXT_LEFT*BLOCK_SIZE+BLOCK_SIZE/2, LEVEL_TEXT_TOP*BLOCK_SIZE+BLOCK_SIZE/2, 1, color, graphics.mainFont, "Level: %d", gameState.level);
 }
 
 void renderFrame(unsigned int top, unsigned int left, unsigned int height, unsigned int width, unsigned int colorIndex)
@@ -253,8 +253,8 @@ void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsign
 	rect.x = (int)x*BLOCK_SIZE;
 	rect.y = (int)y*BLOCK_SIZE;
 
-	struct RGB innerColor = dim(colors[colorIndex], dimNumerator, dimDenominator);
-	struct RGB frameColor = dim(innerColor, 1, 2);
+	SDL_Color innerColor = dim(colors[colorIndex], dimNumerator, dimDenominator);
+	SDL_Color frameColor = dim(innerColor, 1, 2);
 
 	SDL_SetRenderDrawColor(graphics.renderer, frameColor.r, frameColor.g, frameColor.b, 255);
 	SDL_RenderDrawRect(graphics.renderer,&rect);

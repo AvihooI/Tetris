@@ -19,21 +19,14 @@ struct
 {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-	TTF_Font* font;
+	TTF_Font* mainFont;
 } graphics;
-
-struct RGB
-{
-	Uint8 r;
-	Uint8 g;
-	Uint8 b;
-};
 
 unsigned int baseRenderingSDLTick;
 
-struct RGB dim(struct RGB originalColor, unsigned int dimNumerator, unsigned int dimDenominator);
+SDL_Color dim(SDL_Color originalColor, unsigned int dimNumerator, unsigned int dimDenominator);
 
-struct RGB colors[COLOR_COUNT];
+SDL_Color colors[COLOR_COUNT];
 
 int initRendering();
 void destroyRendering();
