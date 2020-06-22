@@ -17,9 +17,9 @@
 
 struct
 {
-	SDL_Window* window;
-	SDL_Renderer* renderer;
-	TTF_Font* mainFont;
+	SDL_Window *window;
+	SDL_Renderer *renderer;
+	TTF_Font *mainFont;
 } graphics;
 
 unsigned int baseRenderingSDLTick;
@@ -29,14 +29,24 @@ SDL_Color dim(SDL_Color originalColor, unsigned int dimNumerator, unsigned int d
 SDL_Color colors[COLOR_COUNT];
 
 int initRendering();
+
 void destroyRendering();
+
 void doRendering();
-void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsigned int dimNumerator, unsigned int dimDenominator);
+
+void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsigned int dimNumerator,
+                 unsigned int dimDenominator);
+
 void renderBoundaries();
+
 void renderFrame(unsigned int top, unsigned int left, unsigned int height, unsigned int width, unsigned int colorIndex);
+
 void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int top, int left, unsigned int visibleTop);
+
 void renderGridAndPiece();
+
 void renderEnqueuedPiece();
+
 void initColors();
 
 #endif //TETRIS_RENDERING_H

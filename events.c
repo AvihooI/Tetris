@@ -22,7 +22,7 @@ int doEvents()
 
 	if (e.type == SDL_KEYDOWN)
 	{
-		switch(e.key.keysym.scancode)
+		switch (e.key.keysym.scancode)
 		{
 			case SDL_SCANCODE_RETURN2:
 			case SDL_SCANCODE_RETURN:

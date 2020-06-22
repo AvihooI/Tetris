@@ -5,6 +5,7 @@
 #include "logic.h"
 
 void CreateIWallKicks(wallKick wallKicks[4][4][5]);
+
 void CreateJLSTZWallKicks(wallKick wallKicks[4][4][5]);
 
 void createPieces()
@@ -533,7 +534,6 @@ piece createI()
 
 	return result;
 }
-
 
 piece createO()
 {

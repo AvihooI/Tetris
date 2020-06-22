@@ -24,7 +24,7 @@ void renderText();
 
 int initRendering()
 {
-	SDL_Window *window = SDL_CreateWindow("Tetris", 100, 100, BLOCK_SIZE*WINDOW_WIDTH, BLOCK_SIZE*WINDOW_HEIGHT, 0);
+	SDL_Window *window = SDL_CreateWindow("Tetris", 100, 100, BLOCK_SIZE * WINDOW_WIDTH, BLOCK_SIZE * WINDOW_HEIGHT, 0);
 
 	if (!window)
 	{
@@ -33,7 +33,8 @@ int initRendering()
 
 	graphics.window = window;
 
-	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1,  (Uint32)SDL_RENDERER_ACCELERATED | (Uint32)SDL_RENDERER_PRESENTVSYNC);
+	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1,
+	                                            (Uint32) SDL_RENDERER_ACCELERATED | (Uint32) SDL_RENDERER_PRESENTVSYNC);
 
 	if (!renderer)
 	{
@@ -115,7 +116,7 @@ void doRendering()
 
 	baseRenderingSDLTick = currentSDLTick;
 
-	SDL_SetRenderDrawColor(graphics.renderer,0,0,0,255);
+	SDL_SetRenderDrawColor(graphics.renderer, 0, 0, 0, 255);
 	SDL_RenderClear(graphics.renderer);
 
 	renderBoundaries();
@@ -132,12 +133,12 @@ void printText(int left, int top, unsigned int centered, SDL_Color color, TTF_Fo
 	char str[64];
 
 	va_list args;
-	va_start(args,fmt);
+			va_start(args, fmt);
 	vsnprintf(str, sizeof(str), fmt, args);
-	va_end(args);
+			va_end(args);
 
 	SDL_Surface *surface = TTF_RenderText_Solid(font, str, color);
-	SDL_Texture  *texture = SDL_CreateTextureFromSurface(graphics.renderer,surface);
+	SDL_Texture *texture = SDL_CreateTextureFromSurface(graphics.renderer, surface);
 
 	SDL_Rect dRect = {left, top, 0, 0};
 
@@ -148,7 +149,7 @@ void printText(int left, int top, unsigned int centered, SDL_Color color, TTF_Fo
 		dRect.y -= dRect.h / 2;
 	}
 
-	SDL_RenderCopy(graphics.renderer,texture,0,&dRect);
+	SDL_RenderCopy(graphics.renderer, texture, 0, &dRect);
 
 	SDL_DestroyTexture(texture);
 	SDL_FreeSurface(surface);
@@ -158,23 +159,26 @@ void renderText()
 {
 	SDL_Color color = {235, 245, 255};
 
-	printText(SCORE_TEXT_LEFT*BLOCK_SIZE, (SCORE_TEXT_TOP)*BLOCK_SIZE, 0, color, graphics.mainFont, "Score: %d", gameState.score);
-	printText(LINES_REMAINING_TEXT_LEFT*BLOCK_SIZE, LINES_REMAINING_TEXT_TOP*BLOCK_SIZE, 0, color, graphics.mainFont, "Lines remaining: %d", gameState.linesToLevel - gameState.lineCount);
-	printText(LEVEL_TEXT_LEFT*BLOCK_SIZE+BLOCK_SIZE/2, LEVEL_TEXT_TOP*BLOCK_SIZE+BLOCK_SIZE/2, 1, color, graphics.mainFont, "Level: %d", gameState.level);
+	printText(SCORE_TEXT_LEFT * BLOCK_SIZE, (SCORE_TEXT_TOP) * BLOCK_SIZE, 0, color, graphics.mainFont, "Score: %d",
+	          gameState.score);
+	printText(LINES_REMAINING_TEXT_LEFT * BLOCK_SIZE, LINES_REMAINING_TEXT_TOP * BLOCK_SIZE, 0, color,
+	          graphics.mainFont, "Lines remaining: %d", gameState.linesToLevel - gameState.lineCount);
+	printText(LEVEL_TEXT_LEFT * BLOCK_SIZE + BLOCK_SIZE / 2, LEVEL_TEXT_TOP * BLOCK_SIZE + BLOCK_SIZE / 2, 1, color,
+	          graphics.mainFont, "Level: %d", gameState.level);
 }
 
 void renderFrame(unsigned int top, unsigned int left, unsigned int height, unsigned int width, unsigned int colorIndex)
 {
 	for (unsigned int i = 0; i < width; i++)
 	{
-		renderBlock(i+left, top, colorIndex, 1, 1);
-		renderBlock(i+left, height+top - 1, colorIndex, 1, 1);
+		renderBlock(i + left, top, colorIndex, 1, 1);
+		renderBlock(i + left, height + top - 1, colorIndex, 1, 1);
 	}
 
 	for (unsigned int j = 0; j < height; j++)
 	{
-		renderBlock(left, j+top, colorIndex, 1, 1);
-		renderBlock(width+left-1, j+top, colorIndex, 1, 1);
+		renderBlock(left, j + top, colorIndex, 1, 1);
+		renderBlock(width + left - 1, j + top, colorIndex, 1, 1);
 	}
 }
 
@@ -189,7 +193,7 @@ void renderBoundaries()
 	renderFrame(MAIN_FRAME_TOP, MAIN_FRAME_LEFT, MAIN_FRAME_HEIGHT, MAIN_FRAME_WIDTH, 2);
 
 	/*Enqueued Piece Frame*/
-	renderFrame(ENQUEUED_FRAME_TOP-1, ENQUEUED_FRAME_LEFT-1, 6,6,1);
+	renderFrame(ENQUEUED_FRAME_TOP - 1, ENQUEUED_FRAME_LEFT - 1, 6, 6, 1);
 }
 
 void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int top, int left, unsigned int visibleTop)
@@ -203,9 +207,9 @@ void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int to
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			if((*currentPiece)[j][i] && top+j >= visibleTop)
+			if ((*currentPiece)[j][i] && top + j >= visibleTop)
 			{
-				renderBlock(left+i,top+j, (*currentPiece)[j][i], 1, 1);;
+				renderBlock(left + i, top + j, (*currentPiece)[j][i], 1, 1);;
 			}
 		}
 	}
@@ -215,7 +219,8 @@ void renderEnqueuedPiece()
 {
 	/*TODO: correct piece appearance in enqueued frame*/
 
-	renderPiece(gameState.nextPieceType, 0, ENQUEUED_FRAME_TOP + pieces[gameState.nextPieceType].correctTop, ENQUEUED_FRAME_LEFT + pieces[gameState.nextPieceType].correctLeft, 0);
+	renderPiece(gameState.nextPieceType, 0, ENQUEUED_FRAME_TOP + pieces[gameState.nextPieceType].correctTop,
+	            ENQUEUED_FRAME_LEFT + pieces[gameState.nextPieceType].correctLeft, 0);
 }
 
 void renderGridAndPiece()
@@ -226,8 +231,9 @@ void renderGridAndPiece()
 
 	/*Piece*/
 
-	renderPiece(gameState.pieceType, gameState.pieceConfiguration, MAIN_FRAME_TOP + 1 + gameState.pieceTop - GAME_GRID_INVISIBLE_LINES,
-	            MAIN_FRAME_LEFT + 1 + gameState.pieceLeft, MAIN_FRAME_TOP+1);
+	renderPiece(gameState.pieceType, gameState.pieceConfiguration,
+	            MAIN_FRAME_TOP + 1 + gameState.pieceTop - GAME_GRID_INVISIBLE_LINES,
+	            MAIN_FRAME_LEFT + 1 + gameState.pieceLeft, MAIN_FRAME_TOP + 1);
 
 }
 
@@ -237,33 +243,35 @@ void renderGrid()
 	{
 		for (int j = GAME_GRID_INVISIBLE_LINES; j < GAME_GRID_HEIGHT; j++)
 		{
-			if(gameState.grid[j][i])
+			if (gameState.grid[j][i])
 			{
-				renderBlock(MAIN_FRAME_LEFT+1+i,MAIN_FRAME_TOP+1+j-GAME_GRID_INVISIBLE_LINES, gameState.grid[j][i], 2, 3);
+				renderBlock(MAIN_FRAME_LEFT + 1 + i, MAIN_FRAME_TOP + 1 + j - GAME_GRID_INVISIBLE_LINES,
+				            gameState.grid[j][i], 2, 3);
 			}
 		}
 	}
 }
 
-void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsigned int dimNumerator, unsigned int dimDenominator)
+void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsigned int dimNumerator,
+                 unsigned int dimDenominator)
 {
 	SDL_Rect rect;
 	rect.w = BLOCK_SIZE;
 	rect.h = BLOCK_SIZE;
-	rect.x = (int)x*BLOCK_SIZE;
-	rect.y = (int)y*BLOCK_SIZE;
+	rect.x = (int) x * BLOCK_SIZE;
+	rect.y = (int) y * BLOCK_SIZE;
 
 	SDL_Color innerColor = dim(colors[colorIndex], dimNumerator, dimDenominator);
 	SDL_Color frameColor = dim(innerColor, 1, 2);
 
 	SDL_SetRenderDrawColor(graphics.renderer, frameColor.r, frameColor.g, frameColor.b, 255);
-	SDL_RenderDrawRect(graphics.renderer,&rect);
+	SDL_RenderDrawRect(graphics.renderer, &rect);
 
 	rect.x++;
 	rect.y++;
-	rect.h -=2;
-	rect.w -=2;
+	rect.h -= 2;
+	rect.w -= 2;
 
 	SDL_SetRenderDrawColor(graphics.renderer, innerColor.r, innerColor.g, innerColor.b, 255);
-	SDL_RenderFillRect(graphics.renderer,&rect);
+	SDL_RenderFillRect(graphics.renderer, &rect);
 }

@@ -5,10 +5,10 @@
 
 void gameLoop();
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 
-	if(SDL_Init(SDL_INIT_EVERYTHING))
+	if (SDL_Init(SDL_INIT_EVERYTHING))
 		return -1;
 
 	int status;

@@ -52,7 +52,7 @@ typedef struct piece
 	int correctTop;
 } piece;
 
-typedef  enum
+typedef enum
 {
 	MOVE_LEFT,
 	MOVE_RIGHT,
@@ -64,26 +64,39 @@ typedef  enum
 } tetrisAction;
 
 void pause_unpause();
+
 void step();
+
 void rotate(unsigned int clockwise);
+
 void left();
+
 void right();
+
 void drop();
+
 void tick();
 
 void clearGrid();
 
 unsigned int newPiece();
+
 void landPiece();
 
 piece pieces[7];
 
 piece createO();
+
 piece createI();
+
 piece createT();
+
 piece createJ();
+
 piece createL();
+
 piece createS();
+
 piece createZ();
 
 void initLogic();
