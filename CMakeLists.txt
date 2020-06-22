@@ -8,6 +8,11 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/modules")
 set(SDL2_PATH $ENV{SDL2})
 set(SDL2_TTF_PATH $ENV{SDL2_ttf})
 
+#Create a console-less application
+if(WIN32 AND MSVC)
+    add_link_options("/SUBSYSTEM:WINDOWS")
+endif()
+
 find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf)
 
