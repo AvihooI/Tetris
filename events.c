@@ -29,29 +29,28 @@ int doEvents()
 				pause_unpause();
 				break;
 			case SDL_SCANCODE_LEFT:
-				left();
+				doAction(MOVE_LEFT);
 				break;
 			case SDL_SCANCODE_RIGHT:
-				right();
+				doAction(MOVE_RIGHT);
 				break;
 			case SDL_SCANCODE_UP:
-				rotate(1,1);
+				doAction(ROTATE_CLOCKWISE);
 				break;
 			case SDL_SCANCODE_LCTRL:
-				rotate(0, 1);
+				doAction(ROTATE_COUNTER_CLOCKWISE);
 				break;
 			case SDL_SCANCODE_DOWN:
-				step();
+				doAction(MOVE_DOWN);
 				break;
 			case SDL_SCANCODE_ESCAPE:
 				return 0;
 			case SDL_SCANCODE_SPACE:
-				drop();
+				doAction(DROP);
 				break;
 
 		}
 	}
-
 
 	unsigned int currentSDLTick = SDL_GetTicks();
 
@@ -59,7 +58,7 @@ int doEvents()
 	{
 		baseEventsSDLTick = currentSDLTick;
 
-		tick();
+		doAction(TICK);
 	}
 
 	return 1;

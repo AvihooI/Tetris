@@ -52,9 +52,20 @@ typedef struct piece
 	int correctTop;
 } piece;
 
+typedef  enum
+{
+	MOVE_LEFT,
+	MOVE_RIGHT,
+	MOVE_DOWN,
+	ROTATE_CLOCKWISE,
+	ROTATE_COUNTER_CLOCKWISE,
+	TICK,
+	DROP
+} tetrisAction;
+
 void pause_unpause();
 void step();
-void rotate(unsigned int clockWise, unsigned int attempts);
+void rotate(unsigned int clockwise);
 void left();
 void right();
 void drop();
@@ -86,5 +97,7 @@ void reduceLine(int j);
 void handleFalling();
 
 void fallLine(int lineTop);
+
+void doAction(tetrisAction action);
 
 #endif //TETRIS_LOGIC_H

@@ -166,10 +166,8 @@ unsigned int tryPiecePlacement(int pieceLeft, int pieceTop, unsigned int pieceTy
 
 void rotate(unsigned int clockWise, unsigned int attempts)
 {
-	if (gameState.gamePaused)
-		return;
 
-	unsigned int nextConfiguration = (gameState.pieceConfiguration + ((int)clockWise*2 - 1)) % pieces[gameState.pieceType].configurations;
+	unsigned int nextConfiguration = (gameState.pieceConfiguration + ((int)clockwise * 2 - 1)) % pieces[gameState.pieceType].configurations;
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -184,25 +182,16 @@ void rotate(unsigned int clockWise, unsigned int attempts)
 
 void left()
 {
-	if (gameState.gamePaused)
-		return;
-
 	tryPiecePlacement(gameState.pieceLeft-1,gameState.pieceTop, gameState.pieceType, gameState.pieceConfiguration);
 }
 
 void right()
 {
-	if (gameState.gamePaused)
-		return;
-
 	tryPiecePlacement(gameState.pieceLeft+1,gameState.pieceTop, gameState.pieceType, gameState.pieceConfiguration);
 }
 
 void tick()
 {
-	if (gameState.gamePaused)
-		return;
-
 	gameState.currentTick++;
 
 	if (gameState.currentTick >= gameState.ticksPerStep)
@@ -213,9 +202,6 @@ void step()
 {
 
 	gameState.currentTick = 0;
-
-	if (gameState.gamePaused)
-		return;
 
 	if (gameState.pieceType >= 7)
 	{
@@ -379,5 +365,37 @@ void pause_unpause()
 void drop()
 {
 	gameState.ticksPerStep = 1;
+}
+
+void doAction(tetrisAction action)
+{
+	if (gameState.gamePaused)
+		return;
+
+	switch(action)
+	{
+
+		case MOVE_LEFT:
+			left();
+			break;
+		case MOVE_RIGHT:
+			right();
+			break;
+		case MOVE_DOWN:
+			step();
+			break;
+		case ROTATE_CLOCKWISE:
+			rotate(1);
+			break;
+		case ROTATE_COUNTER_CLOCKWISE:
+			rotate(0);
+			break;
+		case TICK:
+			tick();
+			break;
+		case DROP:
+			drop();
+			break;
+	}
 }
 
