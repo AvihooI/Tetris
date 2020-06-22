@@ -35,7 +35,6 @@ void gameLoop()
 }
 
 /*
- * TODO: Heavy refactoring
  * TODO: Start implementing menu system (resume, restart, choose level, about, quit)
  * TODO: Refactor, document code, choose a proper name for the game, enrich README, and make first release (Alpha 0.1)
 */
