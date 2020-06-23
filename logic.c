@@ -43,6 +43,8 @@ void initLogic()
 {
 	createPieces();
 
+	gameState.startingLevel = 0;
+
 	newGame();
 }
 
@@ -58,7 +60,7 @@ void newGame()
 	gameState.lineCount = 0;
 	gameState.pieceConfiguration = 0;
 	gameState.linesToLevel = 1;
-	gameState.level = 1;
+	gameState.level = gameState.startingLevel;
 	gameState.score = 0;
 
 	update();
@@ -82,7 +84,7 @@ void update()
 			levelUp();
 	}
 
-	gameState.ticksPerStep = levelTicks[gameState.level - 1];
+	gameState.ticksPerStep = levelTicks[gameState.level];
 
 }
 

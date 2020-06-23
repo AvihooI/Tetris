@@ -2,6 +2,7 @@
 #include "logic.h"
 #include "events.h"
 #include "rendering.h"
+#include "menu.h"
 
 void gameLoop();
 
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
 
 	initLogic();
 	initEvents();
+	initMenu();
 
 	gameLoop();
 
@@ -35,6 +37,5 @@ void gameLoop()
 }
 
 /*
- * TODO: Start implementing menu system (resume, restart, choose level, about, quit)
  * TODO: Refactor, document code, choose a proper name for the game, enrich README, and make first release (Alpha 0.1)
 */

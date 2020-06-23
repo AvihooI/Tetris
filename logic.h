@@ -28,6 +28,7 @@ struct game_state
 
 	unsigned int score;
 	unsigned int level;
+	unsigned int startingLevel;
 
 	unsigned int linesToLevel;
 	unsigned int lineCount;
@@ -112,5 +113,7 @@ void handleFalling();
 void fallLine(int lineTop);
 
 void doAction(tetrisAction action);
+
+void newGame();
 
 #endif //TETRIS_LOGIC_H

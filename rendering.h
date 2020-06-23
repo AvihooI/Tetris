@@ -9,6 +9,7 @@
 #include <SDL_ttf.h>
 #include "tetris.h"
 #include "logic.h"
+#include "menu.h"
 
 #define BLOCK_SIZE 30
 #define MILLISECONDS_PER_FRAME 33
@@ -20,6 +21,7 @@ struct
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 	TTF_Font *mainFont;
+	TTF_Font *smallFont;
 } graphics;
 
 unsigned int baseRenderingSDLTick;
@@ -48,5 +50,8 @@ void renderGridAndPiece();
 void renderEnqueuedPiece();
 
 void initColors();
+
+void printText(int left, int top, unsigned int leftCentered, unsigned int topCentered, SDL_Color color, TTF_Font *font,
+               const char *fmt, ...);
 
 #endif //TETRIS_RENDERING_H
