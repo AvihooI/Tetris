@@ -8,9 +8,10 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/modules")
 set(SDL2_PATH $ENV{SDL2})
 set(SDL2_TTF_PATH $ENV{SDL2_ttf})
 
-#Create a console-less application
+#Create a console-less application that has CRT statically linked
 if(WIN32 AND MSVC)
     add_link_options("/SUBSYSTEM:WINDOWS")
+    add_compile_options("/MT")
 endif()
 
 find_package(SDL2 REQUIRED)
