@@ -42,7 +42,7 @@ void levelAction(menuAction action)
 	{
 
 		case MENU_PRESS_LEFT:
-			gameState.startingLevel = (gameState.startingLevel - 1) % MAX_LEVEL;
+			gameState.startingLevel = (gameState.startingLevel + MAX_LEVEL - 1) % MAX_LEVEL;
 			break;
 		case MENU_PRESS_RIGHT:
 			gameState.startingLevel = (gameState.startingLevel + 1) % MAX_LEVEL;
