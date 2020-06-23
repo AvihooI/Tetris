@@ -7,6 +7,12 @@
 
 unsigned int baseEventsSDLTick;
 
+void handleGameInput(SDL_Event *e);
+
+void handleTicks();
+
+void handleMenuInput(SDL_Event *e);
+
 void initEvents()
 {
 	baseEventsSDLTick = SDL_GetTicks();
@@ -14,15 +20,73 @@ void initEvents()
 
 int doEvents()
 {
+	if (menuState.wantsToQuit)
+		return 0;
+
 	SDL_Event e;
 
 	SDL_PollEvent(&e);
 	if (e.type == SDL_QUIT)
 		return 0;
 
-	if (e.type == SDL_KEYDOWN)
+	if (!menuState.isActive)
 	{
-		switch (e.key.keysym.scancode)
+		handleGameInput(&e);
+		handleTicks();
+	} else
+	{
+		handleMenuInput(&e);
+	}
+
+	return 1;
+}
+
+void handleMenuInput(SDL_Event *e)
+{
+	if ((*e).type == SDL_KEYDOWN)
+	{
+		switch ((*e).key.keysym.scancode)
+		{
+			case SDL_SCANCODE_RETURN2:
+			case SDL_SCANCODE_RETURN:
+				menuActionReturn();
+				break;
+			case SDL_SCANCODE_LEFT:
+				menuActionLeft();
+				break;
+			case SDL_SCANCODE_RIGHT:
+				menuActionRight();
+				break;
+			case SDL_SCANCODE_UP:
+				menuActionUp();
+				break;
+			case SDL_SCANCODE_DOWN:
+				menuActionDown();
+				break;
+			case SDL_SCANCODE_ESCAPE:
+				menuState.isActive = 0;
+				break;
+		}
+	}
+}
+
+void handleTicks()
+{
+	unsigned int currentSDLTick = SDL_GetTicks();
+
+	if (currentSDLTick - baseEventsSDLTick >= MILLISECONDS_PER_TICK)
+	{
+		baseEventsSDLTick = currentSDLTick;
+
+		doAction(TICK);
+	}
+}
+
+void handleGameInput(SDL_Event *e)
+{
+	if ((*e).type == SDL_KEYDOWN)
+	{
+		switch ((*e).key.keysym.scancode)
 		{
 			case SDL_SCANCODE_RETURN2:
 			case SDL_SCANCODE_RETURN:
@@ -44,23 +108,13 @@ int doEvents()
 				doAction(MOVE_DOWN);
 				break;
 			case SDL_SCANCODE_ESCAPE:
-				return 0;
+				menuState.isActive = 1;
+				break;
 			case SDL_SCANCODE_SPACE:
 				doAction(DROP);
 				break;
 
 		}
 	}
-
-	unsigned int currentSDLTick = SDL_GetTicks();
-
-	if (currentSDLTick - baseEventsSDLTick >= MILLISECONDS_PER_TICK)
-	{
-		baseEventsSDLTick = currentSDLTick;
-
-		doAction(TICK);
-	}
-
-	return 1;
 }
 

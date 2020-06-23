@@ -2,6 +2,7 @@
 #include "logic.h"
 #include "events.h"
 #include "rendering.h"
+#include "menu.h"
 
 void gameLoop();
 
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
 
 	initLogic();
 	initEvents();
+	initMenu();
 
 	gameLoop();
 

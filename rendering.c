@@ -3,6 +3,7 @@
 //
 
 #include "rendering.h"
+
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -21,6 +22,8 @@ SDL_Color dim(SDL_Color originalColor, unsigned int dimNumerator, unsigned int d
 void renderGrid();
 
 void renderText();
+
+void renderMenu();
 
 int initRendering()
 {
@@ -45,7 +48,9 @@ int initRendering()
 	graphics.renderer = renderer;
 
 	TTF_Init();
+
 	graphics.mainFont = TTF_OpenFont(FONT_FILENAME, BLOCK_SIZE);
+	graphics.smallFont = TTF_OpenFont(FONT_FILENAME, (BLOCK_SIZE * 3) / 4);
 
 	baseRenderingSDLTick = SDL_GetTicks();
 
@@ -119,6 +124,11 @@ void doRendering()
 	SDL_SetRenderDrawColor(graphics.renderer, 0, 0, 0, 255);
 	SDL_RenderClear(graphics.renderer);
 
+	if (menuState.isActive)
+	{
+		renderMenu();
+	}
+
 	renderBoundaries();
 	renderGridAndPiece();
 	renderEnqueuedPiece();
@@ -128,7 +138,24 @@ void doRendering()
 
 }
 
-void printText(int left, int top, unsigned int centered, SDL_Color color, TTF_Font *font, const char *fmt, ...)
+void renderMenu()
+{
+	renderFrame(MENU_TOP, MENU_LEFT, MENU_HEIGHT, MENU_WIDTH, 1);
+
+	SDL_Color gray = {100, 100, 100};
+	SDL_Color lightBlue = {50, 50, 250};
+
+	for (int i = 0; i < MENU_ITEM_COUNT; i++)
+	{
+		SDL_Color selectedColor = (menuState.selectedItem == i ? lightBlue : gray);
+
+		printText((MENU_LEFT + MENU_WIDTH / 2) * BLOCK_SIZE, (MENU_TOP + 1 + MENU_ITEM_SPACING * i) * BLOCK_SIZE, 1, 0,
+		          selectedColor, graphics.mainFont, menuState.menuItems[i].getText());
+	}
+}
+
+void printText(int left, int top, unsigned int leftCentered, unsigned int topCentered, SDL_Color color, TTF_Font *font,
+               const char *fmt, ...)
 {
 	char str[64];
 
@@ -143,11 +170,11 @@ void printText(int left, int top, unsigned int centered, SDL_Color color, TTF_Fo
 	SDL_Rect dRect = {left, top, 0, 0};
 
 	SDL_QueryTexture(texture, 0, 0, &dRect.w, &dRect.h);
-	if (centered)
-	{
+	if (leftCentered)
 		dRect.x -= dRect.w / 2;
+
+	if (topCentered)
 		dRect.y -= dRect.h / 2;
-	}
 
 	SDL_RenderCopy(graphics.renderer, texture, 0, &dRect);
 
@@ -159,12 +186,20 @@ void renderText()
 {
 	SDL_Color color = {235, 245, 255};
 
-	printText(SCORE_TEXT_LEFT * BLOCK_SIZE, (SCORE_TEXT_TOP) * BLOCK_SIZE, 0, color, graphics.mainFont, "Score: %d",
+	printText(SCORE_TEXT_LEFT * BLOCK_SIZE, (SCORE_TEXT_TOP) * BLOCK_SIZE, 0, 0, color, graphics.mainFont, "Score: %d",
 	          gameState.score);
-	printText(LINES_REMAINING_TEXT_LEFT * BLOCK_SIZE, LINES_REMAINING_TEXT_TOP * BLOCK_SIZE, 0, color,
+	printText(LINES_REMAINING_TEXT_LEFT * BLOCK_SIZE, LINES_REMAINING_TEXT_TOP * BLOCK_SIZE, 0, 0, color,
 	          graphics.mainFont, "Lines remaining: %d", gameState.linesToLevel - gameState.lineCount);
-	printText(LEVEL_TEXT_LEFT * BLOCK_SIZE + BLOCK_SIZE / 2, LEVEL_TEXT_TOP * BLOCK_SIZE + BLOCK_SIZE / 2, 1, color,
-	          graphics.mainFont, "Level: %d", gameState.level);
+
+	printText(LEVEL_TEXT_LEFT * BLOCK_SIZE + BLOCK_SIZE / 2, LEVEL_TEXT_TOP * BLOCK_SIZE + BLOCK_SIZE / 2, 1, 1, color,
+	          graphics.mainFont, "Level: %d", gameState.level + 1);
+
+	if (gameState.gameOver || gameState.gamePaused)
+	{
+		printText((MAIN_FRAME_LEFT + MAIN_FRAME_WIDTH / 2) * BLOCK_SIZE,
+		          (MAIN_FRAME_TOP + MAIN_FRAME_HEIGHT / 2) * BLOCK_SIZE, 1, 1, color, graphics.smallFont,
+		          "Press Enter to Continue");
+	}
 }
 
 void renderFrame(unsigned int top, unsigned int left, unsigned int height, unsigned int width, unsigned int colorIndex)
@@ -193,7 +228,7 @@ void renderBoundaries()
 	renderFrame(MAIN_FRAME_TOP, MAIN_FRAME_LEFT, MAIN_FRAME_HEIGHT, MAIN_FRAME_WIDTH, 2);
 
 	/*Enqueued Piece Frame*/
-	renderFrame(ENQUEUED_FRAME_TOP - 1, ENQUEUED_FRAME_LEFT - 1, 6, 6, 1);
+	renderFrame(ENQUEUED_FRAME_TOP, ENQUEUED_FRAME_LEFT, ENQUEUED_FRAME_HEIGHT, ENQUEUED_FRAME_WIDTH, 1);
 }
 
 void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int top, int left, unsigned int visibleTop)
@@ -219,8 +254,8 @@ void renderEnqueuedPiece()
 {
 	/*TODO: correct piece appearance in enqueued frame*/
 
-	renderPiece(gameState.nextPieceType, 0, ENQUEUED_FRAME_TOP + pieces[gameState.nextPieceType].correctTop,
-	            ENQUEUED_FRAME_LEFT + pieces[gameState.nextPieceType].correctLeft, 0);
+	renderPiece(gameState.nextPieceType, 0, ENQUEUED_FRAME_TOP + 1 + pieces[gameState.nextPieceType].correctTop,
+	            ENQUEUED_FRAME_LEFT + 1 + pieces[gameState.nextPieceType].correctLeft, 0);
 }
 
 void renderGridAndPiece()

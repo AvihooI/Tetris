@@ -7,6 +7,7 @@
 
 #include "tetris.h"
 #include "logic.h"
+#include "menu.h"
 
 void initEvents();
 
