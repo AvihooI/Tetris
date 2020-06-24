@@ -11,8 +11,9 @@ if(WIN32 AND MSVC)
     set(SDL2_PATH $ENV{SDL2})
     set(SDL2_TTF_PATH $ENV{SDL2_ttf})
     add_link_options("/SUBSYSTEM:WINDOWS")
-    add_compile_options("/MT")
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
+
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf)
