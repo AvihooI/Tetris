@@ -35,7 +35,3 @@ void gameLoop()
 		doRendering();
 	}
 }
-
-/*
- * TODO: Refactor, document code, choose a proper name for the game, enrich README, and make first release (Alpha 0.1)
-*/
