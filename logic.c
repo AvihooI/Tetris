@@ -6,42 +6,24 @@
 #include <stdlib.h>
 #include <time.h>
 
-unsigned int levelTicks[MAX_LEVEL] = {
-		1000 / MILLISECONDS_PER_TICK,
-		800 / MILLISECONDS_PER_TICK,
-		640 / MILLISECONDS_PER_TICK,
-		512 / MILLISECONDS_PER_TICK,
-		409 / MILLISECONDS_PER_TICK,
-		327 / MILLISECONDS_PER_TICK,
-		262 / MILLISECONDS_PER_TICK,
-		209 / MILLISECONDS_PER_TICK,
-		167 / MILLISECONDS_PER_TICK,
-		134 / MILLISECONDS_PER_TICK,
-		107 / MILLISECONDS_PER_TICK,
-		85 / MILLISECONDS_PER_TICK,
-		68 / MILLISECONDS_PER_TICK,
-		54 / MILLISECONDS_PER_TICK,
-		43 / MILLISECONDS_PER_TICK,
-		35 / MILLISECONDS_PER_TICK,
-		28 / MILLISECONDS_PER_TICK,
-		22 / MILLISECONDS_PER_TICK,
-		14 / MILLISECONDS_PER_TICK,
-		11 / MILLISECONDS_PER_TICK
-};
+unsigned int levelTicks[MAX_LEVEL];
 
-void update();
+void initLevelTicks()
+{
+	levelTicks[0] = BASE_MILLISECONDS_PER_STEP / MILLISECONDS_PER_TICK;
 
-void levelUp();
+	for (int i = 1; i < MAX_LEVEL; i++)
+	{
+		levelTicks[i] = (levelTicks[i-1] * SPEED_GROWTH_RATE_DENOMINATOR) / SPEED_GROWTH_RATE_NUMERATOR;
+	}
 
-void updateScore(unsigned int lines);
-
-void newGame();
-
-void createPieces();
+}
 
 void initLogic()
 {
 	createPieces();
+
+	initLevelTicks();
 
 	gameState.startingLevel = 0;
 
@@ -59,7 +41,7 @@ void newGame()
 	gameState.reducedLines = 0;
 	gameState.lineCount = 0;
 	gameState.pieceConfiguration = 0;
-	gameState.linesToLevel = 1;
+	gameState.linesToLevel = BASE_LINES_TO_LEVEL_UP;
 	gameState.level = gameState.startingLevel;
 	gameState.score = 0;
 
@@ -102,12 +84,11 @@ void updateScore(unsigned int lines)
 void levelUp()
 {
 	gameState.lineCount = 0;
+	gameState.linesToLevel = (gameState.linesToLevel * LINES_TO_LEVEL_GROWTH_NUMERATOR) / LINES_TO_LEVEL_GROWTH_DENOMINATOR;
 
-	if (gameState.level == MAX_LEVEL)
+	if (gameState.level >= MAX_LEVEL - 1)
 		return;
 
-
-	gameState.linesToLevel *= 2;
 	gameState.level++;
 }
 

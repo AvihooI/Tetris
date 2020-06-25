@@ -64,6 +64,14 @@ typedef enum
 	DROP
 } tetrisAction;
 
+void update();
+
+void levelUp();
+
+void updateScore(unsigned int lines);
+
+void createPieces();
+
 void pause_unpause();
 
 void step();
