@@ -143,11 +143,18 @@ void renderMenu()
 	renderFrame(MENU_TOP, MENU_LEFT, MENU_HEIGHT, MENU_WIDTH, 1);
 
 	SDL_Color gray = {100, 100, 100};
-	SDL_Color lightBlue = {50, 50, 250};
+
+	unsigned char colorCorrect = (SDL_GetTicks() / 200) % 200;
+	if (colorCorrect > 100)
+		colorCorrect = 200 - colorCorrect;
+
+	SDL_Color varyingColor = {50 + colorCorrect, 50, 250 - colorCorrect};
+
+
 
 	for (int i = 0; i < MENU_ITEM_COUNT; i++)
 	{
-		SDL_Color selectedColor = (menuState.selectedItem == i ? lightBlue : gray);
+		SDL_Color selectedColor = (menuState.selectedItem == i ? varyingColor : gray);
 
 		printText((MENU_LEFT + MENU_WIDTH / 2) * BLOCK_SIZE, (MENU_TOP + 1 + MENU_ITEM_SPACING * i) * BLOCK_SIZE, 1, 0,
 		          selectedColor, graphics.mainFont, menuState.menuItems[i].getText());
