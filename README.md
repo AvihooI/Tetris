@@ -57,9 +57,8 @@ Soon:
 
 1) Line clear, tetris and level up animations.
 2) Sound effects.
-3) A better random piece generator.
-4) Configurable display.
-5) Persistent configurations.
+3) Configurable display.
+4) Persistent configurations.
 
 Later:
 

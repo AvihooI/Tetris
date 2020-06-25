@@ -3,8 +3,7 @@
 //
 
 #include "logic.h"
-#include <stdlib.h>
-#include <time.h>
+#include "randomizer.h"
 
 unsigned int levelTicks[MAX_LEVEL];
 
@@ -45,13 +44,13 @@ void newGame()
 	gameState.level = gameState.startingLevel;
 	gameState.score = 0;
 
+	initRandomizer();
+
 	update();
 
 	clearGrid();
 
-	srand(time(0));
-
-	gameState.nextPieceType = rand() % 7;
+	gameState.nextPieceType = getNewPiece();
 }
 
 void update()
@@ -203,7 +202,7 @@ unsigned int newPiece()
 	/*TODO: improve randomizer*/
 
 	unsigned int pieceType = gameState.nextPieceType;
-	gameState.nextPieceType = rand() % 7;
+	gameState.nextPieceType = getNewPiece();
 
 	int tryTop;
 
