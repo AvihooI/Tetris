@@ -77,7 +77,7 @@ void updateScore(unsigned int lines)
 		return;
 	}
 
-	gameState.score += gameState.level * lines;
+	gameState.score += (gameState.level+1) * lines;
 }
 
 void levelUp()
