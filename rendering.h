@@ -10,6 +10,7 @@
 #include "tetris.h"
 #include "logic.h"
 #include "menu.h"
+#include "animation.h"
 
 #define BLOCK_SIZE 30
 #define MILLISECONDS_PER_FRAME 33

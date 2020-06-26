@@ -9,21 +9,31 @@
 
 SDL_Color dim(SDL_Color originalColor, unsigned int dimNumerator, unsigned int dimDenominator)
 {
-	originalColor.r /= dimDenominator;
-	originalColor.r *= dimNumerator;
-	originalColor.g /= dimDenominator;
-	originalColor.g *= dimNumerator;
-	originalColor.b /= dimDenominator;
-	originalColor.b *= dimNumerator;
+	unsigned int r = originalColor.r;
+	unsigned int g = originalColor.g;
+	unsigned int b = originalColor.b;
+
+	r *= dimNumerator;
+	r /= dimDenominator;
+	g *= dimNumerator;
+	g /= dimDenominator;
+	b *= dimNumerator;
+	b /= dimDenominator;
+
+	originalColor.r = (Uint8)r;
+	originalColor.g = (Uint8)g;
+	originalColor.b = (Uint8)b;
 
 	return originalColor;
 }
 
-void renderGrid();
+void renderGrid(unsigned int animation);
 
 void renderText();
 
 void renderMenu();
+
+void renderAnimationGrid();
 
 int initRendering()
 {
@@ -130,7 +140,15 @@ void doRendering()
 	}
 
 	renderBoundaries();
-	renderGridAndPiece();
+	if (!animationState.ongoing)
+	{
+		renderGridAndPiece();
+	}
+	else
+	{
+		renderGrid(1);
+	}
+
 	renderEnqueuedPiece();
 	renderText();
 
@@ -269,7 +287,7 @@ void renderGridAndPiece()
 {
 	/*Grid*/
 
-	renderGrid();
+	renderGrid(0);
 
 	/*Piece*/
 
@@ -279,16 +297,30 @@ void renderGridAndPiece()
 
 }
 
-void renderGrid()
+void renderGrid(unsigned int animation)
 {
 	for (int i = 0; i < GAME_GRID_WIDTH; i++)
 	{
 		for (int j = GAME_GRID_INVISIBLE_LINES; j < GAME_GRID_HEIGHT; j++)
 		{
-			if (gameState.grid[j][i])
+			if (!animation && gameState.grid[j][i])
 			{
 				renderBlock(MAIN_FRAME_LEFT + 1 + i, MAIN_FRAME_TOP + 1 + j - GAME_GRID_INVISIBLE_LINES,
 				            gameState.grid[j][i], 2, 3);
+			}
+			else if (animation && gameState.lastGrid[j][i])
+			{
+				unsigned int dimNumerator = 2;
+				unsigned int dimDenominator = 3;
+
+				if (gameState.reducedLines[j])
+				{
+					dimNumerator *= animationState.ticksRemaining;
+					dimDenominator *= ANIMATION_TICKS;
+				}
+
+				renderBlock(MAIN_FRAME_LEFT + 1 + i, MAIN_FRAME_TOP + 1 + j - GAME_GRID_INVISIBLE_LINES,
+				            gameState.lastGrid[j][i], dimNumerator, dimDenominator);
 			}
 		}
 	}

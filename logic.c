@@ -11,11 +11,13 @@ void collapseLines(const unsigned int lines[GAME_GRID_HEIGHT]);
 
 void collapseLine(unsigned int k);
 
+void copyGrid();
+
 unsigned int levelTicks[MAX_LEVEL];
 
 void initLevelTicks()
 {
-	levelTicks[0] = BASE_MILLISECONDS_PER_STEP / MILLISECONDS_PER_TICK;
+	levelTicks[0] = BASE_MILLISECONDS_PER_STEP / MILLISECONDS_PER_LOGIC_TICK;
 
 	for (int i = 1; i < MAX_LEVEL; i++)
 	{
@@ -48,6 +50,8 @@ void newGame()
 	gameState.linesToLevel = BASE_LINES_TO_LEVEL_UP;
 	gameState.level = gameState.startingLevel;
 	gameState.score = 0;
+
+	gameState.reducedLinesCount = 0;
 
 	initRandomizer();
 
@@ -252,22 +256,32 @@ void landPiece()
 		}
 	}
 
-	unsigned int lines[GAME_GRID_HEIGHT];
-	unsigned linesReduced = checkLines(lines);
+	gameState.reducedLinesCount = checkLines(gameState.reducedLines);
 
-	if (linesReduced)
+	if (gameState.reducedLinesCount)
 	{
-		collapseLines(lines);
-
+		copyGrid();
+		collapseLines(gameState.reducedLines);
 	}
 
 	if (!newPiece())
 		gameOver();
 	else
 	{
-		update(linesReduced);
+		update(gameState.reducedLinesCount);
 	}
 
+}
+
+void copyGrid()
+{
+	for (unsigned int j = 0; j < GAME_GRID_HEIGHT; j++)
+	{
+		for (unsigned int i = 0; i < GAME_GRID_WIDTH; i++)
+		{
+			gameState.lastGrid[j][i] = gameState.grid[j][i];
+		}
+	}
 }
 
 unsigned int checkLine(unsigned int line)

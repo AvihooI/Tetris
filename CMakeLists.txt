@@ -20,6 +20,6 @@ find_package(SDL2_ttf)
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2_TTF_INCLUDE_DIR})
 
-add_executable(${PROJECT_NAME} main.c events.c rendering.c logic.c logic.h logic_pieces.c menu.c randomizer.c)
+add_executable(${PROJECT_NAME} main.c events.c rendering.c logic.c logic.h logic_pieces.c menu.c randomizer.c animation.h animation.c)
 
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY} ${SDL2_TTF_LIBRARY})

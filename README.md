@@ -55,13 +55,11 @@ Planned Features:
 
 Soon:
 
-1) Line clear, tetris and level up animations.
-2) Sound effects.
-3) Configurable display.
-4) Persistent configurations.
+1) Sound effects.
+2) Configurable display.
+3) Persistent configurations.
 
 Later:
-
 1) Music
 2) Configurable game settings.
 

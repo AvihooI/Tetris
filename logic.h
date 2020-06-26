@@ -33,6 +33,10 @@ struct game_state
 	unsigned int linesToLevel;
 	unsigned int lineCount;
 
+	unsigned int lastGrid[GAME_GRID_HEIGHT][GAME_GRID_WIDTH];
+	unsigned int reducedLines[GAME_GRID_HEIGHT];
+	unsigned int reducedLinesCount;
+
 } gameState;
 
 typedef struct wallKick

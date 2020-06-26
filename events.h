@@ -8,10 +8,13 @@
 #include "tetris.h"
 #include "logic.h"
 #include "menu.h"
+#include "animation.h"
 
 #define MAX_MOVEMENT_KEYBOARD_COOLDOWN 85
 #define MAX_ROTATION_KEYBOARD_COOLDOWN -1
 #define MAX_DROP_KEYBOARD_COOLDOWN -1
+
+#define MILLISECONDS_PER_KEYBOARD_CHECK 1
 
 struct
 {
@@ -23,7 +26,6 @@ struct
 	signed int rotateCounterClockwiseCooldown;
 } keyboardCooldowns;
 
-#define MILLISECONDS_PER_KEYBOARD_CHECK 1
 
 void initEvents();
 

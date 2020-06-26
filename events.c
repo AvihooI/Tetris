@@ -10,14 +10,11 @@
 unsigned int baseEventsSDLTick;
 unsigned int baseKeyboardStateSDLTick;
 
-
 void handleGameInput(SDL_Event *e);
 
 void handleTicks();
 
 void handleMenuInput(SDL_Event *e);
-
-void handleGameInputKeyboardState();
 
 void doRawInput();
 
@@ -32,6 +29,8 @@ void initEvents()
 	keyboardCooldowns.rotateClockwiseCooldown = 0;
 	keyboardCooldowns.rotateCounterClockwiseCooldown = 0;
 	keyboardCooldowns.dropCooldown = 0;
+
+	initAnimation();
 }
 
 int doEvents()
@@ -134,19 +133,25 @@ void handleTicks()
 {
 	unsigned int currentSDLTick = SDL_GetTicks();
 
-	if (currentSDLTick - baseEventsSDLTick >= MILLISECONDS_PER_TICK)
+	if (currentSDLTick - baseEventsSDLTick >= MILLISECONDS_PER_LOGIC_TICK)
 	{
 		baseEventsSDLTick = currentSDLTick;
 
-		doAction(TICK);
+		if (!animationState.ongoing)
+			doAction(TICK);
+
+		animationTick();
+
 	}
 
 	if (currentSDLTick - baseKeyboardStateSDLTick >= MILLISECONDS_PER_KEYBOARD_CHECK)
 	{
 		baseKeyboardStateSDLTick = currentSDLTick;
 
-		doRawInput();
+		if (!animationState.ongoing)
+			doRawInput();
 	}
+
 }
 
 unsigned int rawInputProcess(unsigned const char* keyboardState, unsigned char scanCode, int *currentCooldown, int maxCooldown)
