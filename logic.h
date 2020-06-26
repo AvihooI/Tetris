@@ -32,7 +32,6 @@ struct game_state
 
 	unsigned int linesToLevel;
 	unsigned int lineCount;
-	unsigned int reducedLines;
 
 } gameState;
 
@@ -111,14 +110,6 @@ piece createZ();
 void initLogic();
 
 void gameOver();
-
-void reduce();
-
-void reduceLine(int j);
-
-void handleFalling();
-
-void fallLine(int lineTop);
 
 void doAction(tetrisAction action);
 

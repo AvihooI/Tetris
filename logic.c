@@ -5,6 +5,12 @@
 #include "logic.h"
 #include "randomizer.h"
 
+unsigned int checkLines(unsigned int lines[GAME_GRID_HEIGHT]);
+
+void collapseLines(const unsigned int lines[GAME_GRID_HEIGHT]);
+
+void collapseLine(unsigned int k);
+
 unsigned int levelTicks[MAX_LEVEL];
 
 void initLevelTicks()
@@ -37,7 +43,6 @@ void newGame()
 	gameState.currentTick = 0;
 	gameState.pieceType = 7;
 
-	gameState.reducedLines = 0;
 	gameState.lineCount = 0;
 	gameState.pieceConfiguration = 0;
 	gameState.linesToLevel = BASE_LINES_TO_LEVEL_UP;
@@ -46,21 +51,21 @@ void newGame()
 
 	initRandomizer();
 
-	update();
+	update(0);
 
 	clearGrid();
 
 	gameState.nextPieceType = getNewPiece();
 }
 
-void update()
+void update(unsigned int reducedLines)
 {
 
-	if (gameState.reducedLines)
+	if (reducedLines)
 	{
-		gameState.lineCount += gameState.reducedLines;
-		updateScore(gameState.reducedLines);
-		gameState.reducedLines = 0;
+		gameState.lineCount += reducedLines;
+		updateScore(reducedLines);
+
 		if (gameState.lineCount >= gameState.linesToLevel)
 			levelUp();
 	}
@@ -247,83 +252,73 @@ void landPiece()
 		}
 	}
 
+	unsigned int lines[GAME_GRID_HEIGHT];
+	unsigned linesReduced = checkLines(lines);
+
+	if (linesReduced)
+	{
+		collapseLines(lines);
+
+	}
+
 	if (!newPiece())
 		gameOver();
 	else
 	{
-		reduce();
-		update();
+		update(linesReduced);
 	}
 
 }
 
-void reduce()
-{
-	for (int j = GAME_GRID_HEIGHT - 1; j >= 0; j--)
-	{
-		unsigned int lineIsFull = 1;
-
-		for (int i = 0; i < GAME_GRID_WIDTH; i++)
-		{
-			if (gameState.grid[j][i])
-				continue;
-
-			lineIsFull = 0;
-			break;
-		}
-
-		if (!lineIsFull)
-			continue;
-
-		gameState.reducedLines++;
-		reduceLine(j);
-		reduce();
-		break;
-	}
-
-	handleFalling();
-}
-
-void handleFalling()
-{
-
-	for (int j = GAME_GRID_HEIGHT - 1; j >= 0; j--)
-	{
-		unsigned int lineIsClear = 1;
-
-		for (int i = 0; i < GAME_GRID_WIDTH; i++)
-		{
-			if (!gameState.grid[j][i])
-				continue;
-
-			lineIsClear = 0;
-			break;
-		}
-
-		if (!lineIsClear)
-			continue;
-
-		fallLine(j);
-	}
-}
-
-void fallLine(int lineTop)
+unsigned int checkLine(unsigned int line)
 {
 	for (int i = 0; i < GAME_GRID_WIDTH; i++)
 	{
-		for (int j = lineTop - 1; j >= 0; j--)
+		if (!gameState.grid[line][i])
+			return 0;
+	}
+
+	return 1;
+}
+
+unsigned int checkLines(unsigned int lines[GAME_GRID_HEIGHT])
+{
+	unsigned int result = 0;
+
+	for (int j = 0; j < GAME_GRID_HEIGHT; j++)
+	{
+		lines[j] = checkLine(j);
+
+		result = result + lines[j];
+	}
+
+	return result;
+}
+
+void collapseLines(const unsigned int lines[GAME_GRID_HEIGHT])
+{
+	for (int j = 0; j < GAME_GRID_HEIGHT; j++)
+	{
+		if (lines[j])
 		{
-			gameState.grid[j + 1][i] = gameState.grid[j][i];
-			gameState.grid[j][i] = 0;
+			collapseLine(j);
 		}
 	}
 }
 
-void reduceLine(int j)
+void collapseLine(unsigned int k)
 {
+	for (unsigned int j = k; j > 0; j--)
+	{
+		for (int i = 0; i < GAME_GRID_WIDTH; i++)
+		{
+			gameState.grid[j][i] = gameState.grid[j-1][i];
+		}
+	}
+
 	for (int i = 0; i < GAME_GRID_WIDTH; i++)
 	{
-		gameState.grid[j][i] = 0;
+		gameState.grid[0][i] = 0;
 	}
 }
 
