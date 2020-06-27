@@ -103,6 +103,10 @@ void initColors()
 	colors[11].r = 51;
 	colors[11].g = 204;
 	colors[11].b = 255;
+
+	colors[12].r = 255;
+	colors[12].g = 255;
+	colors[12].b = 255;
 }
 
 void destroyRendering()
@@ -153,8 +157,6 @@ void renderMenu()
 {
 	renderFrame(MENU_TOP, MENU_LEFT, MENU_HEIGHT, MENU_WIDTH, 1);
 
-	SDL_Color gray = {100, 100, 100};
-
 	unsigned char colorCorrect = (SDL_GetTicks() / 100) % 100;
 	if (colorCorrect > 50)
 		colorCorrect = 100 - colorCorrect;
@@ -165,7 +167,7 @@ void renderMenu()
 
 	for (int i = 0; i < MENU_ITEM_COUNT; i++)
 	{
-		SDL_Color selectedColor = (menuState.selectedItem == i ? varyingColor : gray);
+		SDL_Color selectedColor = (menuState.selectedItem == i ? varyingColor : colors[1]);
 
 		printText((MENU_LEFT + MENU_WIDTH / 2) * BLOCK_SIZE, (MENU_TOP + 1 + MENU_ITEM_SPACING * i) * BLOCK_SIZE, 1, 0,
 		          selectedColor, graphics.mainFont, menuState.menuItems[i].getText());
@@ -202,20 +204,19 @@ void printText(int left, int top, unsigned int leftCentered, unsigned int topCen
 
 void renderText()
 {
-	SDL_Color color = {235, 245, 255};
 
-	printText(SCORE_TEXT_LEFT * BLOCK_SIZE, (SCORE_TEXT_TOP) * BLOCK_SIZE, 0, 0, color, graphics.mainFont, "Score: %d",
+	printText(SCORE_TEXT_LEFT * BLOCK_SIZE, (SCORE_TEXT_TOP) * BLOCK_SIZE, 0, 0, colors[12], graphics.mainFont, "Score: %d",
 	          gameState.score);
-	printText(LINES_REMAINING_TEXT_LEFT * BLOCK_SIZE, LINES_REMAINING_TEXT_TOP * BLOCK_SIZE, 0, 0, color,
+	printText(LINES_REMAINING_TEXT_LEFT * BLOCK_SIZE, LINES_REMAINING_TEXT_TOP * BLOCK_SIZE, 0, 0, colors[12],
 	          graphics.mainFont, "Lines remaining: %d", gameState.linesToLevel - gameState.lineCount);
 
-	printText(LEVEL_TEXT_LEFT * BLOCK_SIZE + BLOCK_SIZE / 2, LEVEL_TEXT_TOP * BLOCK_SIZE + BLOCK_SIZE / 2, 1, 1, color,
+	printText(LEVEL_TEXT_LEFT * BLOCK_SIZE + BLOCK_SIZE / 2, LEVEL_TEXT_TOP * BLOCK_SIZE + BLOCK_SIZE / 2, 1, 1, colors[12],
 	          graphics.mainFont, "Level: %d", gameState.level + 1);
 
 	if (gameState.gameOver || gameState.gamePaused)
 	{
 		printText((MAIN_FRAME_LEFT + MAIN_FRAME_WIDTH / 2) * BLOCK_SIZE,
-		          (MAIN_FRAME_TOP + MAIN_FRAME_HEIGHT / 2) * BLOCK_SIZE, 1, 1, color, graphics.smallFont,
+		          (MAIN_FRAME_TOP + MAIN_FRAME_HEIGHT / 2) * BLOCK_SIZE, 1, 1, colors[12], graphics.smallFont,
 		          "Press Enter to Continue");
 	}
 }

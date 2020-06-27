@@ -14,7 +14,7 @@
 
 #define BLOCK_SIZE 30
 #define MILLISECONDS_PER_FRAME 33
-#define COLOR_COUNT 12
+#define COLOR_COUNT 13
 #define FONT_FILENAME "hemi_head.ttf"
 
 struct
