@@ -3,161 +3,62 @@
 //
 
 #include "menu.h"
-#include "logic.h"
+#include "main_menu.h"
 #include <stdio.h>
-
-menuItem createResumeMenuItem();
-
-menuItem createQuitMenuItem();
-
-menuItem createNewGameMenuItem();
-
-menuItem createLevelMenuItem();
+#include <stdlib.h>
 
 void initMenu()
 {
+	menuState.menus = malloc(1*sizeof(menu));
+	menuState.menuCount = 1;
+
+	menuState.menus[0] = createMainMenu();
+
 	menuState.isActive = 0;
-	menuState.selectedItem = 0;
 	menuState.wantsToQuit = 0;
 
-	menuState.menuItems[0] = createResumeMenuItem();
-	menuState.menuItems[1] = createNewGameMenuItem();
-	menuState.menuItems[2] = createLevelMenuItem();
-	menuState.menuItems[3] = createQuitMenuItem();
-
 }
 
-const char *levelGetText()
+void destroyMenu()
 {
-	static char levelStr[64];
 
-	snprintf(levelStr, sizeof(levelStr), "<Level %d>", gameState.startingLevel + 1);
-
-	return levelStr;
-}
-
-void levelAction(menuAction action)
-{
-	switch (action)
+	for (int i = 0; i < menuState.menuCount; i++)
 	{
-
-		case MENU_PRESS_LEFT:
-			gameState.startingLevel = (gameState.startingLevel + MAX_LEVEL - 1) % MAX_LEVEL;
-			break;
-		case MENU_PRESS_RIGHT:
-			gameState.startingLevel = (gameState.startingLevel + 1) % MAX_LEVEL;
-			break;
-		case MENU_PRESS_RETURN:
-			break;
+		free(menuState.menus[i].menuItems);
 	}
+
+	free(menuState.menus);
 }
 
-menuItem createLevelMenuItem()
-{
-	menuItem result;
-
-	result.getText = levelGetText;
-	result.doAction = levelAction;
-
-	return result;
-}
-
-const char *newGameText()
-{
-	static char text[] = "New Game";
-
-	return text;
-}
-
-void newGameAction(menuAction action)
-{
-	if (action == MENU_PRESS_RETURN)
-	{
-		menuState.isActive = 0;
-		newGame();
-	}
-}
-
-menuItem createNewGameMenuItem()
-{
-	menuItem result;
-
-	result.getText = newGameText;
-	result.doAction = newGameAction;
-
-	return result;
-}
-
-const char *quitGetText()
-{
-	static char text[] = "Quit";
-
-	return text;
-}
-
-void quitAction(menuAction action)
-{
-	if (action == MENU_PRESS_RETURN)
-		menuState.wantsToQuit = 1;
-}
-
-menuItem createQuitMenuItem()
-{
-	menuItem result;
-
-	result.getText = quitGetText;
-	result.doAction = quitAction;
-
-	return result;
-}
-
-
-void resumeAction(menuAction action)
-{
-	if (action == MENU_PRESS_RETURN)
-		menuState.isActive = 0;
-
-}
-
-const char *resumeGetText()
-{
-	static char text[] = "Resume";
-
-	return text;
-}
-
-
-menuItem createResumeMenuItem()
-{
-	menuItem result;
-
-	result.doAction = resumeAction;
-	result.getText = resumeGetText;
-
-	return result;
-}
 
 void menuActionUp()
 {
-	menuState.selectedItem = (menuState.selectedItem - 1) % MENU_ITEM_COUNT;
+	menuState.menus[menuState.selectedMenu].selectedItem = (menuState.menus[menuState.selectedMenu].selectedItem - 1) % menuState.menus[menuState.selectedMenu].menuItemCount;
 }
 
 void menuActionDown()
 {
-	menuState.selectedItem = (menuState.selectedItem + 1) % MENU_ITEM_COUNT;
+	menuState.menus[menuState.selectedMenu].selectedItem = (menuState.menus[menuState.selectedMenu].selectedItem + 1) % menuState.menus[menuState.selectedMenu].menuItemCount;
 }
 
 void menuActionReturn()
 {
-	menuState.menuItems[menuState.selectedItem].doAction(MENU_PRESS_RETURN);
+	menuState.menus[menuState.selectedMenu].menuItems[menuState.menus[menuState.selectedMenu].selectedItem].doAction(MENU_PRESS_RETURN);
 }
 
 void menuActionLeft()
 {
-	menuState.menuItems[menuState.selectedItem].doAction(MENU_PRESS_LEFT);
+	menuState.menus[menuState.selectedMenu].menuItems[menuState.menus[menuState.selectedMenu].selectedItem].doAction(MENU_PRESS_LEFT);
 }
 
 void menuActionRight()
 {
-	menuState.menuItems[menuState.selectedItem].doAction(MENU_PRESS_RIGHT);
+	menuState.menus[menuState.selectedMenu].menuItems[menuState.menus[menuState.selectedMenu].selectedItem].doAction(MENU_PRESS_RIGHT);
+}
+
+void activateMenu()
+{
+	menuState.selectedMenu = 0;
+	menuState.menus[0].selectedItem = 0;
+	menuState.isActive = 1;
 }

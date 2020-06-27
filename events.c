@@ -97,7 +97,7 @@ void handleGameInput(SDL_Event *e)
 				pause_unpause();
 				break;
 			case SDL_SCANCODE_ESCAPE:
-				menuState.isActive = 1;
+				activateMenu();
 				break;
 		}
 	}

@@ -25,17 +25,29 @@ typedef struct menuItem
 	menuItemDoAction doAction;
 } menuItem;
 
+typedef struct menu
+{
+	unsigned int selectedItem;
+	unsigned int menuItemCount;
+	menuItem *menuItems;
+} menu;
+
 struct
 {
 	unsigned int isActive;
-	unsigned int selectedItem;
+	unsigned int selectedMenu;
 	unsigned int wantsToQuit;
 
-	menuItem menuItems[MENU_ITEM_COUNT];
+	unsigned int menuCount;
+	menu *menus;
 
 } menuState;
 
 void initMenu();
+
+void destroyMenu();
+
+void activateMenu();
 
 void menuActionUp();
 

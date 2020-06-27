@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
 
 	gameLoop();
 
+	destroyMenu();
 	destroyRendering();
 	SDL_Quit();
 

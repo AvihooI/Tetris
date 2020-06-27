@@ -165,12 +165,12 @@ void renderMenu()
 
 
 
-	for (int i = 0; i < MENU_ITEM_COUNT; i++)
+	for (int i = 0; i < MAIN_MENU_ITEM_COUNT; i++)
 	{
-		SDL_Color selectedColor = (menuState.selectedItem == i ? varyingColor : colors[1]);
+		SDL_Color selectedColor = (menuState.menus[menuState.selectedMenu].selectedItem == i ? varyingColor : colors[1]);
 
 		printText((MENU_LEFT + MENU_WIDTH / 2) * BLOCK_SIZE, (MENU_TOP + 1 + MENU_ITEM_SPACING * i) * BLOCK_SIZE, 1, 0,
-		          selectedColor, graphics.mainFont, menuState.menuItems[i].getText());
+		          selectedColor, graphics.mainFont, menuState.menus[menuState.selectedMenu].menuItems[i].getText());
 	}
 }
 
