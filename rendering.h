@@ -14,7 +14,7 @@
 
 #define BLOCK_SIZE 30
 #define MILLISECONDS_PER_FRAME 33
-#define COLOR_COUNT 10
+#define COLOR_COUNT 12
 #define FONT_FILENAME "hemi_head.ttf"
 
 struct
@@ -26,6 +26,8 @@ struct
 } graphics;
 
 unsigned int baseRenderingSDLTick;
+
+SDL_Color interpolate(SDL_Color color1, SDL_Color color2, unsigned int factorNumerator, unsigned int factorDenominator);
 
 SDL_Color dim(SDL_Color originalColor, unsigned int dimNumerator, unsigned int dimDenominator);
 

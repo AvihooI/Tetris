@@ -9,22 +9,7 @@
 
 SDL_Color dim(SDL_Color originalColor, unsigned int dimNumerator, unsigned int dimDenominator)
 {
-	unsigned int r = originalColor.r;
-	unsigned int g = originalColor.g;
-	unsigned int b = originalColor.b;
-
-	r *= dimNumerator;
-	r /= dimDenominator;
-	g *= dimNumerator;
-	g /= dimDenominator;
-	b *= dimNumerator;
-	b /= dimDenominator;
-
-	originalColor.r = (Uint8)r;
-	originalColor.g = (Uint8)g;
-	originalColor.b = (Uint8)b;
-
-	return originalColor;
+	return interpolate(originalColor, colors[0], dimNumerator, dimDenominator);
 }
 
 void renderGrid(unsigned int animation);
@@ -110,6 +95,14 @@ void initColors()
 	colors[9].r = 125;
 	colors[9].g = 120;
 	colors[9].b = 95;
+
+	colors[10].r = 204;
+	colors[10].g = 102;
+	colors[10].b = 255;
+
+	colors[11].r = 51;
+	colors[11].g = 204;
+	colors[11].b = 255;
 }
 
 void destroyRendering()
@@ -131,7 +124,7 @@ void doRendering()
 
 	baseRenderingSDLTick = currentSDLTick;
 
-	SDL_SetRenderDrawColor(graphics.renderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(graphics.renderer, colors[0].r, colors[0].g, colors[0].b, 255);
 	SDL_RenderClear(graphics.renderer);
 
 	if (menuState.isActive)
@@ -162,11 +155,11 @@ void renderMenu()
 
 	SDL_Color gray = {100, 100, 100};
 
-	unsigned char colorCorrect = (SDL_GetTicks() / 200) % 200;
-	if (colorCorrect > 100)
-		colorCorrect = 200 - colorCorrect;
+	unsigned char colorCorrect = (SDL_GetTicks() / 100) % 100;
+	if (colorCorrect > 50)
+		colorCorrect = 100 - colorCorrect;
 
-	SDL_Color varyingColor = {50 + colorCorrect, 50, 250 - colorCorrect};
+	SDL_Color varyingColor = interpolate(colors[10], colors[11], colorCorrect, 50);
 
 
 
@@ -277,8 +270,6 @@ void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int to
 
 void renderEnqueuedPiece()
 {
-	/*TODO: correct piece appearance in enqueued frame*/
-
 	renderPiece(gameState.nextPieceType, 0, ENQUEUED_FRAME_TOP + 1 + pieces[gameState.nextPieceType].correctTop,
 	            ENQUEUED_FRAME_LEFT + 1 + pieces[gameState.nextPieceType].correctLeft, 0);
 }
@@ -348,4 +339,19 @@ void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsign
 
 	SDL_SetRenderDrawColor(graphics.renderer, innerColor.r, innerColor.g, innerColor.b, 255);
 	SDL_RenderFillRect(graphics.renderer, &rect);
+}
+
+SDL_Color interpolate(SDL_Color color1, SDL_Color color2, unsigned int factorNumerator, unsigned int factorDenominator)
+{
+	unsigned int r = color1.r * factorNumerator + color2.r * (factorDenominator - factorNumerator);
+	unsigned int g = color1.g * factorNumerator + color2.g * (factorDenominator - factorNumerator);
+	unsigned int b = color1.b * factorNumerator + color2.b * (factorDenominator - factorNumerator);
+
+	r /= factorDenominator;
+	g /= factorDenominator;
+	b /= factorDenominator;
+
+	SDL_Color result = {r,g,b};
+
+	return result;
 }
