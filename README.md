@@ -56,13 +56,23 @@ Planned Features:
 Soon:
 
 1) Sound effects.
-2) Persistent configurations (save configurations to a file and load them when the game loads).
 
 Later:
 1) Music
-2) Configurable game settings.
 
 Much later, maybe:
 
 1) Controller support.
-2) Multi-player mode. 
+2) Multi-player mode.
+
+Road Map:
+
+Version 0.3 :
+
+1) Finish Planned Features (sound effects)
+
+Version 0.4 : 
+
+1) Export more hardcoded settings
+2) Customizable color scheme
+3) More animations
