@@ -14,6 +14,7 @@ void initSettings()
 	if (!file)
 	{
 		defaultSettings();
+		return;
 	}
 
 	settings readSettings;
