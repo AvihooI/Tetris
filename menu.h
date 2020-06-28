@@ -8,6 +8,11 @@
 #include "tetris.h"
 #include "logic.h"
 
+#define MENU_COUNT 2
+
+#define MAIN_MENU 0
+#define SETTINGS_MENU 1
+
 typedef enum
 {
 	MENU_PRESS_LEFT,
@@ -48,6 +53,8 @@ void initMenu();
 void destroyMenu();
 
 void activateMenu();
+
+void menuTransition(unsigned int selectedMenu);
 
 void menuActionUp();
 

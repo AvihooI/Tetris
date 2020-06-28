@@ -18,7 +18,37 @@ void renderText();
 
 void renderMenu();
 
-void renderAnimationGrid();
+void initFonts();
+
+void closeFonts();
+
+void refreshWindowSize()
+{
+	SDL_SetWindowSize(graphics.window,BLOCK_SIZE * WINDOW_WIDTH, BLOCK_SIZE * WINDOW_HEIGHT);
+
+	initFonts();
+}
+
+void initFonts()
+{
+	closeFonts();
+
+	graphics.mainFont = TTF_OpenFont(FONT_FILENAME, BLOCK_SIZE);
+	graphics.smallFont = TTF_OpenFont(FONT_FILENAME, (BLOCK_SIZE * 3) / 4);
+}
+
+void closeFonts()
+{
+	if (graphics.mainFont)
+	{
+		TTF_CloseFont(graphics.mainFont);
+	}
+
+	if (graphics.smallFont)
+	{
+		TTF_CloseFont(graphics.smallFont);
+	}
+}
 
 int initRendering()
 {
@@ -44,8 +74,7 @@ int initRendering()
 
 	TTF_Init();
 
-	graphics.mainFont = TTF_OpenFont(FONT_FILENAME, BLOCK_SIZE);
-	graphics.smallFont = TTF_OpenFont(FONT_FILENAME, (BLOCK_SIZE * 3) / 4);
+	initFonts();
 
 	baseRenderingSDLTick = SDL_GetTicks();
 
@@ -113,7 +142,9 @@ void destroyRendering()
 {
 	SDL_DestroyRenderer(graphics.renderer);
 	SDL_DestroyWindow(graphics.window);
-	TTF_CloseFont(graphics.mainFont);
+
+	closeFonts();
+
 	TTF_Quit();
 }
 
@@ -155,7 +186,9 @@ void doRendering()
 
 void renderMenu()
 {
-	renderFrame(MENU_TOP, MENU_LEFT, MENU_HEIGHT, MENU_WIDTH, 1);
+	unsigned int menuItemCount = menuState.menus[menuState.selectedMenu].menuItemCount;
+
+	renderFrame(MENU_TOP, MENU_LEFT, menuItemCount*MENU_ITEM_SPACING + 1, MENU_WIDTH, 1);
 
 	unsigned char colorCorrect = (SDL_GetTicks() / 100) % 100;
 	if (colorCorrect > 50)
@@ -164,8 +197,7 @@ void renderMenu()
 	SDL_Color varyingColor = interpolate(colors[10], colors[11], colorCorrect, 50);
 
 
-
-	for (int i = 0; i < MAIN_MENU_ITEM_COUNT; i++)
+	for (int i = 0; i < menuItemCount; i++)
 	{
 		SDL_Color selectedColor = (menuState.menus[menuState.selectedMenu].selectedItem == i ? varyingColor : colors[1]);
 

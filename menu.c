@@ -4,15 +4,17 @@
 
 #include "menu.h"
 #include "main_menu.h"
+#include "settings_menu.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 void initMenu()
 {
-	menuState.menus = malloc(1*sizeof(menu));
-	menuState.menuCount = 1;
+	menuState.menus = malloc(MENU_COUNT*sizeof(menu));
+	menuState.menuCount = MENU_COUNT;
 
 	menuState.menus[0] = createMainMenu();
+	menuState.menus[1] = createSettingsMenu();
 
 	menuState.isActive = 0;
 	menuState.wantsToQuit = 0;
@@ -33,7 +35,7 @@ void destroyMenu()
 
 void menuActionUp()
 {
-	menuState.menus[menuState.selectedMenu].selectedItem = (menuState.menus[menuState.selectedMenu].selectedItem - 1) % menuState.menus[menuState.selectedMenu].menuItemCount;
+	menuState.menus[menuState.selectedMenu].selectedItem = (menuState.menus[menuState.selectedMenu].selectedItem + (menuState.menus[menuState.selectedMenu].menuItemCount) - 1) % menuState.menus[menuState.selectedMenu].menuItemCount;
 }
 
 void menuActionDown()
@@ -58,7 +60,7 @@ void menuActionRight()
 
 void activateMenu()
 {
-	menuState.selectedMenu = 0;
+	menuState.selectedMenu = MAIN_MENU;
 	menuState.menus[0].selectedItem = 0;
 	menuState.isActive = 1;
 }

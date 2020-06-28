@@ -56,8 +56,7 @@ Planned Features:
 Soon:
 
 1) Sound effects.
-2) Configurable display.
-3) Persistent configurations.
+2) Persistent configurations (save configurations to a file and load them when the game loads).
 
 Later:
 1) Music
