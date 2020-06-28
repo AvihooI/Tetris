@@ -71,7 +71,7 @@ Version 0.3 :
 
 1) Finish Planned Features (sound effects)
 
-Version 0.4 : 
+Version 0.5 : 
 
 1) Export more hardcoded settings
 2) Customizable color scheme
