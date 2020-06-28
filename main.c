@@ -3,11 +3,13 @@
 #include "events.h"
 #include "rendering.h"
 #include "menu.h"
+#include "settings.h"
 
 void gameLoop();
 
 int main(int argc, char *argv[])
 {
+	initSettings();
 
 	if (SDL_Init(SDL_INIT_EVERYTHING))
 		return -1;
@@ -15,6 +17,7 @@ int main(int argc, char *argv[])
 	int status;
 	if ((status = initRendering() != 0))
 		return status;
+
 
 	initLogic();
 	initEvents();

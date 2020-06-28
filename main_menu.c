@@ -15,16 +15,51 @@ menuItem createQuitMenuItem();
 
 menuItem createResumeMenuItem();
 
+menuItem createSettingsMenuItem();
+
 menu createMainMenu()
 {
 	menu result;
 
-	result.menuItemCount = 4;
-	result.menuItems = malloc(sizeof(menuItem)*4);
+	result.menuItemCount = MAIN_MENU_ITEM_COUNT;
+	result.menuItems = malloc(sizeof(menuItem)*MAIN_MENU_ITEM_COUNT);
 	result.menuItems[0] = createResumeMenuItem();
 	result.menuItems[1] = createNewGameMenuItem();
 	result.menuItems[2] = createLevelMenuItem();
-	result.menuItems[3] = createQuitMenuItem();
+	result.menuItems[3] = createSettingsMenuItem();
+	result.menuItems[4] = createQuitMenuItem();
+
+	return result;
+}
+
+const char *settingsGetText()
+{
+	static char text[] = "Settings";
+
+	return text;
+}
+
+void settingsAction(menuAction action)
+{
+	switch (action)
+	{
+
+		case MENU_PRESS_LEFT:
+			break;
+		case MENU_PRESS_RIGHT:
+			break;
+		case MENU_PRESS_RETURN:
+			menuState.selectedMenu = SETTINGS_MENU;
+			break;
+	}
+}
+
+menuItem createSettingsMenuItem()
+{
+	menuItem result;
+
+	result.getText  = settingsGetText;
+	result.doAction = settingsAction;
 
 	return result;
 }
@@ -64,7 +99,7 @@ menuItem createLevelMenuItem()
 	return result;
 }
 
-const char *newGameText()
+const char *newGameGetText()
 {
 	static char text[] = "New Game";
 
@@ -84,7 +119,7 @@ menuItem createNewGameMenuItem()
 {
 	menuItem result;
 
-	result.getText = newGameText;
+	result.getText = newGameGetText;
 	result.doAction = newGameAction;
 
 	return result;
