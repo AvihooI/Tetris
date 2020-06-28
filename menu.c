@@ -10,7 +10,7 @@
 
 void initMenu()
 {
-	menuState.menus = malloc(MENU_COUNT*sizeof(menu));
+	menuState.menus = malloc(MENU_COUNT * sizeof(menu));
 	menuState.menuCount = MENU_COUNT;
 
 	menuState.menus[0] = createMainMenu();
@@ -35,27 +35,33 @@ void destroyMenu()
 
 void menuActionUp()
 {
-	menuState.menus[menuState.selectedMenu].selectedItem = (menuState.menus[menuState.selectedMenu].selectedItem + (menuState.menus[menuState.selectedMenu].menuItemCount) - 1) % menuState.menus[menuState.selectedMenu].menuItemCount;
+	menuState.menus[menuState.selectedMenu].selectedItem = (menuState.menus[menuState.selectedMenu].selectedItem +
+	                                                        (menuState.menus[menuState.selectedMenu].menuItemCount) -
+	                                                        1) % menuState.menus[menuState.selectedMenu].menuItemCount;
 }
 
 void menuActionDown()
 {
-	menuState.menus[menuState.selectedMenu].selectedItem = (menuState.menus[menuState.selectedMenu].selectedItem + 1) % menuState.menus[menuState.selectedMenu].menuItemCount;
+	menuState.menus[menuState.selectedMenu].selectedItem = (menuState.menus[menuState.selectedMenu].selectedItem + 1) %
+	                                                       menuState.menus[menuState.selectedMenu].menuItemCount;
 }
 
 void menuActionReturn()
 {
-	menuState.menus[menuState.selectedMenu].menuItems[menuState.menus[menuState.selectedMenu].selectedItem].doAction(MENU_PRESS_RETURN);
+	menuState.menus[menuState.selectedMenu].menuItems[menuState.menus[menuState.selectedMenu].selectedItem].doAction(
+			MENU_PRESS_RETURN);
 }
 
 void menuActionLeft()
 {
-	menuState.menus[menuState.selectedMenu].menuItems[menuState.menus[menuState.selectedMenu].selectedItem].doAction(MENU_PRESS_LEFT);
+	menuState.menus[menuState.selectedMenu].menuItems[menuState.menus[menuState.selectedMenu].selectedItem].doAction(
+			MENU_PRESS_LEFT);
 }
 
 void menuActionRight()
 {
-	menuState.menus[menuState.selectedMenu].menuItems[menuState.menus[menuState.selectedMenu].selectedItem].doAction(MENU_PRESS_RIGHT);
+	menuState.menus[menuState.selectedMenu].menuItems[menuState.menus[menuState.selectedMenu].selectedItem].doAction(
+			MENU_PRESS_RIGHT);
 }
 
 void activateMenu()

@@ -21,7 +21,7 @@ void initLevelTicks()
 
 	for (int i = 1; i < MAX_LEVEL; i++)
 	{
-		levelTicks[i] = (levelTicks[i-1] * SPEED_GROWTH_RATE_DENOMINATOR) / SPEED_GROWTH_RATE_NUMERATOR;
+		levelTicks[i] = (levelTicks[i - 1] * SPEED_GROWTH_RATE_DENOMINATOR) / SPEED_GROWTH_RATE_NUMERATOR;
 	}
 
 }
@@ -71,7 +71,9 @@ void update(unsigned int reducedLines)
 		updateScore(reducedLines);
 
 		if (gameState.lineCount >= gameState.linesToLevel)
+		{
 			levelUp();
+		}
 	}
 
 	gameState.ticksPerStep = levelTicks[gameState.level];
@@ -86,16 +88,19 @@ void updateScore(unsigned int lines)
 		return;
 	}
 
-	gameState.score += (gameState.level+1) * lines;
+	gameState.score += (gameState.level + 1) * lines;
 }
 
 void levelUp()
 {
 	gameState.lineCount = 0;
-	gameState.linesToLevel = (gameState.linesToLevel * LINES_TO_LEVEL_GROWTH_NUMERATOR) / LINES_TO_LEVEL_GROWTH_DENOMINATOR;
+	gameState.linesToLevel =
+			(gameState.linesToLevel * LINES_TO_LEVEL_GROWTH_NUMERATOR) / LINES_TO_LEVEL_GROWTH_DENOMINATOR;
 
 	if (gameState.level >= MAX_LEVEL - 1)
+	{
 		return;
+	}
 
 	gameState.level++;
 }
@@ -126,14 +131,20 @@ unsigned int verifyPiecePlacement(int pieceLeft, int pieceTop, unsigned int piec
 
 				/*Check out of bounds*/
 				if (blockLeft < 0 || blockLeft >= GAME_GRID_WIDTH)
+				{
 					return 0;
+				}
 
 				if (blockTop < 0 || blockTop >= GAME_GRID_HEIGHT)
+				{
 					return 0;
+				}
 
 				/*Check grid collision*/
 				if (gameState.grid[blockTop][blockLeft])
+				{
 					return 0;
+				}
 			}
 		}
 	}
@@ -168,7 +179,9 @@ void rotate(unsigned int clockwise)
 
 		if (tryPiecePlacement(gameState.pieceLeft + correctLeft, gameState.pieceTop + correctTop, gameState.pieceType,
 		                      nextConfiguration))
+		{
 			break;
+		}
 	}
 
 }
@@ -188,7 +201,9 @@ void tick()
 	gameState.currentTick++;
 
 	if (gameState.currentTick >= gameState.ticksPerStep)
+	{
 		step();
+	}
 }
 
 void step()
@@ -203,7 +218,9 @@ void step()
 
 	if (!tryPiecePlacement(gameState.pieceLeft, gameState.pieceTop + 1, gameState.pieceType,
 	                       gameState.pieceConfiguration))
+	{
 		landPiece();
+	}
 }
 
 unsigned int newPiece()
@@ -218,13 +235,16 @@ unsigned int newPiece()
 	for (tryTop = -3; tryTop <= 0; tryTop++)
 	{
 		if (verifyPiecePlacement(PIECE_START_LEFT + pieces[pieceType].correctLeft, tryTop, pieceType, 0))
+		{
 			break;
+		}
 	}
 
 	if (tryTop == 1)
 	{
 		return 0;
-	} else
+	}
+	else
 	{
 		gameState.pieceType = pieceType;
 		gameState.pieceConfiguration = 0;
@@ -265,7 +285,9 @@ void landPiece()
 	}
 
 	if (!newPiece())
+	{
 		gameOver();
+	}
 	else
 	{
 		update(gameState.reducedLinesCount);
@@ -289,7 +311,9 @@ unsigned int checkLine(unsigned int line)
 	for (int i = 0; i < GAME_GRID_WIDTH; i++)
 	{
 		if (!gameState.grid[line][i])
+		{
 			return 0;
+		}
 	}
 
 	return 1;
@@ -326,7 +350,7 @@ void collapseLine(unsigned int k)
 	{
 		for (int i = 0; i < GAME_GRID_WIDTH; i++)
 		{
-			gameState.grid[j][i] = gameState.grid[j-1][i];
+			gameState.grid[j][i] = gameState.grid[j - 1][i];
 		}
 	}
 
@@ -348,7 +372,8 @@ void pause_unpause()
 	{
 		newGame();
 		gameState.gamePaused = 0;
-	} else
+	}
+	else
 	{
 		gameState.gamePaused = !gameState.gamePaused;
 	}
@@ -362,7 +387,9 @@ void drop()
 void doAction(tetrisAction action)
 {
 	if (gameState.gamePaused)
+	{
 		return;
+	}
 
 	switch (action)
 	{

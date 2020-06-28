@@ -14,6 +14,8 @@ menuItem createBackMenuItem();
 
 menuItem createBlockSizeMenuItem();
 
+menuItem createMovementRepeatRateMenuItem();
+
 menu createSettingsMenu()
 {
 	menu result;
@@ -23,8 +25,58 @@ menu createSettingsMenu()
 	result.selectedItem = 0;
 
 	result.menuItems[0] = createBlockSizeMenuItem();
-	result.menuItems[1] = createBackMenuItem();
+	result.menuItems[1] = createMovementRepeatRateMenuItem();
+	result.menuItems[2] = createBackMenuItem();
 
+
+	return result;
+}
+
+void movementRepeatRateAction(menuAction action)
+{
+	switch (action)
+	{
+
+		case MENU_PRESS_LEFT:
+			currentSettings.movementKeyboardCooldown--;
+			if (currentSettings.movementKeyboardCooldown < MIN_COOLDOWN)
+			{
+				currentSettings.movementKeyboardCooldown = -1;
+			}
+			break;
+		case MENU_PRESS_RIGHT:
+			currentSettings.movementKeyboardCooldown = min(
+					max(currentSettings.movementKeyboardCooldown + 1, MIN_COOLDOWN), MAX_COOLDOWN);
+			refreshWindowSize();
+			break;
+		case MENU_PRESS_RETURN:
+			break;
+	}
+
+}
+
+const char *movementRepeatRateGetText()
+{
+	static char levelStr[64];
+
+	if (currentSettings.movementKeyboardCooldown > 0)
+	{
+		snprintf(levelStr, sizeof(levelStr), "<Move Repeat Rate: %d>", currentSettings.movementKeyboardCooldown);
+	}
+	else
+	{
+		snprintf(levelStr, sizeof(levelStr), "<Move Repeat Rate: OFF>");
+	}
+
+	return levelStr;
+}
+
+menuItem createMovementRepeatRateMenuItem()
+{
+	menuItem result;
+
+	result.getText = movementRepeatRateGetText;
+	result.doAction = movementRepeatRateAction;
 
 	return result;
 }
@@ -35,17 +87,16 @@ void blockSizeAction(menuAction action)
 	{
 
 		case MENU_PRESS_LEFT:
-			settings.blockSize = max(settings.blockSize - 1, MIN_BLOCK_SIZE);
+			currentSettings.blockSize = max(currentSettings.blockSize - 1, MIN_BLOCK_SIZE);
 			refreshWindowSize();
 			break;
 		case MENU_PRESS_RIGHT:
-			settings.blockSize = min(settings.blockSize + 1, MAX_BLOCK_SIZE);
+			currentSettings.blockSize = min(currentSettings.blockSize + 1, MAX_BLOCK_SIZE);
 			refreshWindowSize();
 			break;
 		case MENU_PRESS_RETURN:
 			break;
 	}
-
 
 }
 
@@ -53,7 +104,7 @@ const char *blockSizeGetText()
 {
 	static char levelStr[64];
 
-	snprintf(levelStr, sizeof(levelStr), "<Block Size: %d>", settings.blockSize);
+	snprintf(levelStr, sizeof(levelStr), "<Block Size: %d>", currentSettings.blockSize);
 
 	return levelStr;
 }
@@ -94,7 +145,7 @@ menuItem createBackMenuItem()
 {
 	menuItem result;
 
-	result.getText  = backGetText;
+	result.getText = backGetText;
 	result.doAction = backAction;
 
 	return result;

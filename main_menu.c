@@ -22,7 +22,7 @@ menu createMainMenu()
 	menu result;
 
 	result.menuItemCount = MAIN_MENU_ITEM_COUNT;
-	result.menuItems = malloc(sizeof(menuItem)*MAIN_MENU_ITEM_COUNT);
+	result.menuItems = malloc(sizeof(menuItem) * MAIN_MENU_ITEM_COUNT);
 	result.menuItems[0] = createResumeMenuItem();
 	result.menuItems[1] = createNewGameMenuItem();
 	result.menuItems[2] = createLevelMenuItem();
@@ -58,7 +58,7 @@ menuItem createSettingsMenuItem()
 {
 	menuItem result;
 
-	result.getText  = settingsGetText;
+	result.getText = settingsGetText;
 	result.doAction = settingsAction;
 
 	return result;
@@ -135,7 +135,9 @@ const char *quitGetText()
 void quitAction(menuAction action)
 {
 	if (action == MENU_PRESS_RETURN)
+	{
 		menuState.wantsToQuit = 1;
+	}
 }
 
 menuItem createQuitMenuItem()
@@ -151,7 +153,9 @@ menuItem createQuitMenuItem()
 void resumeAction(menuAction action)
 {
 	if (action == MENU_PRESS_RETURN)
+	{
 		menuState.isActive = 0;
+	}
 
 }
 

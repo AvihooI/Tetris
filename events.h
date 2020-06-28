@@ -9,10 +9,11 @@
 #include "logic.h"
 #include "menu.h"
 #include "animation.h"
+#include "settings.h"
 
-#define MAX_MOVEMENT_KEYBOARD_COOLDOWN 85
-#define MAX_ROTATION_KEYBOARD_COOLDOWN -1
-#define MAX_DROP_KEYBOARD_COOLDOWN -1
+#define MOVEMENT_KEYBOARD_COOLDOWN (currentSettings.movementKeyboardCooldown)
+#define ROTATION_KEYBOARD_COOLDOWN (currentSettings.rotationKeyboardCooldown)
+#define DROP_KEYBOARD_COOLDOWN (currentSettings.dropKeyboardCooldown)
 
 #define MILLISECONDS_PER_KEYBOARD_CHECK 1
 

@@ -12,11 +12,15 @@ int main(int argc, char *argv[])
 	initSettings();
 
 	if (SDL_Init(SDL_INIT_EVERYTHING))
+	{
 		return -1;
+	}
 
 	int status;
 	if ((status = initRendering() != 0))
+	{
 		return status;
+	}
 
 
 	initLogic();
@@ -28,6 +32,8 @@ int main(int argc, char *argv[])
 	destroyMenu();
 	destroyRendering();
 	SDL_Quit();
+
+	saveSettings();
 
 	return 0;
 }

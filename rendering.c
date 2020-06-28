@@ -24,7 +24,7 @@ void closeFonts();
 
 void refreshWindowSize()
 {
-	SDL_SetWindowSize(graphics.window,BLOCK_SIZE * WINDOW_WIDTH, BLOCK_SIZE * WINDOW_HEIGHT);
+	SDL_SetWindowSize(graphics.window, BLOCK_SIZE * WINDOW_WIDTH, BLOCK_SIZE * WINDOW_HEIGHT);
 
 	initFonts();
 }
@@ -188,21 +188,24 @@ void renderMenu()
 {
 	unsigned int menuItemCount = menuState.menus[menuState.selectedMenu].menuItemCount;
 
-	renderFrame(MENU_TOP, MENU_LEFT, menuItemCount*MENU_ITEM_SPACING + 1, MENU_WIDTH, 1);
+	renderFrame(MENU_TOP, MENU_LEFT, menuItemCount * MENU_ITEM_SPACING + 1, MENU_WIDTH, 1);
 
 	unsigned char colorCorrect = (SDL_GetTicks() / 100) % 100;
 	if (colorCorrect > 50)
+	{
 		colorCorrect = 100 - colorCorrect;
+	}
 
 	SDL_Color varyingColor = interpolate(colors[10], colors[11], colorCorrect, 50);
 
 
 	for (int i = 0; i < menuItemCount; i++)
 	{
-		SDL_Color selectedColor = (menuState.menus[menuState.selectedMenu].selectedItem == i ? varyingColor : colors[1]);
+		SDL_Color selectedColor = (menuState.menus[menuState.selectedMenu].selectedItem == i ? varyingColor
+		                                                                                     : colors[1]);
 
 		printText((MENU_LEFT + MENU_WIDTH / 2) * BLOCK_SIZE, (MENU_TOP + 1 + MENU_ITEM_SPACING * i) * BLOCK_SIZE, 1, 0,
-		          selectedColor, graphics.mainFont, menuState.menus[menuState.selectedMenu].menuItems[i].getText());
+		          selectedColor, graphics.smallFont, menuState.menus[menuState.selectedMenu].menuItems[i].getText());
 	}
 }
 
@@ -223,10 +226,14 @@ void printText(int left, int top, unsigned int leftCentered, unsigned int topCen
 
 	SDL_QueryTexture(texture, 0, 0, &dRect.w, &dRect.h);
 	if (leftCentered)
+	{
 		dRect.x -= dRect.w / 2;
+	}
 
 	if (topCentered)
+	{
 		dRect.y -= dRect.h / 2;
+	}
 
 	SDL_RenderCopy(graphics.renderer, texture, 0, &dRect);
 
@@ -237,12 +244,14 @@ void printText(int left, int top, unsigned int leftCentered, unsigned int topCen
 void renderText()
 {
 
-	printText(SCORE_TEXT_LEFT * BLOCK_SIZE, (SCORE_TEXT_TOP) * BLOCK_SIZE, 0, 0, colors[12], graphics.mainFont, "Score: %d",
+	printText(SCORE_TEXT_LEFT * BLOCK_SIZE, (SCORE_TEXT_TOP) * BLOCK_SIZE, 0, 0, colors[12], graphics.mainFont,
+	          "Score: %d",
 	          gameState.score);
 	printText(LINES_REMAINING_TEXT_LEFT * BLOCK_SIZE, LINES_REMAINING_TEXT_TOP * BLOCK_SIZE, 0, 0, colors[12],
 	          graphics.mainFont, "Lines remaining: %d", gameState.linesToLevel - gameState.lineCount);
 
-	printText(LEVEL_TEXT_LEFT * BLOCK_SIZE + BLOCK_SIZE / 2, LEVEL_TEXT_TOP * BLOCK_SIZE + BLOCK_SIZE / 2, 1, 1, colors[12],
+	printText(LEVEL_TEXT_LEFT * BLOCK_SIZE + BLOCK_SIZE / 2, LEVEL_TEXT_TOP * BLOCK_SIZE + BLOCK_SIZE / 2, 1, 1,
+	          colors[12],
 	          graphics.mainFont, "Level: %d", gameState.level + 1);
 
 	if (gameState.gameOver || gameState.gamePaused)
@@ -285,7 +294,9 @@ void renderBoundaries()
 void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int top, int left, unsigned int visibleTop)
 {
 	if (pieceType >= 7)
+	{
 		return;
+	}
 
 	unsigned const int (*currentPiece)[4][4] = &pieces[pieceType].blocks[pieceConfiguration];
 
@@ -384,7 +395,7 @@ SDL_Color interpolate(SDL_Color color1, SDL_Color color2, unsigned int factorNum
 	g /= factorDenominator;
 	b /= factorDenominator;
 
-	SDL_Color result = {r,g,b};
+	SDL_Color result = {r, g, b};
 
 	return result;
 }

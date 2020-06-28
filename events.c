@@ -5,8 +5,6 @@
 #include <SDL.h>
 #include "events.h"
 
-
-
 unsigned int baseEventsSDLTick;
 unsigned int baseKeyboardStateSDLTick;
 
@@ -36,19 +34,24 @@ void initEvents()
 int doEvents()
 {
 	if (menuState.wantsToQuit)
+	{
 		return 0;
+	}
 
 	SDL_Event e;
 
 	SDL_PollEvent(&e);
 	if (e.type == SDL_QUIT)
+	{
 		return 0;
+	}
 
 	if (!menuState.isActive)
 	{
 		handleGameInput(&e);
 		handleTicks();
-	} else
+	}
+	else
 	{
 		handleMenuInput(&e);
 	}
@@ -104,7 +107,7 @@ void handleGameInput(SDL_Event *e)
 
 	else if ((*e).type == SDL_KEYUP)
 	{
-		switch((*e).key.keysym.scancode)
+		switch ((*e).key.keysym.scancode)
 		{
 			case SDL_SCANCODE_UP:
 				keyboardCooldowns.rotateClockwiseCooldown = 0;
@@ -138,7 +141,9 @@ void handleTicks()
 		baseEventsSDLTick = currentSDLTick;
 
 		if (!animationState.ongoing)
+		{
 			doAction(TICK);
+		}
 
 		animationTick();
 
@@ -149,12 +154,15 @@ void handleTicks()
 		baseKeyboardStateSDLTick = currentSDLTick;
 
 		if (!animationState.ongoing)
+		{
 			doRawInput();
+		}
 	}
 
 }
 
-unsigned int rawInputProcess(unsigned const char* keyboardState, unsigned char scanCode, int *currentCooldown, int maxCooldown)
+unsigned int
+rawInputProcess(unsigned const char *keyboardState, unsigned char scanCode, int *currentCooldown, int maxCooldown)
 {
 	if (keyboardState[scanCode])
 	{
@@ -174,23 +182,38 @@ unsigned int rawInputProcess(unsigned const char* keyboardState, unsigned char s
 
 void doRawInput()
 {
-	unsigned const char* keyboardState = SDL_GetKeyboardState(NULL);
+	unsigned const char *keyboardState = SDL_GetKeyboardState(NULL);
 
-	if (rawInputProcess(keyboardState, SDL_SCANCODE_LEFT, &keyboardCooldowns.leftCooldown, MAX_MOVEMENT_KEYBOARD_COOLDOWN))
+	if (rawInputProcess(keyboardState, SDL_SCANCODE_LEFT, &keyboardCooldowns.leftCooldown, MOVEMENT_KEYBOARD_COOLDOWN))
+	{
 		doAction(MOVE_LEFT);
+	}
 
-	if (rawInputProcess(keyboardState, SDL_SCANCODE_RIGHT, &keyboardCooldowns.rightCooldown, MAX_MOVEMENT_KEYBOARD_COOLDOWN))
+	if (rawInputProcess(keyboardState, SDL_SCANCODE_RIGHT, &keyboardCooldowns.rightCooldown,
+	                    MOVEMENT_KEYBOARD_COOLDOWN))
+	{
 		doAction(MOVE_RIGHT);
+	}
 
-	if (rawInputProcess(keyboardState, SDL_SCANCODE_DOWN, &keyboardCooldowns.downCooldown, MAX_MOVEMENT_KEYBOARD_COOLDOWN))
+	if (rawInputProcess(keyboardState, SDL_SCANCODE_DOWN, &keyboardCooldowns.downCooldown, MOVEMENT_KEYBOARD_COOLDOWN))
+	{
 		doAction(MOVE_DOWN);
+	}
 
-	if (rawInputProcess(keyboardState, SDL_SCANCODE_SPACE, &keyboardCooldowns.dropCooldown, MAX_DROP_KEYBOARD_COOLDOWN))
+	if (rawInputProcess(keyboardState, SDL_SCANCODE_SPACE, &keyboardCooldowns.dropCooldown, DROP_KEYBOARD_COOLDOWN))
+	{
 		doAction(DROP);
+	}
 
-	if (rawInputProcess(keyboardState, SDL_SCANCODE_UP, &keyboardCooldowns.rotateClockwiseCooldown, MAX_ROTATION_KEYBOARD_COOLDOWN))
+	if (rawInputProcess(keyboardState, SDL_SCANCODE_UP, &keyboardCooldowns.rotateClockwiseCooldown,
+	                    ROTATION_KEYBOARD_COOLDOWN))
+	{
 		doAction(ROTATE_CLOCKWISE);
+	}
 
-	if (rawInputProcess(keyboardState, SDL_SCANCODE_LCTRL, &keyboardCooldowns.rotateCounterClockwiseCooldown, MAX_ROTATION_KEYBOARD_COOLDOWN))
+	if (rawInputProcess(keyboardState, SDL_SCANCODE_LCTRL, &keyboardCooldowns.rotateCounterClockwiseCooldown,
+	                    ROTATION_KEYBOARD_COOLDOWN))
+	{
 		doAction(ROTATE_COUNTER_CLOCKWISE);
+	}
 }

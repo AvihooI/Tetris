@@ -40,7 +40,9 @@ unsigned char inRecentPieces(unsigned int pieceType)
 	for (int i = 0; i < RECENT_PIECES_SIZE; i++)
 	{
 		if (pieceType == recentPieces[i])
+		{
 			return 1;
+		}
 	}
 
 	return 0;
@@ -51,11 +53,13 @@ unsigned int getNewPiece()
 	unsigned int attemptedPiece;
 
 
-	for (int i = 0 ; i < RANDOMIZER_MAX_ATTEMPTS; i++)
+	for (int i = 0; i < RANDOMIZER_MAX_ATTEMPTS; i++)
 	{
 		attemptedPiece = rand() % 7;
 		if (!inRecentPieces(attemptedPiece))
+		{
 			break;
+		}
 	}
 
 	addRecentPiece(attemptedPiece);

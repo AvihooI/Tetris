@@ -12,7 +12,7 @@
 #include "menu.h"
 #include "animation.h"
 
-#define BLOCK_SIZE (settings.blockSize)
+#define BLOCK_SIZE (currentSettings.blockSize)
 #define MILLISECONDS_PER_FRAME 33
 #define COLOR_COUNT 13
 #define FONT_FILENAME "hemi_head.ttf"
