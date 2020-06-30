@@ -5,20 +5,23 @@ Game Controls:
 3) Press the up arrow key and left control key to rotate the tetrino piece clockwise and counter-clockwise respectively.
 4) Press down to move the piece down (make one step).
 5) Press space to hard drop the piece.
+6) Press escape to open up a game menu which allows an assortment of options, pressing escape again leaves the menu.
 
 To build on Windows with Microsoft Visual C++ and CMake (version 3.16 and above):
 
-Download the 
+Download the SDL2, SDL2_ttf and SDL2_mixer development libraries. 
 
-Create two environment variables:
+Create three environment variables:
 1) SDL2 - the path to your SDL2 development library (the folder that has the include and lib directories)
-2) SDL2_TTF - the path to your SDL2_ttf development library
+2) SDL2_ttf - the path to your SDL2_ttf development library
+3) SDL2_mixer - the path to your SDL2_mixer development library
 
 Make sure you have the appropriate DLL files in the build directory (where the exe file goes):
 1) SDL2.dll
 2) SDL2_ttf.dll
-3) zlib1.dll
-4) libfreetype-6.dll
+3) zlib1.dll (for ttf)
+4) libfreetype-6.dll (for ttf)
+5) SDL2_mixer.dll and all of its 
 
 Those dll files can be found in the lib directories of SDL2 and SDL2_ttf.
 
