@@ -17,6 +17,10 @@ void handleMenuInput(SDL_Event *e);
 
 void doRawInput();
 
+void hookEvents();
+
+void clearCooldowns();
+
 void movementEvent(void)
 {
 
@@ -54,21 +58,31 @@ void initEvents()
 	baseEventsSDLTick = SDL_GetTicks();
 	baseKeyboardStateSDLTick = SDL_GetTicks();
 
+	clearCooldowns();
+
+	hookEvents();
+
+	initAnimation();
+}
+
+void clearCooldowns()
+{
 	keyboardCooldowns.downCooldown = 0;
 	keyboardCooldowns.leftCooldown = 0;
 	keyboardCooldowns.rightCooldown = 0;
 	keyboardCooldowns.rotateClockwiseCooldown = 0;
 	keyboardCooldowns.rotateCounterClockwiseCooldown = 0;
 	keyboardCooldowns.dropCooldown = 0;
+}
 
+void hookEvents()
+{
 	gameEvents.movement = movementEvent;
 	gameEvents.rotate = rotateEvent;
 	gameEvents.pieceLanded = pieceLandedEvent;
 	gameEvents.lineCleared = lineClearedEvent;
 	gameEvents.tetris = tetrisEvent;
 	gameEvents.levelUp = levelUpEvent;
-
-	initAnimation();
 }
 
 int doEvents()

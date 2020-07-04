@@ -24,13 +24,19 @@ struct
 } sounds;
 
 void initSound();
+
 void destroySound();
+
 void refreshSound();
 
 void playSoundLand();
+
 void playSoundLineClear();
+
 void playSoundRotate();
+
 void playSoundTetris();
+
 void playSoundLevelUp();
 
 #endif //TETRIS_SOUND_H

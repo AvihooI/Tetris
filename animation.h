@@ -23,5 +23,4 @@ void startAnimation();
 
 void animationTick();
 
-
 #endif //TETRIS_ANIMATION_H

@@ -13,7 +13,7 @@ void freeSamples();
 void initSound()
 {
 	Mix_Init(MIX_INIT_MP3);
-	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY,MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
+	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
 	refreshSound();
 
 	loadSamples();
@@ -78,7 +78,7 @@ void refreshSound()
 {
 	int effectiveVolume;
 
-	effectiveVolume = (MIX_MAX_VOLUME / (MAX_VOLUME-MIN_VOLUME)) * currentSettings.soundVolume;
+	effectiveVolume = (MIX_MAX_VOLUME / (MAX_VOLUME - MIN_VOLUME)) * currentSettings.soundVolume;
 
 	Mix_Volume(-1, effectiveVolume);
 }
