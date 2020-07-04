@@ -19,6 +19,8 @@ struct
 
 void initAnimation();
 
+void startAnimation();
+
 void animationTick();
 
 

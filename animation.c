@@ -13,15 +13,14 @@ void animationTick()
 		if (animationState.ticksRemaining == 0)
 		{
 			animationState.ongoing = 0;
-			gameState.reducedLinesCount = 0;
 		}
 	}
-	else if (!animationState.ongoing && gameState.reducedLinesCount > 0)
-	{
-		animationState.ticksRemaining = ANIMATION_TICKS;
-		animationState.ongoing = 1;
-	}
+}
 
+void startAnimation()
+{
+	animationState.ticksRemaining = ANIMATION_TICKS;
+	animationState.ongoing = 1;
 }
 
 void initAnimation()
