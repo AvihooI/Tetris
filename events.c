@@ -4,6 +4,7 @@
 
 #include <SDL.h>
 #include "events.h"
+#include "sound.h"
 
 unsigned int baseEventsSDLTick;
 unsigned int baseKeyboardStateSDLTick;
@@ -16,6 +17,38 @@ void handleMenuInput(SDL_Event *e);
 
 void doRawInput();
 
+void movementEvent(void)
+{
+
+}
+
+void pieceLandedEvent(void)
+{
+	playSoundLand();
+}
+
+void lineClearedEvent(void)
+{
+	startAnimation();
+	playSoundLineClear();
+}
+
+void tetrisEvent(void)
+{
+	startAnimation();
+	playSoundTetris();
+}
+
+void rotateEvent(void)
+{
+	playSoundRotate();
+}
+
+void levelUpEvent(void)
+{
+	playSoundLevelUp();
+}
+
 void initEvents()
 {
 	baseEventsSDLTick = SDL_GetTicks();
@@ -27,6 +60,13 @@ void initEvents()
 	keyboardCooldowns.rotateClockwiseCooldown = 0;
 	keyboardCooldowns.rotateCounterClockwiseCooldown = 0;
 	keyboardCooldowns.dropCooldown = 0;
+
+	gameEvents.movement = movementEvent;
+	gameEvents.rotate = rotateEvent;
+	gameEvents.pieceLanded = pieceLandedEvent;
+	gameEvents.lineCleared = lineClearedEvent;
+	gameEvents.tetris = tetrisEvent;
+	gameEvents.levelUp = levelUpEvent;
 
 	initAnimation();
 }

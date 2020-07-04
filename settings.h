@@ -19,8 +19,15 @@
 #define DEFAULT_MOVEMENT_KEYBOARD_COOLDOWN 85
 #define DEFAULT_ROTATION_KEYBOARD_COOLDOWN -1
 #define DEFAULT_DROP_KEYBOARD_COOLDOWN -1
+
 #define MAX_COOLDOWN 200
 #define MIN_COOLDOWN 20
+
+#define DEFAULT_VOLUME 4
+
+#define MAX_VOLUME 8
+#define MIN_VOLUME 0
+
 
 void initSettings();
 
@@ -31,10 +38,17 @@ void saveSettings();
 typedef struct settings
 {
 	unsigned int version;
+
+	/*Display*/
 	unsigned int blockSize;
+
+	/*Input*/
 	int movementKeyboardCooldown;
 	int rotationKeyboardCooldown;
 	int dropKeyboardCooldown;
+
+	/*Sound*/
+	int soundVolume;
 } settings;
 
 settings currentSettings;

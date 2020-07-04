@@ -49,4 +49,5 @@ void defaultSettings()
 	currentSettings.movementKeyboardCooldown = DEFAULT_MOVEMENT_KEYBOARD_COOLDOWN;
 	currentSettings.rotationKeyboardCooldown = DEFAULT_ROTATION_KEYBOARD_COOLDOWN;
 	currentSettings.dropKeyboardCooldown = DEFAULT_DROP_KEYBOARD_COOLDOWN;
+	currentSettings.soundVolume = DEFAULT_VOLUME;
 }

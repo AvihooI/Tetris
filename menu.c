@@ -2,11 +2,11 @@
 // Created by Avihoo on 23/06/2020.
 //
 
+#include <stdlib.h>
 #include "menu.h"
 #include "main_menu.h"
 #include "settings_menu.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "sound.h"
 
 void initMenu()
 {
@@ -16,7 +16,9 @@ void initMenu()
 	menuState.menus[0] = createMainMenu();
 	menuState.menus[1] = createSettingsMenu();
 
-	menuState.isActive = 0;
+	menuState.menus[0].selectedItem = 0;
+	menuState.selectedMenu = 0;
+	menuState.isActive = 1;
 	menuState.wantsToQuit = 0;
 
 }

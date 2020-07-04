@@ -4,6 +4,7 @@
 #include "rendering.h"
 #include "menu.h"
 #include "settings.h"
+#include "sound.h"
 
 void gameLoop();
 
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
 		return status;
 	}
 
-
+	initSound();
 	initLogic();
 	initEvents();
 	initMenu();
@@ -30,6 +31,7 @@ int main(int argc, char *argv[])
 	gameLoop();
 
 	destroyMenu();
+	destroySound();
 	destroyRendering();
 	SDL_Quit();
 
