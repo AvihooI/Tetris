@@ -7,7 +7,7 @@
 #include <math.h>
 #include "menu.h"
 #include "rendering.h"
-
+#include "sound.h"
 #include "settings_menu.h"
 
 menuItem createBackMenuItem();
@@ -15,6 +15,8 @@ menuItem createBackMenuItem();
 menuItem createBlockSizeMenuItem();
 
 menuItem createMovementRepeatRateMenuItem();
+
+menuItem createSoundVolumeMenuItem();
 
 menu createSettingsMenu()
 {
@@ -26,8 +28,48 @@ menu createSettingsMenu()
 
 	result.menuItems[0] = createBlockSizeMenuItem();
 	result.menuItems[1] = createMovementRepeatRateMenuItem();
-	result.menuItems[2] = createBackMenuItem();
+	result.menuItems[2] = createSoundVolumeMenuItem();
+	result.menuItems[3] = createBackMenuItem();
 
+
+	return result;
+}
+
+void soundVolumeAction(menuAction action)
+{
+	switch (action)
+	{
+
+		case MENU_PRESS_LEFT:
+			currentSettings.soundVolume = (currentSettings.soundVolume+MAX_VOLUME-MIN_VOLUME) % (MAX_VOLUME-MIN_VOLUME+1);
+			break;
+		case MENU_PRESS_RIGHT:
+			currentSettings.soundVolume = (currentSettings.soundVolume+1) % (MAX_VOLUME-MIN_VOLUME+1);
+			break;
+		case MENU_PRESS_RETURN:
+			break;
+	}
+
+	refreshSound();
+	playSoundLineClear();
+
+}
+
+const char *soundVolumeGetText()
+{
+	static char levelStr[64];
+
+	snprintf(levelStr, sizeof(levelStr), "<Sound Volume: %d>", currentSettings.soundVolume);
+
+	return levelStr;
+}
+
+menuItem createSoundVolumeMenuItem()
+{
+	menuItem result;
+
+	result.getText = soundVolumeGetText;
+	result.doAction = soundVolumeAction;
 
 	return result;
 }
@@ -47,7 +89,6 @@ void movementRepeatRateAction(menuAction action)
 		case MENU_PRESS_RIGHT:
 			currentSettings.movementKeyboardCooldown = min(
 					max(currentSettings.movementKeyboardCooldown + 1, MIN_COOLDOWN), MAX_COOLDOWN);
-			refreshWindowSize();
 			break;
 		case MENU_PRESS_RETURN:
 			break;
@@ -132,7 +173,6 @@ void backAction(menuAction action)
 	{
 
 		case MENU_PRESS_LEFT:
-			break;
 		case MENU_PRESS_RIGHT:
 			break;
 		case MENU_PRESS_RETURN:
