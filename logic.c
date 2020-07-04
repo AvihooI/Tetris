@@ -105,7 +105,9 @@ void levelUp()
 	gameState.level++;
 
 	if (gameEvents.levelUp)
+	{
 		gameEvents.levelUp();
+	}
 }
 
 void clearGrid()
@@ -191,7 +193,9 @@ void rotate(unsigned int clockwise)
 	if (previousConfiguration != gameState.pieceConfiguration)
 	{
 		if (gameEvents.rotate)
+		{
 			gameEvents.rotate();
+		}
 	}
 }
 
@@ -218,7 +222,9 @@ void tick()
 void step()
 {
 	if (gameEvents.movement)
+	{
 		gameEvents.movement();
+	}
 
 	gameState.currentTick = 0;
 
@@ -290,7 +296,9 @@ void landPiece()
 	gameState.reducedLinesCount = checkLines(gameState.reducedLines);
 
 	if (gameEvents.pieceLanded)
+	{
 		gameEvents.pieceLanded();
+	}
 
 	if (gameState.reducedLinesCount)
 	{
@@ -363,12 +371,16 @@ void collapseLines(const unsigned int lines[GAME_GRID_HEIGHT])
 	if (lineCount == 4)
 	{
 		if (gameEvents.tetris)
+		{
 			gameEvents.tetris();
+		}
 	}
 	else if (lineCount > 0)
 	{
 		if (gameEvents.lineCleared)
+		{
 			gameEvents.lineCleared();
+		}
 	}
 }
 
@@ -394,7 +406,9 @@ void gameOver()
 	gameState.gamePaused = 1;
 
 	if (gameEvents.gameOver)
+	{
 		gameOver();
+	}
 }
 
 void pause_unpause()
