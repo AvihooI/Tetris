@@ -103,6 +103,9 @@ void levelUp()
 	}
 
 	gameState.level++;
+
+	if (gameEvents.levelUp)
+		gameEvents.levelUp();
 }
 
 void clearGrid()
@@ -168,6 +171,7 @@ unsigned int tryPiecePlacement(int pieceLeft, int pieceTop, unsigned int pieceTy
 
 void rotate(unsigned int clockwise)
 {
+	unsigned int previousConfiguration = gameState.pieceConfiguration;
 
 	unsigned int nextConfiguration =
 			(gameState.pieceConfiguration + ((int) clockwise * 2 - 1)) % pieces[gameState.pieceType].configurations;
@@ -184,6 +188,11 @@ void rotate(unsigned int clockwise)
 		}
 	}
 
+	if (previousConfiguration != gameState.pieceConfiguration)
+	{
+		if (gameEvents.rotate)
+			gameEvents.rotate();
+	}
 }
 
 void left()
@@ -208,6 +217,8 @@ void tick()
 
 void step()
 {
+	if (gameEvents.movement)
+		gameEvents.movement();
 
 	gameState.currentTick = 0;
 
@@ -278,6 +289,9 @@ void landPiece()
 
 	gameState.reducedLinesCount = checkLines(gameState.reducedLines);
 
+	if (gameEvents.pieceLanded)
+		gameEvents.pieceLanded();
+
 	if (gameState.reducedLinesCount)
 	{
 		copyGrid();
@@ -335,12 +349,26 @@ unsigned int checkLines(unsigned int lines[GAME_GRID_HEIGHT])
 
 void collapseLines(const unsigned int lines[GAME_GRID_HEIGHT])
 {
+	unsigned int lineCount = 0;
+
 	for (int j = 0; j < GAME_GRID_HEIGHT; j++)
 	{
 		if (lines[j])
 		{
+			lineCount++;
 			collapseLine(j);
 		}
+	}
+
+	if (lineCount == 4)
+	{
+		if (gameEvents.tetris)
+			gameEvents.tetris();
+	}
+	else if (lineCount > 0)
+	{
+		if (gameEvents.lineCleared)
+			gameEvents.lineCleared();
 	}
 }
 
@@ -364,6 +392,9 @@ void gameOver()
 {
 	gameState.gameOver = 1;
 	gameState.gamePaused = 1;
+
+	if (gameEvents.gameOver)
+		gameOver();
 }
 
 void pause_unpause()

@@ -119,4 +119,18 @@ void doAction(tetrisAction action);
 
 void newGame();
 
+/*Game Events*/
+typedef void (*gameEvent)(void);
+
+struct
+{
+	gameEvent rotate;
+	gameEvent movement;
+	gameEvent pieceLanded;
+	gameEvent lineCleared;
+	gameEvent tetris;
+	gameEvent levelUp;
+	gameEvent gameOver;
+} gameEvents;
+
 #endif //TETRIS_LOGIC_H
