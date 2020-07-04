@@ -164,8 +164,10 @@ void handleGameInput(SDL_Event *e)
 		switch ((*e).key.keysym.scancode)
 		{
 			case SDL_SCANCODE_UP:
+			case SDL_SCANCODE_X:
 				keyboardCooldowns.rotateClockwiseCooldown = 0;
 				break;
+			case SDL_SCANCODE_Z:
 			case SDL_SCANCODE_LCTRL:
 				keyboardCooldowns.rotateCounterClockwiseCooldown = 0;
 				break;
@@ -215,8 +217,8 @@ void handleTicks()
 
 }
 
-unsigned int
-rawInputProcess(unsigned const char *keyboardState, unsigned char scanCode, int *currentCooldown, int maxCooldown)
+unsigned int rawInputProcess(unsigned const char *keyboardState, unsigned char scanCode,
+                             int *currentCooldown, int maxCooldown)
 {
 	if (keyboardState[scanCode])
 	{
@@ -260,12 +262,16 @@ void doRawInput()
 	}
 
 	if (rawInputProcess(keyboardState, SDL_SCANCODE_UP, &keyboardCooldowns.rotateClockwiseCooldown,
+	                    ROTATION_KEYBOARD_COOLDOWN) ||
+	    rawInputProcess(keyboardState, SDL_SCANCODE_X, &keyboardCooldowns.rotateClockwiseCooldown,
 	                    ROTATION_KEYBOARD_COOLDOWN))
 	{
 		doAction(ROTATE_CLOCKWISE);
 	}
 
 	if (rawInputProcess(keyboardState, SDL_SCANCODE_LCTRL, &keyboardCooldowns.rotateCounterClockwiseCooldown,
+	                    ROTATION_KEYBOARD_COOLDOWN) ||
+	    rawInputProcess(keyboardState, SDL_SCANCODE_Z, &keyboardCooldowns.rotateCounterClockwiseCooldown,
 	                    ROTATION_KEYBOARD_COOLDOWN))
 	{
 		doAction(ROTATE_COUNTER_CLOCKWISE);
