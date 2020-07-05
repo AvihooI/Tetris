@@ -2,6 +2,7 @@
 // Created by Avihoo on 05/07/2020.
 //
 
+#include <stdio.h>
 #include "colors.h"
 
 void initColors()
@@ -57,4 +58,24 @@ void initColors()
 	colors[12].r = 255;
 	colors[12].g = 255;
 	colors[12].b = 255;
+}
+
+SDL_Color dim(SDL_Color originalColor, unsigned int dimNumerator, unsigned int dimDenominator)
+{
+	return interpolate(originalColor, colors[0], dimNumerator, dimDenominator);
+}
+
+SDL_Color interpolate(SDL_Color color1, SDL_Color color2, unsigned int factorNumerator, unsigned int factorDenominator)
+{
+	unsigned int r = color1.r * factorNumerator + color2.r * (factorDenominator - factorNumerator);
+	unsigned int g = color1.g * factorNumerator + color2.g * (factorDenominator - factorNumerator);
+	unsigned int b = color1.b * factorNumerator + color2.b * (factorDenominator - factorNumerator);
+
+	r /= factorDenominator;
+	g /= factorDenominator;
+	b /= factorDenominator;
+
+	SDL_Color result = {(Uint8) r, (Uint8) g, (Uint8) b};
+
+	return result;
 }

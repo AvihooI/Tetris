@@ -38,13 +38,6 @@
 #define ENQUEUED_FRAME_WIDTH 6
 #define ENQUEUED_FRAME_HEIGHT 6
 
-/*
- * Resume
- * Level
- * New
- * Quit
- * */
-
 #define MENU_LEFT ENQUEUED_FRAME_LEFT
 #define MENU_TOP (ENQUEUED_FRAME_TOP + ENQUEUED_FRAME_HEIGHT + 2)
 #define MENU_WIDTH (ENQUEUED_FRAME_WIDTH + 7)
@@ -55,5 +48,11 @@
 
 #define WINDOW_WIDTH (MAIN_FRAME_WIDTH + 18)
 #define WINDOW_HEIGHT (MAIN_FRAME_HEIGHT + 4)
+
+/*Block size is the amount of pixels per block as defined in the settings*/
+#define BLOCK_SIZE (currentSettings.blockSize)
+
+/*30 frames per second*/
+#define MILLISECONDS_PER_FRAME 33
 
 #endif //TETRIS_TETRIS_H

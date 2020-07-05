@@ -49,7 +49,6 @@ unsigned int getNewPiece()
 {
 	unsigned int attemptedPiece = 7;
 
-
 	for (int i = 0; i < RANDOMIZER_MAX_ATTEMPTS; i++)
 	{
 		attemptedPiece = (unsigned int) (rand() % 7);

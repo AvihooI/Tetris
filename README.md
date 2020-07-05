@@ -45,7 +45,7 @@ To build on Ubuntu Linux (and possibly other Debian distributions) with CMake:
 2) Install SDL2 TTF library for development -> "sudo apt install libsdl2-ttf-dev"
 3) Install SDL2 Mixer library for development -> "sudo apt install libsdl2-mixer-dev"
 
-The FindSDL2 and FindSDL2_ttf cmake modules should be able to find the dependencies with no further configurations on your part.
+The included cmake modules (in the modules folder) should be able to find the dependencies with no further configurations on your part.
 
 Running the game requires a few assets. You can find the assets in the latest release package. 
 
@@ -69,6 +69,7 @@ Acknowledgements:
 1) This software uses the SDL2 Library, the SDL2 True Type Font Library and the SDL2 Mixer Library (by Sam Lantinga). More information can be found on the respective web pages: https://www.libsdl.org/index.php https://www.libsdl.org/projects/SDL_ttf/ https://www.libsdl.org/projects/SDL_mixer/. 
 2) This game uses the Hemi Head True Type Font by Ray Larabie (Typodermic Fonts - https://typodermicfonts.com/).
 3) This game uses sound effects found on the websites https://freesfx.co.uk/ and https://audiojungle.net/.
+4) This project uses CMake as a build system (https://cmake.org/) and cmake modules found at https://github.com/tcbrindle/sdl2-cmake-scripts (copyright notices in the respective files)
 
 Planned Features:
 

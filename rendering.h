@@ -6,64 +6,26 @@
 #define TETRIS_RENDERING_H
 
 #include <SDL.h>
-#include <SDL_ttf.h>
 #include "tetris.h"
+#include "text.h"
 #include "logic.h"
 #include "menu.h"
 #include "animation.h"
+#include "rendering_utilities.h"
 #include "colors.h"
 
-#define BLOCK_SIZE (currentSettings.blockSize)
-#define MILLISECONDS_PER_FRAME 33
-#define FONT_FILENAME "hemi_head.ttf"
-
-struct
-{
-	SDL_Window *window;
-	SDL_Renderer *renderer;
-	TTF_Font *mainFont;
-	TTF_Font *smallFont;
-} graphics;
-
-unsigned int baseRenderingSDLTick;
-
-SDL_Color interpolate(SDL_Color color1, SDL_Color color2, unsigned int factorNumerator, unsigned int factorDenominator);
-
-SDL_Color dim(SDL_Color originalColor, unsigned int dimNumerator, unsigned int dimDenominator);
-
-
-void refreshWindowSize();
-
-int initRendering();
-
-void destroyRendering();
+/*Principal rendering functions*/
 
 void doRendering();
 
-void renderBlock(unsigned int x, unsigned int y, unsigned int colorIndex, unsigned int dimNumerator,
-                 unsigned int dimDenominator);
-
 void renderBoundaries();
-
-void renderFrame(unsigned int top, unsigned int left, unsigned int height, unsigned int width, unsigned int colorIndex);
-
-void renderPiece(unsigned int pieceType, unsigned int pieceConfiguration, int top, int left, unsigned int visibleTop);
 
 void renderGridAndPiece();
 
 void renderEnqueuedPiece();
 
-void printText(int left, int top, unsigned int leftCentered, unsigned int topCentered, SDL_Color color, TTF_Font *font,
-               const char *fmt, ...);
-
-void renderGrid(unsigned int animation);
-
 void renderText();
 
 void renderMenu();
-
-void initFonts();
-
-void closeFonts();
 
 #endif //TETRIS_RENDERING_H

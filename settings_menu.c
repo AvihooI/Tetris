@@ -8,6 +8,7 @@
 #include "menu.h"
 #include "rendering.h"
 #include "settings_menu.h"
+#include "graphics.h"
 
 menuItem createBackMenuItem();
 
@@ -170,7 +171,9 @@ const char *backGetText()
 void backAction(menuAction action)
 {
 	if (action == MENU_PRESS_RETURN)
+	{
 		menuState.selectedMenu = MAIN_MENU;
+	}
 }
 
 menuItem createBackMenuItem()

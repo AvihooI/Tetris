@@ -6,7 +6,7 @@
 #define TETRIS_LOGIC_H
 
 #include "tetris.h"
-#include "logic_pieces.h"
+#include "pieces.h"
 #include "randomizer.h"
 
 #define PIECE_START_LEFT GAME_GRID_WIDTH/2 - 2
