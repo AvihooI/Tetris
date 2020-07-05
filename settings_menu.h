@@ -7,6 +7,8 @@
 
 #define SETTINGS_MENU_ITEM_COUNT 4
 
+#include "menu.h"
+
 menu createSettingsMenu();
 
 #endif //TETRIS_SETTINGS_MENU_H

@@ -6,6 +6,8 @@
 #define TETRIS_LOGIC_H
 
 #include "tetris.h"
+#include "logic_pieces.h"
+#include "randomizer.h"
 
 #define PIECE_START_LEFT GAME_GRID_WIDTH/2 - 2
 
@@ -39,23 +41,6 @@ struct game_state
 
 } gameState;
 
-typedef struct wallKick
-{
-	int correctLeft;
-	int correctTop;
-} wallKick;
-
-typedef struct piece
-{
-	unsigned int blocks[4][4][4];
-	unsigned int configurations;
-
-	wallKick wallKicks[4][4][5];
-
-	int correctLeft;
-	int correctTop;
-} piece;
-
 typedef enum
 {
 	MOVE_LEFT,
@@ -67,7 +52,7 @@ typedef enum
 	DROP
 } tetrisAction;
 
-void update();
+void update(unsigned int reducedLines);
 
 void levelUp();
 
@@ -94,22 +79,6 @@ void clearGrid();
 unsigned int newPiece();
 
 void landPiece();
-
-piece pieces[7];
-
-piece createO();
-
-piece createI();
-
-piece createT();
-
-piece createJ();
-
-piece createL();
-
-piece createS();
-
-piece createZ();
 
 void initLogic();
 

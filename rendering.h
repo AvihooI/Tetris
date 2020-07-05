@@ -11,10 +11,10 @@
 #include "logic.h"
 #include "menu.h"
 #include "animation.h"
+#include "colors.h"
 
 #define BLOCK_SIZE (currentSettings.blockSize)
 #define MILLISECONDS_PER_FRAME 33
-#define COLOR_COUNT 13
 #define FONT_FILENAME "hemi_head.ttf"
 
 struct
@@ -31,7 +31,6 @@ SDL_Color interpolate(SDL_Color color1, SDL_Color color2, unsigned int factorNum
 
 SDL_Color dim(SDL_Color originalColor, unsigned int dimNumerator, unsigned int dimDenominator);
 
-SDL_Color colors[COLOR_COUNT];
 
 void refreshWindowSize();
 
@@ -54,9 +53,17 @@ void renderGridAndPiece();
 
 void renderEnqueuedPiece();
 
-void initColors();
-
 void printText(int left, int top, unsigned int leftCentered, unsigned int topCentered, SDL_Color color, TTF_Font *font,
                const char *fmt, ...);
+
+void renderGrid(unsigned int animation);
+
+void renderText();
+
+void renderMenu();
+
+void initFonts();
+
+void closeFonts();
 
 #endif //TETRIS_RENDERING_H

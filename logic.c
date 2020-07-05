@@ -3,7 +3,7 @@
 //
 
 #include "logic.h"
-#include "randomizer.h"
+
 
 unsigned int checkLines(unsigned int lines[GAME_GRID_HEIGHT]);
 
@@ -123,7 +123,7 @@ void clearGrid()
 
 unsigned int verifyPiecePlacement(int pieceLeft, int pieceTop, unsigned int pieceType, unsigned int pieceConfiguration)
 {
-	unsigned const int (*currentPiece)[4][4] = &pieces[pieceType].blocks[pieceConfiguration];
+	unsigned int (*currentPiece)[4][4] = &pieces[pieceType].blocks[pieceConfiguration];
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -131,8 +131,8 @@ unsigned int verifyPiecePlacement(int pieceLeft, int pieceTop, unsigned int piec
 		{
 			if ((*currentPiece)[j][i])
 			{
-				unsigned int blockLeft = pieceLeft + i;
-				unsigned int blockTop = pieceTop + j;
+				int blockLeft = pieceLeft + i;
+				int blockTop = pieceTop + j;
 
 				/*Check out of bounds*/
 				if (blockLeft < 0 || blockLeft >= GAME_GRID_WIDTH)
@@ -242,8 +242,6 @@ void step()
 
 unsigned int newPiece()
 {
-	/*TODO: improve randomizer*/
-
 	unsigned int pieceType = gameState.nextPieceType;
 	gameState.nextPieceType = getNewPiece();
 
@@ -275,7 +273,7 @@ unsigned int newPiece()
 
 void landPiece()
 {
-	unsigned const int (*currentPiece)[4][4] = &pieces[gameState.pieceType].blocks[gameState.pieceConfiguration];
+	unsigned int (*currentPiece)[4][4] = &pieces[gameState.pieceType].blocks[gameState.pieceConfiguration];
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -285,8 +283,8 @@ void landPiece()
 
 			if (blockValue)
 			{
-				unsigned int blockLeft = gameState.pieceLeft + i;
-				unsigned int blockTop = gameState.pieceTop + j;
+				int blockLeft = gameState.pieceLeft + i;
+				int blockTop = gameState.pieceTop + j;
 
 				gameState.grid[blockTop][blockLeft] = blockValue;
 			}
@@ -345,7 +343,7 @@ unsigned int checkLines(unsigned int lines[GAME_GRID_HEIGHT])
 {
 	unsigned int result = 0;
 
-	for (int j = 0; j < GAME_GRID_HEIGHT; j++)
+	for (unsigned int j = 0; j < GAME_GRID_HEIGHT; j++)
 	{
 		lines[j] = checkLine(j);
 
@@ -359,7 +357,7 @@ void collapseLines(const unsigned int lines[GAME_GRID_HEIGHT])
 {
 	unsigned int lineCount = 0;
 
-	for (int j = 0; j < GAME_GRID_HEIGHT; j++)
+	for (unsigned int j = 0; j < GAME_GRID_HEIGHT; j++)
 	{
 		if (lines[j])
 		{
@@ -420,7 +418,7 @@ void pause_unpause()
 	}
 	else
 	{
-		gameState.gamePaused = !gameState.gamePaused;
+		gameState.gamePaused = (unsigned int) !gameState.gamePaused;
 	}
 }
 
@@ -459,6 +457,8 @@ void doAction(tetrisAction action)
 			break;
 		case DROP:
 			drop();
+			break;
+		default:
 			break;
 	}
 }

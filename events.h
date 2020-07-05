@@ -5,6 +5,7 @@
 #ifndef TETRIS_EVENTS_H
 #define TETRIS_EVENTS_H
 
+#include "sound.h"
 #include "tetris.h"
 #include "logic.h"
 #include "menu.h"
@@ -27,6 +28,17 @@ struct
 	signed int rotateCounterClockwiseCooldown;
 } keyboardCooldowns;
 
+void handleGameInput(SDL_Event *e);
+
+void handleTicks();
+
+void handleMenuInput(SDL_Event *e);
+
+void doRawInput();
+
+void hookEvents();
+
+void clearCooldowns();
 
 void initEvents();
 

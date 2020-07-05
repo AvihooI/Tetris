@@ -3,8 +3,6 @@
 //
 
 #include "sound.h"
-#include "settings.h"
-#include <SDL_mixer.h>
 
 void loadSamples();
 
@@ -46,6 +44,11 @@ void freeSamples()
 
 void playSound(Mix_Chunk *sample)
 {
+	if (!currentSettings.soundVolume)
+	{
+		return;
+	}
+
 	Mix_PlayChannel(-1, sample, 0);
 }
 

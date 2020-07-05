@@ -6,9 +6,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-unsigned int recentPieces[RECENT_PIECES_SIZE];
-unsigned int currentRecentIndex;
-
 void initRandomizer()
 {
 	currentRecentIndex = 0;
@@ -18,7 +15,7 @@ void initRandomizer()
 		recentPieces[i] = 7;
 	}
 
-	srand(time(0));;
+	srand((unsigned int) time(0));
 }
 
 unsigned int incrementRecentIndex()
@@ -50,12 +47,12 @@ unsigned char inRecentPieces(unsigned int pieceType)
 
 unsigned int getNewPiece()
 {
-	unsigned int attemptedPiece;
+	unsigned int attemptedPiece = 7;
 
 
 	for (int i = 0; i < RANDOMIZER_MAX_ATTEMPTS; i++)
 	{
-		attemptedPiece = rand() % 7;
+		attemptedPiece = (unsigned int) (rand() % 7);
 		if (!inRecentPieces(attemptedPiece))
 		{
 			break;
