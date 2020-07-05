@@ -5,12 +5,14 @@
 #ifndef TETRIS_EVENTS_H
 #define TETRIS_EVENTS_H
 
+#include <SDL.h>
 #include "sound.h"
 #include "tetris.h"
 #include "logic.h"
 #include "menu.h"
 #include "animation.h"
 #include "settings.h"
+#include "logic_event_handlers.h"
 
 #define MOVEMENT_KEYBOARD_COOLDOWN (currentSettings.movementKeyboardCooldown)
 #define ROTATION_KEYBOARD_COOLDOWN (currentSettings.rotationKeyboardCooldown)
@@ -35,10 +37,6 @@ void handleTicks();
 void handleMenuInput(SDL_Event *e);
 
 void doRawInput();
-
-void hookEvents();
-
-void clearCooldowns();
 
 void initEvents();
 
