@@ -5,7 +5,6 @@
 #include "settings.h"
 #include <SDL.h>
 
-void defaultSettings();
 
 void initSettings()
 {

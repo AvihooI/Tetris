@@ -28,10 +28,11 @@
 #define MAX_VOLUME 8
 #define MIN_VOLUME 0
 
+#define SETTINGS_FILE_NAME "settings.cfg"
+
+void defaultSettings();
 
 void initSettings();
-
-#define SETTINGS_FILE_NAME "settings.cfg"
 
 void saveSettings();
 

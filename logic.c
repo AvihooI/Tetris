@@ -156,20 +156,6 @@ unsigned int verifyPiecePlacement(int pieceLeft, int pieceTop, unsigned int piec
 	return 1;
 }
 
-unsigned int tryPiecePlacement(int pieceLeft, int pieceTop, unsigned int pieceType, unsigned int pieceConfiguration)
-{
-	if (verifyPiecePlacement(pieceLeft, pieceTop, pieceType, pieceConfiguration))
-	{
-		gameState.pieceLeft = pieceLeft;
-		gameState.pieceTop = pieceTop;
-		gameState.pieceType = pieceType;
-		gameState.pieceConfiguration = pieceConfiguration;
-		return 1;
-	}
-
-	return 0;
-}
-
 void rotate(unsigned int clockwise)
 {
 	unsigned int previousConfiguration = gameState.pieceConfiguration;
@@ -395,6 +381,20 @@ void collapseLine(unsigned int k)
 	{
 		gameState.grid[0][i] = 0;
 	}
+}
+
+unsigned int tryPiecePlacement(int pieceLeft, int pieceTop, unsigned int pieceType, unsigned int pieceConfiguration)
+{
+	if (verifyPiecePlacement(pieceLeft, pieceTop, pieceType, pieceConfiguration))
+	{
+		gameState.pieceLeft = pieceLeft;
+		gameState.pieceTop = pieceTop;
+		gameState.pieceType = pieceType;
+		gameState.pieceConfiguration = pieceConfiguration;
+		return 1;
+	}
+
+	return 0;
 }
 
 void gameOver()

@@ -2,75 +2,13 @@
 // Created by Avihoo on 13/06/2020.
 //
 
-#include <SDL.h>
 #include "events.h"
-
-unsigned int baseEventsSDLTick;
-unsigned int baseKeyboardStateSDLTick;
-
-
-void movementEvent(void)
-{
-
-}
-
-void pieceLandedEvent(void)
-{
-	playSoundLand();
-}
-
-void lineClearedEvent(void)
-{
-	startAnimation();
-	playSoundLineClear();
-}
-
-void tetrisEvent(void)
-{
-	startAnimation();
-	playSoundTetris();
-}
-
-void rotateEvent(void)
-{
-	playSoundRotate();
-}
-
-void levelUpEvent(void)
-{
-	playSoundLevelUp();
-}
 
 void initEvents()
 {
-	baseEventsSDLTick = SDL_GetTicks();
-	baseKeyboardStateSDLTick = SDL_GetTicks();
-
-	clearCooldowns();
-
 	hookEvents();
 
 	initAnimation();
-}
-
-void clearCooldowns()
-{
-	keyboardCooldowns.downCooldown = 0;
-	keyboardCooldowns.leftCooldown = 0;
-	keyboardCooldowns.rightCooldown = 0;
-	keyboardCooldowns.rotateClockwiseCooldown = 0;
-	keyboardCooldowns.rotateCounterClockwiseCooldown = 0;
-	keyboardCooldowns.dropCooldown = 0;
-}
-
-void hookEvents()
-{
-	gameEvents.movement = movementEvent;
-	gameEvents.rotate = rotateEvent;
-	gameEvents.pieceLanded = pieceLandedEvent;
-	gameEvents.lineCleared = lineClearedEvent;
-	gameEvents.tetris = tetrisEvent;
-	gameEvents.levelUp = levelUpEvent;
 }
 
 int doEvents()
@@ -184,6 +122,9 @@ void handleGameInput(SDL_Event *e)
 
 void handleTicks()
 {
+	static unsigned int baseEventsSDLTick = 0;
+	static unsigned int baseKeyboardStateSDLTick = 0;
+
 	unsigned int currentSDLTick = SDL_GetTicks();
 
 	if (currentSDLTick - baseEventsSDLTick >= MILLISECONDS_PER_LOGIC_TICK)
@@ -194,8 +135,10 @@ void handleTicks()
 		{
 			doAction(TICK);
 		}
-
-		animationTick();
+		else
+		{
+			animationTick();
+		}
 
 	}
 

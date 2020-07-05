@@ -88,6 +88,8 @@ void doAction(tetrisAction action);
 
 void newGame();
 
+unsigned int tryPiecePlacement(int pieceLeft, int pieceTop, unsigned int pieceType, unsigned int pieceConfiguration);
+
 /*Game Events*/
 typedef void (*gameEvent)(void);
 

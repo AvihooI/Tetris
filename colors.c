@@ -2,7 +2,6 @@
 // Created by Avihoo on 05/07/2020.
 //
 
-#include <stdio.h>
 #include "colors.h"
 
 void initColors()
