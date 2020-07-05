@@ -6,6 +6,7 @@
 #define TETRIS_SOUND_H
 
 #include <SDL_mixer.h>
+#include "settings.h"
 
 #define LAND_SOUND_FILE "land.mp3"
 #define LINE_CLEAR_SOUND_FILE "line_clear.mp3"

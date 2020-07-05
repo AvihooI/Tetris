@@ -1,10 +1,10 @@
 #include <SDL.h>
-#include "logic.h"
-#include "events.h"
-#include "rendering.h"
-#include "menu.h"
 #include "settings.h"
 #include "sound.h"
+#include "logic.h"
+#include "menu.h"
+#include "events.h"
+#include "rendering.h"
 
 void gameLoop();
 
@@ -47,3 +47,9 @@ void gameLoop()
 		doRendering();
 	}
 }
+
+/*
+ * TODO: code organization
+ * TODO: add documentation
+ * TODO: error handling
+ * */

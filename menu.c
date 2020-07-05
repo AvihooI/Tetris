@@ -2,11 +2,10 @@
 // Created by Avihoo on 23/06/2020.
 //
 
-#include <stdlib.h>
 #include "menu.h"
 #include "main_menu.h"
 #include "settings_menu.h"
-#include "sound.h"
+#include <stdlib.h>
 
 void initMenu()
 {
@@ -20,7 +19,6 @@ void initMenu()
 	menuState.selectedMenu = 0;
 	menuState.isActive = 1;
 	menuState.wantsToQuit = 0;
-
 }
 
 void destroyMenu()

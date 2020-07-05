@@ -41,16 +41,9 @@ const char *settingsGetText()
 
 void settingsAction(menuAction action)
 {
-	switch (action)
+	if (action == MENU_PRESS_RETURN)
 	{
-
-		case MENU_PRESS_LEFT:
-			break;
-		case MENU_PRESS_RIGHT:
-			break;
-		case MENU_PRESS_RETURN:
-			menuState.selectedMenu = SETTINGS_MENU;
-			break;
+		menuState.selectedMenu = SETTINGS_MENU;
 	}
 }
 
@@ -84,7 +77,7 @@ void levelAction(menuAction action)
 		case MENU_PRESS_RIGHT:
 			gameState.startingLevel = (gameState.startingLevel + 1) % MAX_LEVEL;
 			break;
-		case MENU_PRESS_RETURN:
+		default:
 			break;
 	}
 }

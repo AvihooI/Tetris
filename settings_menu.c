@@ -4,10 +4,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
+#include "sound.h"
 #include "menu.h"
 #include "rendering.h"
-#include "sound.h"
 #include "settings_menu.h"
 
 menuItem createBackMenuItem();
@@ -41,12 +40,13 @@ void soundVolumeAction(menuAction action)
 	{
 
 		case MENU_PRESS_LEFT:
-			currentSettings.soundVolume = (currentSettings.soundVolume+MAX_VOLUME-MIN_VOLUME) % (MAX_VOLUME-MIN_VOLUME+1);
+			currentSettings.soundVolume =
+					(currentSettings.soundVolume + MAX_VOLUME - MIN_VOLUME) % (MAX_VOLUME - MIN_VOLUME + 1);
 			break;
 		case MENU_PRESS_RIGHT:
-			currentSettings.soundVolume = (currentSettings.soundVolume+1) % (MAX_VOLUME-MIN_VOLUME+1);
+			currentSettings.soundVolume = (currentSettings.soundVolume + 1) % (MAX_VOLUME - MIN_VOLUME + 1);
 			break;
-		case MENU_PRESS_RETURN:
+		default:
 			break;
 	}
 
@@ -90,7 +90,7 @@ void movementRepeatRateAction(menuAction action)
 			currentSettings.movementKeyboardCooldown = min(
 					max(currentSettings.movementKeyboardCooldown + 1, MIN_COOLDOWN), MAX_COOLDOWN);
 			break;
-		case MENU_PRESS_RETURN:
+		default:
 			break;
 	}
 
@@ -135,7 +135,7 @@ void blockSizeAction(menuAction action)
 			currentSettings.blockSize = min(currentSettings.blockSize + 1, MAX_BLOCK_SIZE);
 			refreshWindowSize();
 			break;
-		case MENU_PRESS_RETURN:
+		default:
 			break;
 	}
 
@@ -169,16 +169,8 @@ const char *backGetText()
 
 void backAction(menuAction action)
 {
-	switch (action)
-	{
-
-		case MENU_PRESS_LEFT:
-		case MENU_PRESS_RIGHT:
-			break;
-		case MENU_PRESS_RETURN:
-			menuState.selectedMenu = MAIN_MENU;
-			break;
-	}
+	if (action == MENU_PRESS_RETURN)
+		menuState.selectedMenu = MAIN_MENU;
 }
 
 menuItem createBackMenuItem()

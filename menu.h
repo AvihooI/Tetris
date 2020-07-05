@@ -5,6 +5,8 @@
 #ifndef TETRIS_MENU_H
 #define TETRIS_MENU_H
 
+#include "sound.h"
+
 #include "tetris.h"
 #include "logic.h"
 
@@ -53,8 +55,6 @@ void initMenu();
 void destroyMenu();
 
 void activateMenu();
-
-void menuTransition(unsigned int selectedMenu);
 
 void menuActionUp();
 

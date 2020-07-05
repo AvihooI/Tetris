@@ -1,14 +1,14 @@
-Current Version: 0.3.0
+Current Version: 0.3.1
 
-Versioning System:
+Version System:
 
 Major.Minor.Increment
 
 Major: major version numbers are for significant code base changes with the exception of major version 0 that signifies early development (alpha stage) and will continue naturally into major version 1.
 
 Minor: each development cycle gets a minor version number change. 
-Even numbers are for refactoring code, improving existing features, and adding internal and external documentation.
-Odd numbers are for feature addition.
+Odd numbers are for refactoring code, improving existing features, and adding internal and external documentation.
+Even numbers are for feature addition.
 
 Increment: small changes within the current development cycle, including bug fixes and incremental planned feature additions.
 
@@ -43,6 +43,7 @@ To build on Ubuntu Linux (and possibly other Debian distributions) with CMake:
 
 1) Install SDL2 library for development -> "sudo apt install libsdl2-dev"
 2) Install SDL2 TTF library for development -> "sudo apt install libsdl2-ttf-dev"
+3) Install SDL2 Mixer library for development -> "sudo apt install libsdl2-mixer-dev"
 
 The FindSDL2 and FindSDL2_ttf cmake modules should be able to find the dependencies with no further configurations on your part.
 
@@ -73,7 +74,8 @@ Planned Features:
 
 Soon:
 
-1) More
+1) More sounds
+2) Menu sounds
 
 Later:
 1) Music
@@ -85,7 +87,7 @@ Much later, maybe:
 
 Road Map:
 
-Version 0.4 (refactor & improve cycle):
+Version 0.3 (refactor & improve cycle):
 
 1) Code cleanup and heavy refactoring
 2) Menu sounds
@@ -93,8 +95,9 @@ Version 0.4 (refactor & improve cycle):
 4) Minor application changes
 5) Error handling and reporting
 
-Version 0.5 (add features cycle): 
+Version 0.4 (add features cycle): 
 
 1) Export more hardcoded settings
 2) Customizable color scheme
 3) More animations
+4) Keyboard input rework

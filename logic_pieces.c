@@ -2,7 +2,7 @@
 // Created by Avihoo on 16/06/2020.
 //
 
-#include "logic.h"
+#include "logic_pieces.h"
 
 void CreateIWallKicks(wallKick wallKicks[4][4][5]);
 
@@ -17,6 +17,268 @@ void createPieces()
 	pieces[4] = createL();
 	pieces[5] = createS();
 	pieces[6] = createZ();
+}
+
+void CreateIWallKicks(wallKick wallKicks[4][4][5])
+{
+	/*0>>1*/
+	wallKicks[0][1][0].correctLeft = 0;
+	wallKicks[0][1][0].correctTop = 0;
+
+	wallKicks[0][1][1].correctLeft = -2;
+	wallKicks[0][1][1].correctTop = 0;
+
+	wallKicks[0][1][2].correctLeft = 1;
+	wallKicks[0][1][2].correctTop = 0;
+
+	wallKicks[0][1][3].correctLeft = -2;
+	wallKicks[0][1][3].correctTop = -1;
+
+	wallKicks[0][1][4].correctLeft = 1;
+	wallKicks[0][1][4].correctTop = 2;
+
+	/*1>>0*/
+	wallKicks[1][0][0].correctLeft = 0;
+	wallKicks[1][0][0].correctTop = 0;
+
+	wallKicks[1][0][1].correctLeft = 2;
+	wallKicks[1][0][1].correctTop = 0;
+
+	wallKicks[1][0][2].correctLeft = -1;
+	wallKicks[1][0][2].correctTop = 0;
+
+	wallKicks[1][0][3].correctLeft = 2;
+	wallKicks[1][0][3].correctTop = 1;
+
+	wallKicks[1][0][4].correctLeft = -1;
+	wallKicks[1][0][4].correctTop = -2;
+
+	/*1>>2*/
+	wallKicks[1][2][0].correctLeft = 0;
+	wallKicks[1][2][0].correctTop = 0;
+
+	wallKicks[1][2][1].correctLeft = -1;
+	wallKicks[1][2][1].correctTop = 0;
+
+	wallKicks[1][2][2].correctLeft = 2;
+	wallKicks[1][2][2].correctTop = 0;
+
+	wallKicks[1][2][3].correctLeft = -1;
+	wallKicks[1][2][3].correctTop = 2;
+
+	wallKicks[1][2][4].correctLeft = 2;
+	wallKicks[1][2][4].correctTop = -1;
+
+	/*2>>1*/
+	wallKicks[2][1][0].correctLeft = 0;
+	wallKicks[2][1][0].correctTop = 0;
+
+	wallKicks[2][1][1].correctLeft = 1;
+	wallKicks[2][1][1].correctTop = 0;
+
+	wallKicks[2][1][2].correctLeft = -2;
+	wallKicks[2][1][2].correctTop = 0;
+
+	wallKicks[2][1][3].correctLeft = 1;
+	wallKicks[2][1][3].correctTop = -2;
+
+	wallKicks[2][1][4].correctLeft = -2;
+	wallKicks[2][1][4].correctTop = 1;
+
+	/*2>>3*/
+	wallKicks[2][3][0].correctLeft = 0;
+	wallKicks[2][3][0].correctTop = 0;
+
+	wallKicks[2][3][1].correctLeft = 2;
+	wallKicks[2][3][1].correctTop = 0;
+
+	wallKicks[2][3][2].correctLeft = -1;
+	wallKicks[2][3][2].correctTop = 0;
+
+	wallKicks[2][3][3].correctLeft = 2;
+	wallKicks[2][3][3].correctTop = 1;
+
+	wallKicks[2][3][4].correctLeft = -1;
+	wallKicks[2][3][4].correctTop = -2;
+
+	/*3>>2*/
+	wallKicks[3][2][0].correctLeft = 0;
+	wallKicks[3][2][0].correctTop = 0;
+
+	wallKicks[3][2][1].correctLeft = -2;
+	wallKicks[3][2][1].correctTop = 0;
+
+	wallKicks[3][2][2].correctLeft = 1;
+	wallKicks[3][2][2].correctTop = 0;
+
+	wallKicks[3][2][3].correctLeft = -2;
+	wallKicks[3][2][3].correctTop = -1;
+
+	wallKicks[3][2][4].correctLeft = 1;
+	wallKicks[3][2][4].correctTop = 2;
+
+	/*3>>0*/
+	wallKicks[3][0][0].correctLeft = 0;
+	wallKicks[3][0][0].correctTop = 0;
+
+	wallKicks[3][0][1].correctLeft = 1;
+	wallKicks[3][0][1].correctTop = 0;
+
+	wallKicks[3][0][2].correctLeft = -2;
+	wallKicks[3][0][2].correctTop = 0;
+
+	wallKicks[3][0][3].correctLeft = 1;
+	wallKicks[3][0][3].correctTop = -2;
+
+	wallKicks[3][0][4].correctLeft = -2;
+	wallKicks[3][0][4].correctTop = 1;
+
+	/*0>>3*/
+	wallKicks[0][3][0].correctLeft = 0;
+	wallKicks[0][3][0].correctTop = 0;
+
+	wallKicks[0][3][1].correctLeft = -1;
+	wallKicks[0][3][1].correctTop = 0;
+
+	wallKicks[0][3][2].correctLeft = 2;
+	wallKicks[0][3][2].correctTop = 0;
+
+	wallKicks[0][3][3].correctLeft = -1;
+	wallKicks[0][3][3].correctTop = 2;
+
+	wallKicks[0][3][4].correctLeft = 2;
+	wallKicks[0][3][4].correctTop = -1;
+}
+
+void CreateJLSTZWallKicks(wallKick wallKicks[4][4][5])
+{
+	/*0>>1*/
+	wallKicks[0][1][0].correctLeft = 0;
+	wallKicks[0][1][0].correctTop = 0;
+
+	wallKicks[0][1][1].correctLeft = -1;
+	wallKicks[0][1][1].correctTop = 0;
+
+	wallKicks[0][1][2].correctLeft = -1;
+	wallKicks[0][1][2].correctTop = 1;
+
+	wallKicks[0][1][3].correctLeft = 0;
+	wallKicks[0][1][3].correctTop = -2;
+
+	wallKicks[0][1][4].correctLeft = -1;
+	wallKicks[0][1][4].correctTop = -2;
+
+	/*1>>0*/
+	wallKicks[1][0][0].correctLeft = 0;
+	wallKicks[1][0][0].correctTop = 0;
+
+	wallKicks[1][0][1].correctLeft = 1;
+	wallKicks[1][0][1].correctTop = 0;
+
+	wallKicks[1][0][2].correctLeft = 1;
+	wallKicks[1][0][2].correctTop = -1;
+
+	wallKicks[1][0][3].correctLeft = 0;
+	wallKicks[1][0][3].correctTop = 2;
+
+	wallKicks[1][0][4].correctLeft = 1;
+	wallKicks[1][0][4].correctTop = 2;
+
+	/*1>>2*/
+	wallKicks[1][2][0].correctLeft = 0;
+	wallKicks[1][2][0].correctTop = 0;
+
+	wallKicks[1][2][1].correctLeft = 1;
+	wallKicks[1][2][1].correctTop = 0;
+
+	wallKicks[1][2][2].correctLeft = 1;
+	wallKicks[1][2][2].correctTop = -1;
+
+	wallKicks[1][2][3].correctLeft = 0;
+	wallKicks[1][2][3].correctTop = 2;
+
+	wallKicks[1][2][4].correctLeft = 1;
+	wallKicks[1][2][4].correctTop = 2;
+
+	/*2>>1*/
+	wallKicks[2][1][0].correctLeft = 0;
+	wallKicks[2][1][0].correctTop = 0;
+
+	wallKicks[2][1][1].correctLeft = -1;
+	wallKicks[2][1][1].correctTop = 0;
+
+	wallKicks[2][1][2].correctLeft = -1;
+	wallKicks[2][1][2].correctTop = 1;
+
+	wallKicks[2][1][3].correctLeft = 0;
+	wallKicks[2][1][3].correctTop = -2;
+
+	wallKicks[2][1][4].correctLeft = -1;
+	wallKicks[2][1][4].correctTop = -2;
+
+	/*2>>3*/
+	wallKicks[2][3][0].correctLeft = 0;
+	wallKicks[2][3][0].correctTop = 0;
+
+	wallKicks[2][3][1].correctLeft = 1;
+	wallKicks[2][3][1].correctTop = 0;
+
+	wallKicks[2][3][2].correctLeft = 1;
+	wallKicks[2][3][2].correctTop = 1;
+
+	wallKicks[2][3][3].correctLeft = 0;
+	wallKicks[2][3][3].correctTop = -2;
+
+	wallKicks[2][3][4].correctLeft = 1;
+	wallKicks[2][3][4].correctTop = -2;
+
+	/*3>>2*/
+	wallKicks[3][2][0].correctLeft = 0;
+	wallKicks[3][2][0].correctTop = 0;
+
+	wallKicks[3][2][1].correctLeft = -1;
+	wallKicks[3][2][1].correctTop = 0;
+
+	wallKicks[3][2][2].correctLeft = -1;
+	wallKicks[3][2][2].correctTop = -1;
+
+	wallKicks[3][2][3].correctLeft = 0;
+	wallKicks[3][2][3].correctTop = 2;
+
+	wallKicks[3][2][4].correctLeft = -1;
+	wallKicks[3][2][4].correctTop = 2;
+
+	/*3>>0*/
+	wallKicks[3][0][0].correctLeft = 0;
+	wallKicks[3][0][0].correctTop = 0;
+
+	wallKicks[3][0][1].correctLeft = -1;
+	wallKicks[3][0][1].correctTop = 0;
+
+	wallKicks[3][0][2].correctLeft = -1;
+	wallKicks[3][0][2].correctTop = -1;
+
+	wallKicks[3][0][3].correctLeft = 0;
+	wallKicks[3][0][3].correctTop = 2;
+
+	wallKicks[3][0][4].correctLeft = -1;
+	wallKicks[3][0][4].correctTop = 2;
+
+	/*0>>3*/
+	wallKicks[0][3][0].correctLeft = 0;
+	wallKicks[0][3][0].correctTop = 0;
+
+	wallKicks[0][3][1].correctLeft = 1;
+	wallKicks[0][3][1].correctTop = 0;
+
+	wallKicks[0][3][2].correctLeft = 1;
+	wallKicks[0][3][2].correctTop = 1;
+
+	wallKicks[0][3][3].correctLeft = 0;
+	wallKicks[0][3][3].correctTop = -2;
+
+	wallKicks[0][3][4].correctLeft = 1;
+	wallKicks[0][3][4].correctTop = -2;
 }
 
 piece createZ()
@@ -564,266 +826,3 @@ piece createO()
 
 	return result;
 }
-
-void CreateIWallKicks(wallKick wallKicks[4][4][5])
-{
-	/*0>>1*/
-	wallKicks[0][1][0].correctLeft = 0;
-	wallKicks[0][1][0].correctTop = 0;
-
-	wallKicks[0][1][1].correctLeft = -2;
-	wallKicks[0][1][1].correctTop = 0;
-
-	wallKicks[0][1][2].correctLeft = 1;
-	wallKicks[0][1][2].correctTop = 0;
-
-	wallKicks[0][1][3].correctLeft = -2;
-	wallKicks[0][1][3].correctTop = -1;
-
-	wallKicks[0][1][4].correctLeft = 1;
-	wallKicks[0][1][4].correctTop = 2;
-
-	/*1>>0*/
-	wallKicks[1][0][0].correctLeft = 0;
-	wallKicks[1][0][0].correctTop = 0;
-
-	wallKicks[1][0][1].correctLeft = 2;
-	wallKicks[1][0][1].correctTop = 0;
-
-	wallKicks[1][0][2].correctLeft = -1;
-	wallKicks[1][0][2].correctTop = 0;
-
-	wallKicks[1][0][3].correctLeft = 2;
-	wallKicks[1][0][3].correctTop = 1;
-
-	wallKicks[1][0][4].correctLeft = -1;
-	wallKicks[1][0][4].correctTop = -2;
-
-	/*1>>2*/
-	wallKicks[1][2][0].correctLeft = 0;
-	wallKicks[1][2][0].correctTop = 0;
-
-	wallKicks[1][2][1].correctLeft = -1;
-	wallKicks[1][2][1].correctTop = 0;
-
-	wallKicks[1][2][2].correctLeft = 2;
-	wallKicks[1][2][2].correctTop = 0;
-
-	wallKicks[1][2][3].correctLeft = -1;
-	wallKicks[1][2][3].correctTop = 2;
-
-	wallKicks[1][2][4].correctLeft = 2;
-	wallKicks[1][2][4].correctTop = -1;
-
-	/*2>>1*/
-	wallKicks[2][1][0].correctLeft = 0;
-	wallKicks[2][1][0].correctTop = 0;
-
-	wallKicks[2][1][1].correctLeft = 1;
-	wallKicks[2][1][1].correctTop = 0;
-
-	wallKicks[2][1][2].correctLeft = -2;
-	wallKicks[2][1][2].correctTop = 0;
-
-	wallKicks[2][1][3].correctLeft = 1;
-	wallKicks[2][1][3].correctTop = -2;
-
-	wallKicks[2][1][4].correctLeft = -2;
-	wallKicks[2][1][4].correctTop = 1;
-
-	/*2>>3*/
-	wallKicks[2][3][0].correctLeft = 0;
-	wallKicks[2][3][0].correctTop = 0;
-
-	wallKicks[2][3][1].correctLeft = 2;
-	wallKicks[2][3][1].correctTop = 0;
-
-	wallKicks[2][3][2].correctLeft = -1;
-	wallKicks[2][3][2].correctTop = 0;
-
-	wallKicks[2][3][3].correctLeft = 2;
-	wallKicks[2][3][3].correctTop = 1;
-
-	wallKicks[2][3][4].correctLeft = -1;
-	wallKicks[2][3][4].correctTop = -2;
-
-	/*3>>2*/
-	wallKicks[3][2][0].correctLeft = 0;
-	wallKicks[3][2][0].correctTop = 0;
-
-	wallKicks[3][2][1].correctLeft = -2;
-	wallKicks[3][2][1].correctTop = 0;
-
-	wallKicks[3][2][2].correctLeft = 1;
-	wallKicks[3][2][2].correctTop = 0;
-
-	wallKicks[3][2][3].correctLeft = -2;
-	wallKicks[3][2][3].correctTop = -1;
-
-	wallKicks[3][2][4].correctLeft = 1;
-	wallKicks[3][2][4].correctTop = 2;
-
-	/*3>>0*/
-	wallKicks[3][0][0].correctLeft = 0;
-	wallKicks[3][0][0].correctTop = 0;
-
-	wallKicks[3][0][1].correctLeft = 1;
-	wallKicks[3][0][1].correctTop = 0;
-
-	wallKicks[3][0][2].correctLeft = -2;
-	wallKicks[3][0][2].correctTop = 0;
-
-	wallKicks[3][0][3].correctLeft = 1;
-	wallKicks[3][0][3].correctTop = -2;
-
-	wallKicks[3][0][4].correctLeft = -2;
-	wallKicks[3][0][4].correctTop = 1;
-
-	/*0>>3*/
-	wallKicks[0][3][0].correctLeft = 0;
-	wallKicks[0][3][0].correctTop = 0;
-
-	wallKicks[0][3][1].correctLeft = -1;
-	wallKicks[0][3][1].correctTop = 0;
-
-	wallKicks[0][3][2].correctLeft = 2;
-	wallKicks[0][3][2].correctTop = 0;
-
-	wallKicks[0][3][3].correctLeft = -1;
-	wallKicks[0][3][3].correctTop = 2;
-
-	wallKicks[0][3][4].correctLeft = 2;
-	wallKicks[0][3][4].correctTop = -1;
-}
-
-void CreateJLSTZWallKicks(wallKick wallKicks[4][4][5])
-{
-	/*0>>1*/
-	wallKicks[0][1][0].correctLeft = 0;
-	wallKicks[0][1][0].correctTop = 0;
-
-	wallKicks[0][1][1].correctLeft = -1;
-	wallKicks[0][1][1].correctTop = 0;
-
-	wallKicks[0][1][2].correctLeft = -1;
-	wallKicks[0][1][2].correctTop = 1;
-
-	wallKicks[0][1][3].correctLeft = 0;
-	wallKicks[0][1][3].correctTop = -2;
-
-	wallKicks[0][1][4].correctLeft = -1;
-	wallKicks[0][1][4].correctTop = -2;
-
-	/*1>>0*/
-	wallKicks[1][0][0].correctLeft = 0;
-	wallKicks[1][0][0].correctTop = 0;
-
-	wallKicks[1][0][1].correctLeft = 1;
-	wallKicks[1][0][1].correctTop = 0;
-
-	wallKicks[1][0][2].correctLeft = 1;
-	wallKicks[1][0][2].correctTop = -1;
-
-	wallKicks[1][0][3].correctLeft = 0;
-	wallKicks[1][0][3].correctTop = 2;
-
-	wallKicks[1][0][4].correctLeft = 1;
-	wallKicks[1][0][4].correctTop = 2;
-
-	/*1>>2*/
-	wallKicks[1][2][0].correctLeft = 0;
-	wallKicks[1][2][0].correctTop = 0;
-
-	wallKicks[1][2][1].correctLeft = 1;
-	wallKicks[1][2][1].correctTop = 0;
-
-	wallKicks[1][2][2].correctLeft = 1;
-	wallKicks[1][2][2].correctTop = -1;
-
-	wallKicks[1][2][3].correctLeft = 0;
-	wallKicks[1][2][3].correctTop = 2;
-
-	wallKicks[1][2][4].correctLeft = 1;
-	wallKicks[1][2][4].correctTop = 2;
-
-	/*2>>1*/
-	wallKicks[2][1][0].correctLeft = 0;
-	wallKicks[2][1][0].correctTop = 0;
-
-	wallKicks[2][1][1].correctLeft = -1;
-	wallKicks[2][1][1].correctTop = 0;
-
-	wallKicks[2][1][2].correctLeft = -1;
-	wallKicks[2][1][2].correctTop = 1;
-
-	wallKicks[2][1][3].correctLeft = 0;
-	wallKicks[2][1][3].correctTop = -2;
-
-	wallKicks[2][1][4].correctLeft = -1;
-	wallKicks[2][1][4].correctTop = -2;
-
-	/*2>>3*/
-	wallKicks[2][3][0].correctLeft = 0;
-	wallKicks[2][3][0].correctTop = 0;
-
-	wallKicks[2][3][1].correctLeft = 1;
-	wallKicks[2][3][1].correctTop = 0;
-
-	wallKicks[2][3][2].correctLeft = 1;
-	wallKicks[2][3][2].correctTop = 1;
-
-	wallKicks[2][3][3].correctLeft = 0;
-	wallKicks[2][3][3].correctTop = -2;
-
-	wallKicks[2][3][4].correctLeft = 1;
-	wallKicks[2][3][4].correctTop = -2;
-
-	/*3>>2*/
-	wallKicks[3][2][0].correctLeft = 0;
-	wallKicks[3][2][0].correctTop = 0;
-
-	wallKicks[3][2][1].correctLeft = -1;
-	wallKicks[3][2][1].correctTop = 0;
-
-	wallKicks[3][2][2].correctLeft = -1;
-	wallKicks[3][2][2].correctTop = -1;
-
-	wallKicks[3][2][3].correctLeft = 0;
-	wallKicks[3][2][3].correctTop = 2;
-
-	wallKicks[3][2][4].correctLeft = -1;
-	wallKicks[3][2][4].correctTop = 2;
-
-	/*3>>0*/
-	wallKicks[3][0][0].correctLeft = 0;
-	wallKicks[3][0][0].correctTop = 0;
-
-	wallKicks[3][0][1].correctLeft = -1;
-	wallKicks[3][0][1].correctTop = 0;
-
-	wallKicks[3][0][2].correctLeft = -1;
-	wallKicks[3][0][2].correctTop = -1;
-
-	wallKicks[3][0][3].correctLeft = 0;
-	wallKicks[3][0][3].correctTop = 2;
-
-	wallKicks[3][0][4].correctLeft = -1;
-	wallKicks[3][0][4].correctTop = 2;
-
-	/*0>>3*/
-	wallKicks[0][3][0].correctLeft = 0;
-	wallKicks[0][3][0].correctTop = 0;
-
-	wallKicks[0][3][1].correctLeft = 1;
-	wallKicks[0][3][1].correctTop = 0;
-
-	wallKicks[0][3][2].correctLeft = 1;
-	wallKicks[0][3][2].correctTop = 1;
-
-	wallKicks[0][3][3].correctLeft = 0;
-	wallKicks[0][3][3].correctTop = -2;
-
-	wallKicks[0][3][4].correctLeft = 1;
-	wallKicks[0][3][4].correctTop = -2;
-}
-

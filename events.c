@@ -4,22 +4,10 @@
 
 #include <SDL.h>
 #include "events.h"
-#include "sound.h"
 
 unsigned int baseEventsSDLTick;
 unsigned int baseKeyboardStateSDLTick;
 
-void handleGameInput(SDL_Event *e);
-
-void handleTicks();
-
-void handleMenuInput(SDL_Event *e);
-
-void doRawInput();
-
-void hookEvents();
-
-void clearCooldowns();
 
 void movementEvent(void)
 {
@@ -139,6 +127,8 @@ void handleMenuInput(SDL_Event *e)
 			case SDL_SCANCODE_ESCAPE:
 				menuState.isActive = 0;
 				break;
+			default:
+				break;
 		}
 	}
 }
@@ -155,6 +145,8 @@ void handleGameInput(SDL_Event *e)
 				break;
 			case SDL_SCANCODE_ESCAPE:
 				activateMenu();
+				break;
+			default:
 				break;
 		}
 	}
@@ -182,6 +174,8 @@ void handleGameInput(SDL_Event *e)
 				break;
 			case SDL_SCANCODE_SPACE:
 				keyboardCooldowns.dropCooldown = 0;
+				break;
+			default:
 				break;
 
 		}
