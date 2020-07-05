@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "events.h"
 #include "rendering.h"
+#include "graphics.h"
 
 void gameLoop();
 
@@ -18,7 +19,7 @@ int main(int argc, char *argv[])
 	}
 
 	int status;
-	if ((status = initRendering() != 0))
+	if ((status = initGraphics() != 0))
 	{
 		return status;
 	}
@@ -32,7 +33,7 @@ int main(int argc, char *argv[])
 
 	destroyMenu();
 	destroySound();
-	destroyRendering();
+	destroyGraphics();
 	SDL_Quit();
 
 	saveSettings();
@@ -50,6 +51,7 @@ void gameLoop()
 
 /*
  * TODO: code organization
- * TODO: add documentation
- * TODO: error handling
+ * TODO: code documentation
+ * TODO: missing files error handling
+ * TODO: refactor menu system
  * */

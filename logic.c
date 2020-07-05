@@ -23,7 +23,6 @@ void initLevelTicks()
 	{
 		levelTicks[i] = (levelTicks[i - 1] * SPEED_GROWTH_RATE_DENOMINATOR) / SPEED_GROWTH_RATE_NUMERATOR;
 	}
-
 }
 
 void initLogic()

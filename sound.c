@@ -44,7 +44,7 @@ void freeSamples()
 
 void playSound(Mix_Chunk *sample)
 {
-	if (!currentSettings.soundVolume)
+	if (currentSettings.soundVolume == 0)
 	{
 		return;
 	}

@@ -23,6 +23,6 @@ include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2_TTF_INCLUDE_DIR})
 include_directories(${SDL2_MIXER_INCLUDE_DIR})
 
-add_executable(${PROJECT_NAME} main.c events.c rendering.c logic.c logic.h logic_pieces.c menu.c main_menu.c settings_menu.c randomizer.c animation.h animation.c settings.c sound.c colors.c logic_pieces.h)
+add_executable(${PROJECT_NAME} main.c events.c rendering.c logic.c logic.h pieces.c menu.c main_menu.c settings_menu.c randomizer.c animation.h animation.c settings.c sound.c colors.c pieces.c text.c rendering_utilities.c graphics.c)
 
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY} ${SDL2_TTF_LIBRARY} ${SDL2_MIXER_LIBRARY})

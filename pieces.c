@@ -2,7 +2,7 @@
 // Created by Avihoo on 16/06/2020.
 //
 
-#include "logic_pieces.h"
+#include "pieces.h"
 
 void CreateIWallKicks(wallKick wallKicks[4][4][5]);
 

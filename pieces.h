@@ -2,8 +2,8 @@
 // Created by Avihoo on 05/07/2020.
 //
 
-#ifndef TETRIS_LOGIC_PIECES_H
-#define TETRIS_LOGIC_PIECES_H
+#ifndef TETRIS_PIECES_H
+#define TETRIS_PIECES_H
 
 typedef struct wallKick
 {
@@ -22,8 +22,6 @@ typedef struct piece
 	int correctTop;
 } piece;
 
-
-
 piece pieces[7];
 
 piece createZ();
@@ -40,6 +38,4 @@ piece createI();
 
 piece createO();
 
-#include "logic.h"
-
-#endif //TETRIS_LOGIC_PIECES_H
+#endif //TETRIS_PIECES_H
