@@ -61,7 +61,7 @@ If you would like to contribute to this project, please consider the following:
 
 Licensing:
 
-This software is free to use, free to extend and free to commercialize with no royalty as long as acknowledgements are made to the author(s).
+This software is free to use, free to extend and free to commercialize royalty free as long as acknowledgements are made to the author(s).
 Assets may be copyrighted and thus should not be used in other projects (including fork projects). If you are unsure, ask. 
 
 Acknowledgements:
@@ -69,7 +69,7 @@ Acknowledgements:
 1) This software uses the SDL2 Library, the SDL2 True Type Font Library and the SDL2 Mixer Library (by Sam Lantinga). More information can be found on the respective web pages: https://www.libsdl.org/index.php https://www.libsdl.org/projects/SDL_ttf/ https://www.libsdl.org/projects/SDL_mixer/. 
 2) This game uses the Hemi Head True Type Font by Ray Larabie (Typodermic Fonts - https://typodermicfonts.com/).
 3) This game uses sound effects found on the websites https://freesfx.co.uk/ and https://audiojungle.net/.
-4) This project uses CMake as a build system (https://cmake.org/) and cmake modules found at https://github.com/tcbrindle/sdl2-cmake-scripts (copyright notices in the respective files)
+4) This project uses CMake as a build system (https://cmake.org/) and CMake modules found at https://github.com/tcbrindle/sdl2-cmake-scripts (copyright notices in the respective files)
 
 Planned Features:
 
@@ -90,11 +90,10 @@ Road Map:
 
 Version 0.3 (refactor & improve cycle):
 
-1) Code cleanup and heavy refactoring
-2) Menu sounds
-3) More settings in the menu
-4) Minor application changes
-5) Error handling and reporting
+1) Menu sounds
+2) More settings in the menu
+3) Minor application changes
+4) Error handling and reporting
 
 Version 0.4 (add features cycle): 
 
