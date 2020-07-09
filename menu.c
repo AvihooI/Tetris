@@ -1,7 +1,6 @@
 //
 // Created by Avihoo on 23/06/2020.
 //
-
 #include "menu.h"
 #include "main_menu.h"
 #include "settings_menu.h"
@@ -70,3 +69,34 @@ void activateMenu()
 	menuState.menus[0].selectedItem = 0;
 	menuState.isActive = 1;
 }
+
+menuItem createMenuItem(menuItemGetText getText, menuItemDoAction doAction)
+{
+	menuItem result;
+
+	result.getText = getText;
+	result.doAction = doAction;
+
+	return result;
+}
+
+const char *backGetText()
+{
+	static char text[] = "Main Menu";
+
+	return text;
+}
+
+void backAction(menuAction action)
+{
+	if (action == MENU_PRESS_RETURN)
+	{
+		menuState.selectedMenu = MAIN_MENU;
+	}
+}
+
+menuItem createBackMenuItem()
+{
+	return createMenuItem(backGetText, backAction);
+}
+

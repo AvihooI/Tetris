@@ -408,7 +408,7 @@ void gameOver()
 	}
 }
 
-void pause_unpause()
+void pauseUnpause()
 {
 	if (gameState.gameOver)
 	{

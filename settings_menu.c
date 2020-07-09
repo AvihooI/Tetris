@@ -8,32 +8,6 @@
 #include "menu.h"
 #include "rendering.h"
 #include "settings_menu.h"
-#include "graphics.h"
-
-menuItem createBackMenuItem();
-
-menuItem createBlockSizeMenuItem();
-
-menuItem createMovementRepeatRateMenuItem();
-
-menuItem createSoundVolumeMenuItem();
-
-menu createSettingsMenu()
-{
-	menu result;
-
-	result.menuItemCount = SETTINGS_MENU_ITEM_COUNT;
-	result.menuItems = malloc(sizeof(menuItem) * SETTINGS_MENU_ITEM_COUNT);
-	result.selectedItem = 0;
-
-	result.menuItems[0] = createBlockSizeMenuItem();
-	result.menuItems[1] = createMovementRepeatRateMenuItem();
-	result.menuItems[2] = createSoundVolumeMenuItem();
-	result.menuItems[3] = createBackMenuItem();
-
-
-	return result;
-}
 
 void soundVolumeAction(menuAction action)
 {
@@ -63,16 +37,6 @@ const char *soundVolumeGetText()
 	snprintf(levelStr, sizeof(levelStr), "<Sound Volume: %d>", currentSettings.soundVolume);
 
 	return levelStr;
-}
-
-menuItem createSoundVolumeMenuItem()
-{
-	menuItem result;
-
-	result.getText = soundVolumeGetText;
-	result.doAction = soundVolumeAction;
-
-	return result;
 }
 
 void movementRepeatRateAction(menuAction action)
@@ -113,16 +77,6 @@ const char *movementRepeatRateGetText()
 	return levelStr;
 }
 
-menuItem createMovementRepeatRateMenuItem()
-{
-	menuItem result;
-
-	result.getText = movementRepeatRateGetText;
-	result.doAction = movementRepeatRateAction;
-
-	return result;
-}
-
 void blockSizeAction(menuAction action)
 {
 	switch (action)
@@ -151,37 +105,18 @@ const char *blockSizeGetText()
 	return levelStr;
 }
 
-menuItem createBlockSizeMenuItem()
+menu createSettingsMenu()
 {
-	menuItem result;
+	menu result;
 
-	result.getText = blockSizeGetText;
-	result.doAction = blockSizeAction;
+	result.menuItemCount = SETTINGS_MENU_ITEM_COUNT;
+	result.menuItems = malloc(sizeof(menuItem) * SETTINGS_MENU_ITEM_COUNT);
+	result.selectedItem = 0;
 
-	return result;
-}
-
-const char *backGetText()
-{
-	static char text[] = "Main Menu";
-
-	return text;
-}
-
-void backAction(menuAction action)
-{
-	if (action == MENU_PRESS_RETURN)
-	{
-		menuState.selectedMenu = MAIN_MENU;
-	}
-}
-
-menuItem createBackMenuItem()
-{
-	menuItem result;
-
-	result.getText = backGetText;
-	result.doAction = backAction;
+	result.menuItems[0] = createMenuItem(blockSizeGetText, blockSizeAction);
+	result.menuItems[1] = createMenuItem(movementRepeatRateGetText, movementRepeatRateAction);
+	result.menuItems[2] = createMenuItem(soundVolumeGetText, soundVolumeAction);
+	result.menuItems[3] = createBackMenuItem();
 
 	return result;
 }

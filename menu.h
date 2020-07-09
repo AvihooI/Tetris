@@ -50,6 +50,10 @@ struct
 
 } menuState;
 
+menuItem createMenuItem(menuItemGetText getText, menuItemDoAction doAction);
+
+menuItem createBackMenuItem();
+
 void initMenu();
 
 void destroyMenu();

@@ -5,7 +5,6 @@
 #include "menu.h"
 #include "events.h"
 #include "rendering.h"
-#include "graphics.h"
 
 void gameLoop();
 
