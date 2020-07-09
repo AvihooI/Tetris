@@ -60,7 +60,7 @@ void updateScore(unsigned int lines);
 
 void createPieces();
 
-void pause_unpause();
+void pauseUnpause();
 
 void step();
 

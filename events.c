@@ -79,7 +79,7 @@ void handleGameInput(SDL_Event *e)
 		{
 			case SDL_SCANCODE_RETURN2:
 			case SDL_SCANCODE_RETURN:
-				pause_unpause();
+				pauseUnpause();
 				break;
 			case SDL_SCANCODE_ESCAPE:
 				activateMenu();
