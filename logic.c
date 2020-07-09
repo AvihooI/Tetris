@@ -306,7 +306,7 @@ void copyGrid()
 	{
 		for (unsigned int i = 0; i < GAME_GRID_WIDTH; i++)
 		{
-			gameState.lastGrid[j][i] = gameState.grid[j][i];
+			gameState.previousGrid[j][i] = gameState.grid[j][i];
 		}
 	}
 }

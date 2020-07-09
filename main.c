@@ -49,7 +49,6 @@ void gameLoop()
 }
 
 /*
- * TODO: code organization
  * TODO: code documentation
  * TODO: missing files error handling
  * TODO: refactor menu system
