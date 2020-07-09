@@ -51,7 +51,7 @@ void renderGrid(unsigned int animation)
 				renderBlock(MAIN_FRAME_LEFT + 1 + i, MAIN_FRAME_TOP + 1 + j - GAME_GRID_INVISIBLE_LINES,
 				            gameState.grid[j][i], 2, 3);
 			}
-			else if (animation && gameState.lastGrid[j][i])
+			else if (animation && gameState.previousGrid[j][i])
 			{
 				unsigned int dimNumerator = 2;
 				unsigned int dimDenominator = 3;
@@ -63,7 +63,7 @@ void renderGrid(unsigned int animation)
 				}
 
 				renderBlock(MAIN_FRAME_LEFT + 1 + i, MAIN_FRAME_TOP + 1 + j - GAME_GRID_INVISIBLE_LINES,
-				            gameState.lastGrid[j][i], dimNumerator, dimDenominator);
+				            gameState.previousGrid[j][i], dimNumerator, dimDenominator);
 			}
 		}
 	}

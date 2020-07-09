@@ -5,7 +5,6 @@
 #include "menu.h"
 #include "events.h"
 #include "rendering.h"
-#include "graphics.h"
 
 void gameLoop();
 
@@ -50,7 +49,6 @@ void gameLoop()
 }
 
 /*
- * TODO: code organization
  * TODO: code documentation
  * TODO: missing files error handling
  * TODO: refactor menu system

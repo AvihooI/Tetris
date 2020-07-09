@@ -7,30 +7,6 @@
 #include "menu.h"
 #include "main_menu.h"
 
-menuItem createLevelMenuItem();
-
-menuItem createNewGameMenuItem();
-
-menuItem createQuitMenuItem();
-
-menuItem createResumeMenuItem();
-
-menuItem createSettingsMenuItem();
-
-menu createMainMenu()
-{
-	menu result;
-
-	result.menuItemCount = MAIN_MENU_ITEM_COUNT;
-	result.menuItems = malloc(sizeof(menuItem) * MAIN_MENU_ITEM_COUNT);
-	result.menuItems[0] = createResumeMenuItem();
-	result.menuItems[1] = createNewGameMenuItem();
-	result.menuItems[2] = createLevelMenuItem();
-	result.menuItems[3] = createSettingsMenuItem();
-	result.menuItems[4] = createQuitMenuItem();
-
-	return result;
-}
 
 const char *settingsGetText()
 {
@@ -45,16 +21,6 @@ void settingsAction(menuAction action)
 	{
 		menuState.selectedMenu = SETTINGS_MENU;
 	}
-}
-
-menuItem createSettingsMenuItem()
-{
-	menuItem result;
-
-	result.getText = settingsGetText;
-	result.doAction = settingsAction;
-
-	return result;
 }
 
 const char *levelGetText()
@@ -82,16 +48,6 @@ void levelAction(menuAction action)
 	}
 }
 
-menuItem createLevelMenuItem()
-{
-	menuItem result;
-
-	result.getText = levelGetText;
-	result.doAction = levelAction;
-
-	return result;
-}
-
 const char *newGameGetText()
 {
 	static char text[] = "New Game";
@@ -108,16 +64,6 @@ void newGameAction(menuAction action)
 	}
 }
 
-menuItem createNewGameMenuItem()
-{
-	menuItem result;
-
-	result.getText = newGameGetText;
-	result.doAction = newGameAction;
-
-	return result;
-}
-
 const char *quitGetText()
 {
 	static char text[] = "Quit";
@@ -131,16 +77,6 @@ void quitAction(menuAction action)
 	{
 		menuState.wantsToQuit = 1;
 	}
-}
-
-menuItem createQuitMenuItem()
-{
-	menuItem result;
-
-	result.getText = quitGetText;
-	result.doAction = quitAction;
-
-	return result;
 }
 
 void resumeAction(menuAction action)
@@ -159,12 +95,17 @@ const char *resumeGetText()
 	return text;
 }
 
-menuItem createResumeMenuItem()
+menu createMainMenu()
 {
-	menuItem result;
+	menu result;
 
-	result.doAction = resumeAction;
-	result.getText = resumeGetText;
+	result.menuItemCount = MAIN_MENU_ITEM_COUNT;
+	result.menuItems = malloc(sizeof(menuItem) * MAIN_MENU_ITEM_COUNT);
+	result.menuItems[0] = createMenuItem(resumeGetText, resumeAction);
+	result.menuItems[1] = createMenuItem(newGameGetText, newGameAction);
+	result.menuItems[2] = createMenuItem(levelGetText, levelAction);
+	result.menuItems[3] = createMenuItem(settingsGetText, settingsAction);
+	result.menuItems[4] = createMenuItem(quitGetText, quitAction);
 
 	return result;
 }
