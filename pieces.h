@@ -22,7 +22,7 @@ typedef struct piece
 	int correctTop;
 } piece;
 
-piece pieces[7];
+extern piece pieces[7];
 
 piece createZ();
 

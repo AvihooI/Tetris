@@ -20,7 +20,7 @@
 
 #define MILLISECONDS_PER_KEYBOARD_CHECK 1
 
-struct
+typedef struct keyboard_cooldowns
 {
 	signed int leftCooldown;
 	signed int rightCooldown;
@@ -28,7 +28,9 @@ struct
 	signed int dropCooldown;
 	signed int rotateClockwiseCooldown;
 	signed int rotateCounterClockwiseCooldown;
-} keyboardCooldowns;
+} keyboard_cooldowns;
+
+extern keyboard_cooldowns keyboardCooldowns;
 
 void handleGameInput(SDL_Event *e);
 

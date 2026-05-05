@@ -11,11 +11,13 @@
 
 /*Graphical resources*/
 
-struct
+typedef struct graphics_state
 {
 	SDL_Window *window;
 	SDL_Renderer *renderer;
-} graphics;
+} graphics_state;
+
+extern graphics_state graphics;
 
 /*Window and graphical device initialization and destruction*/
 

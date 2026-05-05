@@ -52,6 +52,6 @@ typedef struct settings
 	int soundVolume;
 } settings;
 
-settings currentSettings;
+extern settings currentSettings;
 
 #endif //TETRIS_SETTINGS_H

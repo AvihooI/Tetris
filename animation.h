@@ -10,12 +10,14 @@
 
 #define ANIMATION_TICKS 50
 
-struct
+typedef struct animation_state
 {
 	unsigned int ticksRemaining;
 	unsigned int ongoing;
 
-} animationState;
+} animation_state;
+
+extern animation_state animationState;
 
 void initAnimation();
 

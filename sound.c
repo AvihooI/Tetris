@@ -4,6 +4,8 @@
 
 #include "sound.h"
 
+sound_state sounds;
+
 void loadSamples();
 
 void freeSamples();

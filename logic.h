@@ -11,7 +11,7 @@
 
 #define PIECE_START_LEFT GAME_GRID_WIDTH/2 - 2
 
-struct game_state
+typedef struct game_state
 {
 	unsigned int grid[GAME_GRID_HEIGHT][GAME_GRID_WIDTH];
 
@@ -39,7 +39,9 @@ struct game_state
 	unsigned int reducedLines[GAME_GRID_HEIGHT];
 	unsigned int reducedLinesCount;
 
-} gameState;
+} game_state;
+
+extern game_state gameState;
 
 typedef enum
 {
@@ -93,7 +95,7 @@ unsigned int tryPiecePlacement(int pieceLeft, int pieceTop, unsigned int pieceTy
 /*Game Events*/
 typedef void (*gameEvent)(void);
 
-struct
+typedef struct game_events
 {
 	gameEvent rotate;
 	gameEvent movement;
@@ -102,6 +104,8 @@ struct
 	gameEvent tetris;
 	gameEvent levelUp;
 	gameEvent gameOver;
-} gameEvents;
+} game_events;
+
+extern game_events gameEvents;
 
 #endif //TETRIS_LOGIC_H

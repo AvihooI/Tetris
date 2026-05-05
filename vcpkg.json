@@ -1,0 +1,9 @@
+{
+  "name": "tetris",
+  "version-string": "0.3.1",
+  "dependencies": [
+    "sdl2",
+    "sdl2-ttf",
+    "sdl2-mixer"
+  ]
+}

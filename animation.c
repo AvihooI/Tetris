@@ -4,6 +4,8 @@
 
 #include "animation.h"
 
+animation_state animationState;
+
 void animationTick()
 {
 	if (animationState.ongoing)

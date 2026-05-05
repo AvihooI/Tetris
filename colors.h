@@ -14,7 +14,7 @@
 
 #define COLOR_COUNT 13
 
-SDL_Color colors[COLOR_COUNT];
+extern SDL_Color colors[COLOR_COUNT];
 
 void initColors();
 

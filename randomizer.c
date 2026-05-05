@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+unsigned int recentPieces[RECENT_PIECES_SIZE];
+unsigned int currentRecentIndex;
+
 void initRandomizer()
 {
 	currentRecentIndex = 0;

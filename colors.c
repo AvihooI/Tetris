@@ -4,6 +4,8 @@
 
 #include "colors.h"
 
+SDL_Color colors[COLOR_COUNT];
+
 void initColors()
 {
 	colors[0].r = 0;

@@ -12,7 +12,7 @@ void initRandomizer();
 
 unsigned int getNewPiece();
 
-unsigned int recentPieces[RECENT_PIECES_SIZE];
-unsigned int currentRecentIndex;
+extern unsigned int recentPieces[RECENT_PIECES_SIZE];
+extern unsigned int currentRecentIndex;
 
 #endif //TETRIS_RANDOMIZER_H

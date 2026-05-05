@@ -4,6 +4,8 @@
 
 #include "events.h"
 
+keyboard_cooldowns keyboardCooldowns;
+
 void initEvents()
 {
 	hookEvents();

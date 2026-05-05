@@ -39,7 +39,7 @@ typedef struct menu
 	menuItem *menuItems;
 } menu;
 
-struct
+typedef struct menu_state
 {
 	unsigned int isActive;
 	unsigned int selectedMenu;
@@ -48,7 +48,9 @@ struct
 	unsigned int menuCount;
 	menu *menus;
 
-} menuState;
+} menu_state;
+
+extern menu_state menuState;
 
 menuItem createMenuItem(menuItemGetText getText, menuItemDoAction doAction);
 

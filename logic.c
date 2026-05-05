@@ -4,6 +4,8 @@
 
 #include "logic.h"
 
+game_state gameState;
+game_events gameEvents;
 
 unsigned int checkLines(unsigned int lines[GAME_GRID_HEIGHT]);
 

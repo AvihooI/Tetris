@@ -4,6 +4,8 @@
 
 #include "graphics.h"
 
+graphics_state graphics;
+
 void refreshWindowSize()
 {
 	SDL_SetWindowSize(graphics.window, BLOCK_SIZE * WINDOW_WIDTH, BLOCK_SIZE * WINDOW_HEIGHT);

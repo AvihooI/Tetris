@@ -11,11 +11,13 @@
 
 /*Fonts*/
 
-struct
+typedef struct font_state
 {
 	TTF_Font *mainFont;
 	TTF_Font *smallFont;
-} fonts;
+} font_state;
+
+extern font_state fonts;
 
 /*Font initialization, destruction and text functions utility functions*/
 

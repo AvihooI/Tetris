@@ -6,3 +6,12 @@
 
 #Visual Studio ignores
 /out/
+
+# CMake build outputs
+/build/
+
+# Local release downloads/staging
+/release-assets/
+
+# Install/package staging
+/dist/

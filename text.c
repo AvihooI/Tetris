@@ -5,6 +5,8 @@
 #include "text.h"
 #include <stdio.h>
 
+font_state fonts;
+
 void initFonts()
 {
 	closeFonts();

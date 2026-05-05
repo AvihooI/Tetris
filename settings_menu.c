@@ -9,6 +9,16 @@
 #include "rendering.h"
 #include "settings_menu.h"
 
+static int minInt(int a, int b)
+{
+	return a < b ? a : b;
+}
+
+static int maxInt(int a, int b)
+{
+	return a > b ? a : b;
+}
+
 void soundVolumeAction(menuAction action)
 {
 	switch (action)
@@ -52,8 +62,8 @@ void movementRepeatRateAction(menuAction action)
 			}
 			break;
 		case MENU_PRESS_RIGHT:
-			currentSettings.movementKeyboardCooldown = min(
-					max(currentSettings.movementKeyboardCooldown + 1, MIN_COOLDOWN), MAX_COOLDOWN);
+			currentSettings.movementKeyboardCooldown = minInt(
+					maxInt(currentSettings.movementKeyboardCooldown + 1, MIN_COOLDOWN), MAX_COOLDOWN);
 			break;
 		default:
 			break;
@@ -83,11 +93,11 @@ void blockSizeAction(menuAction action)
 	{
 
 		case MENU_PRESS_LEFT:
-			currentSettings.blockSize = max(currentSettings.blockSize - 1, MIN_BLOCK_SIZE);
+			currentSettings.blockSize = maxInt(currentSettings.blockSize - 1, MIN_BLOCK_SIZE);
 			refreshWindowSize();
 			break;
 		case MENU_PRESS_RIGHT:
-			currentSettings.blockSize = min(currentSettings.blockSize + 1, MAX_BLOCK_SIZE);
+			currentSettings.blockSize = minInt(currentSettings.blockSize + 1, MAX_BLOCK_SIZE);
 			refreshWindowSize();
 			break;
 		default:

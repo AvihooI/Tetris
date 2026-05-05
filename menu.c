@@ -6,6 +6,8 @@
 #include "settings_menu.h"
 #include <stdlib.h>
 
+menu_state menuState;
+
 void initMenu()
 {
 	menuState.menus = malloc(MENU_COUNT * sizeof(menu));

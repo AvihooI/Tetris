@@ -4,6 +4,8 @@
 
 #include "pieces.h"
 
+piece pieces[7];
+
 void CreateIWallKicks(wallKick wallKicks[4][4][5]);
 
 void CreateJLSTZWallKicks(wallKick wallKicks[4][4][5]);

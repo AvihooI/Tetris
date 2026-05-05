@@ -15,14 +15,16 @@
 #define LEVEL_UP_SOUND_FILE "level_up.mp3"
 
 
-struct
+typedef struct sound_state
 {
 	Mix_Chunk *landSample;
 	Mix_Chunk *lineClearSample;
 	Mix_Chunk *rotateSample;
 	Mix_Chunk *tetrisSample;
 	Mix_Chunk *levelUpSample;
-} sounds;
+} sound_state;
+
+extern sound_state sounds;
 
 void initSound();
 
